@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/icons/favorite.svg</file>
+        <file>assets/icons/upload.svg</file>
+        <file>assets/icons/screenshot.svg</file>
+        <file>assets/icons/screen_record.svg</file>
+    </qresource>
+</RCC>
