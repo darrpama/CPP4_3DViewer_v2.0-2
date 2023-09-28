@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
+#define CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
 
 #include <iostream>
 
@@ -31,4 +31,4 @@ private:
     QOpenGLWidget *canvas_;
     QPushButton *upload_button_;
 };
-#endif // MAINWINDOW_H
+#endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

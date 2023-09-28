@@ -4,8 +4,10 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+  QApplication a(argc, argv);
+  MainWindow *window = new MainWindow();
+  window->setWindowTitle(QString("3DViewer 2.0"));
+  window->show();
+
+  return a.exec();
 }
