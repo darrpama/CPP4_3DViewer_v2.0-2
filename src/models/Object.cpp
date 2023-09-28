@@ -2,32 +2,20 @@
 
 using namespace s21;
 
+Object::Object() :
+              vertices_(),
+              faces() {};
+
 
 Object::Object(std::vector<Vertex> vertices,
-               std::vector<Texture> textures,
-               std::vector<Normal> normals,
                std::vector<Face> faces) :
-               vertices(vertices),
-               textures(textures),
-               normals(normals),
+               vertices_(vertices),
                faces(faces) {};
 
 
 std::vector<Vertex> Object::GetVertices()
 {
-  return vertices;
-}
-
-
-std::vector<Texture> Object::GetTextures()
-{
-  return textures;
-}
-
-
-std::vector<Normal> Object::GetNormals()
-{
-  return normals;
+  return vertices_;
 }
 
 
@@ -39,23 +27,23 @@ std::vector<Face> Object::GetFaces()
 
 void Object::SetVertices(std::vector<Vertex> vertices) 
 {
-  this->vertices = vertices;
-}
-
-
-void Object::SetTextures(std::vector<Texture> textures) 
-{
-  this->textures = textures;
-}
-
-
-void Object::SetNormals(std::vector<Normal> normals) 
-{
-  this->normals = normals;
+  this->vertices_ = vertices;
 }
 
 
 void Object::SetFaces(std::vector<Face> faces) 
 {
   this->faces = faces;
+}
+
+
+void Object::AddVertex(Vertex vertex)
+{
+  this->vertices_.push_back(vertex);
+}
+
+
+void Object::AddFace(Face face)
+{
+  this->faces.push_back(face);
 }

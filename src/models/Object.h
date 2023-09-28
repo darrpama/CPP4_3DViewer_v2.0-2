@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <forward_list>
 
 namespace s21
 {
@@ -14,41 +15,26 @@ struct Vertex
   float x, y, z;
 };
 
-struct Normal
-{
-  float x, y, z;
-};
-
-struct Texture
-{
-  float u,v;
-};
-
 struct Face
 {
-  int v1, v2, v3;
-  int n1, n2, n3;
-  int t1, t2, t3;
+  std::forward_list<unsigned> vertex_indices;
 };
 
 
 class Object
 {
   public:
-    Object(std::vector<Vertex>, std::vector<Texture>, std::vector<Normal>, std::vector<Face>);
+    Object();
+    Object(std::vector<Vertex>, std::vector<Face>);
     std::vector<Vertex> GetVertices();
-    std::vector<Texture> GetTextures();
-    std::vector<Normal> GetNormals();
     std::vector<Face> GetFaces();
     void SetVertices(std::vector<Vertex>);
-    void SetTextures(std::vector<Texture>);
-    void SetNormals(std::vector<Normal>);
     void SetFaces(std::vector<Face>);
+    void AddVertex(Vertex);
+    void AddFace(Face);
 
   private:
-    std::vector<Vertex> vertices;
-    std::vector<Texture> textures;
-    std::vector<Normal> normals;
+    std::vector<Vertex> vertices_;
     std::vector<Face> faces;
 };
 
