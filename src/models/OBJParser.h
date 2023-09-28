@@ -21,6 +21,7 @@ class OBJParser
   private:
     std::string filepath_;
     Object object_{};
+    unsigned vertex_count_;
 };
 
 }
