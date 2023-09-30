@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include "obj_parser.h"
 
-//  TO DO: add vertex count and getter for it
 //  Write a first test!!
 
 TEST(OBJParserTest, Parse_Positive)

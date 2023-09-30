@@ -4,13 +4,13 @@ using namespace s21;
 
 Object::Object() :
               vertices_(),
-              faces() {};
+              faces() {}
 
 
 Object::Object(std::vector<Vertex> vertices,
                std::vector<Face> faces) :
                vertices_(vertices),
-               faces(faces) {};
+               faces(faces) {}
 
 
 std::vector<Vertex> Object::GetVertices()
