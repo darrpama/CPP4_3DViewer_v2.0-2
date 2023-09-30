@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef CPP1_S21_MATRIXPLUS_S21_MATRIX_OOP_H_
-#define CPP1_S21_MATRIXPLUS_S21_MATRIX_OOP_H_
+#ifndef CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MATRIX_H_
+#define CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MATRIX_H_
 
 #include <math.h>
 

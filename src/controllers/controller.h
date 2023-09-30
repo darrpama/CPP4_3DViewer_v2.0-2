@@ -10,9 +10,15 @@ namespace s21 {
 class Controller {
 
  public:
-  explicit Controller() {};
+  explicit Controller() : model_() {};
+  explicit Controller(Model &model) : model_(model) {};
+
+  void InitOpenGL();
+  void SetViewPort(int, int);
+  void RenderObject();
 
  private:
+  Model model_;
 };
 
 }  // namespace s21

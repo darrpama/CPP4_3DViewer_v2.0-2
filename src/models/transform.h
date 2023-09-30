@@ -1,5 +1,5 @@
-#ifndef CPP4_3DVIEWER_V2_0_1_SRC_MODELS_TRANSFORM_H
-#define CPP4_3DVIEWER_V2_0_1_SRC_MODELS_TRANSFORM_H
+#ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
+#define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 
 #include "type.h"
 #include "matrix.h"
@@ -8,6 +8,7 @@ namespace s21 {
 
 class Transform {
  public:
+  Transform();
   Transform(float, float, float, float, float, float, float, float, float);
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float);

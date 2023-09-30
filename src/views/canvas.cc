@@ -1,12 +1,17 @@
 #include "canvas.h"
 
 Canvas::Canvas(QWidget* parent)
-    : QOpenGLWidget(parent), rotationX(0.0f), rotationY(0.0f) {}
+    : QOpenGLWidget(parent)
+    , rotationX_(0.0f)
+    , rotationY_(0.0f) {}
 
-void Canvas::initializeGL() 
-{
+void Canvas::SetController(s21::Controller &controller) {
+  controller_ = controller;
+}
+
+void Canvas::initializeGL() {
   initializeOpenGLFunctions();
-  glEnable(GL_DEPTH_TEST);
+  controller_.InitOpenGL();
 }
 
 void Canvas::paintGL() 
@@ -27,8 +32,8 @@ void Canvas::paintGL()
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glTranslatef(0.0f, 0.0f, -5.0f);
-  glRotatef(rotationX, 0, 1, 0);
-  glRotatef(rotationY, 1, 0, 0);
+  glRotatef(rotationX_, 0, 1, 0);
+  glRotatef(rotationY_, 1, 0, 0);
 
   // Render your cube using OpenGL functions
   glBegin(GL_LINES);
@@ -71,26 +76,26 @@ void Canvas::paintGL()
 }
 
 void Canvas::resizeGL(int w, int h) {
-  glViewport(0, 0, w, h);
+  controller_.SetViewPort(w, h);
 }
 
 void Canvas::mousePressEvent(QMouseEvent* mouse) {
-  lastMousePos = mouse->pos();
+  lastMousePos_ = mouse->pos();
 }
 
 void Canvas::mouseMoveEvent(QMouseEvent* mouse) {
   QPoint currentMousePos = mouse->pos();
-  int deltaX = currentMousePos.x() - lastMousePos.x();
-  int deltaY = currentMousePos.y() - lastMousePos.y();
+  int deltaX = currentMousePos.x() - lastMousePos_.x();
+  int deltaY = currentMousePos.y() - lastMousePos_.y();
 
   // Update rotation angles based on mouse movement
-  rotationX += deltaX;
-  rotationY += deltaY;
+  rotationX_ += deltaX;
+  rotationY_ += deltaY;
 
   // Update camera transformations based on rotation angles
 
 
-  lastMousePos = currentMousePos;
+  lastMousePos_ = currentMousePos;
   update(); // Trigger a redraw
 }
 

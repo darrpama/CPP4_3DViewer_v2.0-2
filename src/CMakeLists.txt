@@ -16,11 +16,27 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets Core Gui OpenGLWidgets)
 set(PROJECT_SOURCES
     resources.qrc
     main.cc
-    views/mainwindow.cc
     views/mainwindow.h
+    views/mainwindow.cc
     views/mainwindow.ui
-    views/canvas.cc
     views/canvas.h
+    views/canvas.cc
+    controllers/controller.h
+    controllers/controller.cc
+    models/model.h
+    models/model.cc
+    models/matrix.h
+    models/matrix.cc
+    models/Object.h
+    models/Object.cc
+    models/OBJParser.h
+    models/OBJParser.cc
+    models/renderer.h
+    models/renderer.cc
+    models/transform.h
+    models/transform.cc
+    models/type.h
+    
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})

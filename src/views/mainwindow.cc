@@ -2,13 +2,14 @@
 #include "./ui_mainwindow.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
+  , controller_(controller)
 {
-  
   ui->setupUi(this);
-  canvas_ = findChild<QOpenGLWidget*>("canvas");
+  canvas_ = findChild<Canvas*>("canvas");
+  canvas_->SetController(controller_);
   upload_button_ = findChild<QPushButton*>("uploadButton");
   QPalette palette = upload_button_->palette();
   QColor iconColor("red");

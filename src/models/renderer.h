@@ -1,20 +1,24 @@
-#ifndef CPP4_3DVIEWER_V2_0_1_SRC_MODELS_RENDERER_H
-#define CPP4_3DVIEWER_V2_0_1_SRC_MODELS_RENDERER_H
+#ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_RENDERER_H
+#define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_RENDERER_H
 
 #include "type.h"
+#include "Object.h"
+#include "transform.h"
+
+#include <QtOpenGLWidgets>
 
 namespace s21 {
 
 class Renderer {
  public:
-  Renderer();
   void InitOpenGL();
-  void SetViewPort();
+  void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject(Object object, Transform transform);
   void HandleInput();
   
  private:
+  
 };
 }  // namespace s21
 
