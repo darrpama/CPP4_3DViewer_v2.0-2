@@ -9,10 +9,10 @@ TEST(OBJParserTest, Parse_Positive)
   parser.Parse();
 
   // Test if the vertices were parsed correctly
-  EXPECT_EQ(parser.GetVertexCount(), 3);
+  EXPECT_EQ(parser.GetVertexCount(), 8);
 
   // Test if the faces were parsed correctly
-  // EXPECT_EQ(parser.GetFaceCount(), 1);
+  EXPECT_EQ(parser.GetFaceCount(), 12);
 }
 
 TEST(OBJParserTest, Parse_Negative)
@@ -22,7 +22,7 @@ TEST(OBJParserTest, Parse_Negative)
 
   // Test if the parser handles non-existent file gracefully
   EXPECT_EQ(parser.GetVertexCount(), 0);
-  // EXPECT_EQ(parser.GetFaceCount(), 0);
+  EXPECT_EQ(parser.GetFaceCount(), 0);
 }
 
 int main(int argc, char** argv)
