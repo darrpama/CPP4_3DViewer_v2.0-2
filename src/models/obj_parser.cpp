@@ -1,4 +1,4 @@
-#include "OBJParser.h"
+#include "obj_parser.h"
 
 using namespace s21;
 

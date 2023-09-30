@@ -1,7 +1,7 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJPARSER_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJPARSER_H
 
-#include "Object.h"
+#include "object.h"
 
 #include <iostream>
 #include <fstream>
