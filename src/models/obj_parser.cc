@@ -14,6 +14,7 @@ void OBJParser::Parse()
       Vertex v;
       std::sscanf(line.c_str(), "v %f %f %f", &v.x, &v.y, &v.z);
       object_.AddVertex(v);
+      vertex_count_++;
     }
     else if (line.substr(0, 2) == "f ")
     {
@@ -32,6 +33,25 @@ void OBJParser::Parse()
       }
 
       object_.AddFace(f);
+      face_count_++;
     }
   }
+}
+
+
+unsigned OBJParser::GetVertexCount()
+{
+  return vertex_count_;
+}
+
+
+unsigned OBJParser::GetFaceCount()
+{
+  return face_count_;
+}
+
+
+Object OBJParser::GetObject()
+{
+  return object_;
 }

@@ -19,11 +19,14 @@ class OBJParser
     OBJParser(const std::string& filepath) : filepath_(filepath) {};
     void Parse();
     Object GetObject();
+    unsigned GetVertexCount();
+    unsigned GetFaceCount();
 
   private:
     std::string filepath_;
     Object object_{};
     unsigned vertex_count_;
+    unsigned face_count_;
 };
 
 }
