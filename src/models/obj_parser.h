@@ -1,5 +1,5 @@
-#ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJPARSER_H
-#define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJPARSER_H
+#ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H
+#define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H
 
 #include "object.h"
 
@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
+
 
 namespace s21
 {
@@ -26,4 +28,4 @@ class OBJParser
 
 }
 
-#endif  // CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJPARSER_H
+#endif  // CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H

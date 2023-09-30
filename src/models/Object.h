@@ -17,7 +17,7 @@ struct Vertex
 
 struct Face
 {
-  std::forward_list<unsigned> vertex_indices;
+  std::vector<unsigned> vertex_indices;
 };
 
 
