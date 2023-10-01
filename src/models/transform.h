@@ -8,7 +8,7 @@ namespace s21 {
 
 class Transform {
  public:
-  Transform();
+  Transform() {};
   Transform(float, float, float, float, float, float, float, float, float);
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float);
@@ -16,15 +16,15 @@ class Transform {
   Matrix GetTransformationMatrix();
   
  private:
-  float translationX;
-  float translationY;
-  float translationZ;
-  float rotationX;
-  float rotationY;
-  float rotationZ;
-  float scaleX;
-  float scaleY;
-  float scaleZ;
+  float translationX{};
+  float translationY{};
+  float translationZ{};
+  float rotationX{};
+  float rotationY{};
+  float rotationZ{};
+  float scaleX{};
+  float scaleY{};
+  float scaleZ{};
 
 };
 }  // namespace s21

@@ -14,10 +14,4 @@ void Model::RenderObject() {
   render_.RenderObject(object_, transform_);
 }
 
-Object Model::TestObject() {
-  Object object = Object();
-  object.AddVertex();
-  return object;
-}
-
 }  // namespace s21

@@ -45,3 +45,9 @@ void MainWindow::on_uploadButton_clicked()
   }
 }
 
+
+void MainWindow::on_spinBox_4_valueChanged(int arg1)
+{
+
+}
+

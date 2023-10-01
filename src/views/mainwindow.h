@@ -29,6 +29,8 @@ public:
 private slots:
   void on_uploadButton_clicked();
 
+  void on_spinBox_4_valueChanged(int arg1);
+
 private:
   s21::Controller controller_;
   Ui::MainWindow *ui;

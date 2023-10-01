@@ -18,6 +18,8 @@ class Renderer {
   void HandleInput();
   
  private:
+  int width_;
+  int height_;
   
 };
 }  // namespace s21
