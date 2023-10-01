@@ -163,7 +163,7 @@ background-color: rgba(255,255,255,0.1);</string>
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideLeft</enum>
@@ -254,7 +254,7 @@ background-color: none;</string>
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox">
+      <widget class="QDoubleSpinBox" name="position_x">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -267,7 +267,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_2">
+      <widget class="QDoubleSpinBox" name="position_y">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -280,7 +280,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_3">
+      <widget class="QDoubleSpinBox" name="position_z">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -381,7 +381,7 @@ background-color: none;</string>
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_4">
+      <widget class="QDoubleSpinBox" name="rotation_x">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -394,7 +394,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_5">
+      <widget class="QDoubleSpinBox" name="rotation_y">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -407,7 +407,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_6">
+      <widget class="QDoubleSpinBox" name="rotation_z">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -508,7 +508,7 @@ background-color: none;</string>
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_7">
+      <widget class="QDoubleSpinBox" name="scale_x">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -521,7 +521,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_8">
+      <widget class="QDoubleSpinBox" name="scale_y">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -534,7 +534,7 @@ background-color: none;</string>
         <string notr="true">color:white;</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_9">
+      <widget class="QDoubleSpinBox" name="scale_z">
        <property name="geometry">
         <rect>
          <x>40</x>

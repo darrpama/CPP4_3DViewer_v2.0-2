@@ -16,6 +16,9 @@ class Controller {
   void InitOpenGL();
   void SetViewPort(int, int);
   void RenderObject();
+  void ApplyTranslation(double, double, double);
+  void ApplyRotation(double, double, double);
+  void ApplyScale(double, double, double);
 
  private:
   Model model_;

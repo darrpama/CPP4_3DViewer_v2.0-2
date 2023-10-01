@@ -20,7 +20,6 @@ class Renderer {
  private:
   int width_;
   int height_;
-  
 };
 }  // namespace s21
 

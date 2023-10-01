@@ -1,18 +1,23 @@
 #include "transform.h"
 
 namespace s21 {
-
-Transform::Transform(float translationX, float translationY, float translationZ, 
-                     float rotationX,    float rotationY,    float rotationZ, 
-                     float scaleX,       float scaleY,       float scaleZ) {
-  (void) translationX;
+void Transform::ApplyTranslation(double x, double y, double z) {
+  translationX = x;
+  translationY = y;
+  translationZ = z;
 }
 
-void Transform::ApplyTranslation(float, float, float) {}
+void Transform::ApplyRotation(double x, double y, double z) {
+  rotationX = x;
+  rotationY = y;
+  rotationZ = z;
+}
 
-void Transform::ApplyRotation(float, float) {}
-
-void Transform::ApplyScale(float, float, float) {}
+void Transform::ApplyScale(double x, double y, double z) {
+  scaleX = x;
+  scaleY = y;
+  scaleZ = z;
+}
 
 Matrix Transform::GetTransformationMatrix() {
   return Matrix();

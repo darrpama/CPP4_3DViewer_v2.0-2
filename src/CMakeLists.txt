@@ -36,7 +36,6 @@ set(PROJECT_SOURCES
     models/transform.h
     models/transform.cc
     models/type.h
-    
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})

@@ -12,11 +12,16 @@ class Model {
  public:
   Model() : render_(), object_(), transform_() {}
 
+// RENDER methods
   void InitOpenGL();
   void SetViewPort(int, int);
   void RenderObject();
-  Object TestObject();
-  
+
+// TRANSFRORM methods
+  void ApplyTranslation(double, double, double);
+  void ApplyRotation(double, double, double);
+  void ApplyScale(double, double, double);
+
  private:
   Renderer render_;
   Object object_;

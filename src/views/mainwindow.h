@@ -28,13 +28,30 @@ public:
 
 private slots:
   void on_uploadButton_clicked();
-
-  void on_spinBox_4_valueChanged(int arg1);
+  void on_position_x_valueChanged(double);
+  void on_position_y_valueChanged(double);
+  void on_position_z_valueChanged(double);
+  void on_rotation_x_valueChanged(double);
+  void on_rotation_y_valueChanged(double);
+  void on_rotation_z_valueChanged(double);
+  void on_scale_x_valueChanged(double);
+  void on_scale_y_valueChanged(double);
+  void on_scale_z_valueChanged(double);
 
 private:
   s21::Controller controller_;
   Ui::MainWindow *ui;
   Canvas *canvas_;
   QPushButton *upload_button_;
+  QDoubleSpinBox *position_x_;
+  QDoubleSpinBox *position_y_;
+  QDoubleSpinBox *position_z_;
+  QDoubleSpinBox *rotation_x_;
+  QDoubleSpinBox *rotation_y_;
+  QDoubleSpinBox *rotation_z_;
+  QDoubleSpinBox *scale_x_;
+  QDoubleSpinBox *scale_y_;
+  QDoubleSpinBox *scale_z_;
+
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

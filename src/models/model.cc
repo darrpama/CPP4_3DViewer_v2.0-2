@@ -14,4 +14,17 @@ void Model::RenderObject() {
   render_.RenderObject(object_, transform_);
 }
 
+// TRANSFORM methods
+void Model::ApplyTranslation(double x, double y, double z) {
+  transform_.ApplyTranslation(x, y, z);
+}
+
+void Model::ApplyRotation(double x, double y, double z) {
+  transform_.ApplyRotation(x, y, z);
+}
+
+void Model::ApplyScale(double x, double y, double z) {
+  transform_.ApplyScale(x, y, z);
+}
+
 }  // namespace s21
