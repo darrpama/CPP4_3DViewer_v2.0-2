@@ -12,12 +12,12 @@ namespace s21
 
 struct Vertex
 {
-  float x, y, z;
+  float x{}, y{}, z{};
 };
 
 struct Face
 {
-  std::vector<unsigned> vertex_indices;
+  std::vector<unsigned> vertex_indices{};
 };
 
 
