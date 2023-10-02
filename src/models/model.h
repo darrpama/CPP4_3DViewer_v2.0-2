@@ -1,8 +1,8 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 
-#include "type.h"
-#include "Object.h"
+#include "object.h"
+#include "obj_parser.h"
 #include "transform.h"
 #include "renderer.h"
 
@@ -10,7 +10,7 @@ namespace s21 {
 
 class Model {
  public:
-  Model() : render_(), object_(), transform_() {}
+  Model() : render_(), object_(), transform_(), parser_() {}
 
 // RENDER methods
   void InitOpenGL();
@@ -22,11 +22,16 @@ class Model {
   void ApplyRotation(double, double, double);
   void ApplyScale(double, double, double);
 
+// PARSER methods
+  void ParseObjFile(std::string &);
+
  private:
   Renderer render_;
   Object object_;
   Transform transform_;
+  OBJParser parser_;
 };
+
 }  // namespace s21
 
 #endif  // CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_H

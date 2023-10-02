@@ -27,10 +27,10 @@ set(PROJECT_SOURCES
     models/model.cc
     models/matrix.h
     models/matrix.cc
-    models/Object.h
-    models/Object.cc
-    models/OBJParser.h
-    models/OBJParser.cc
+    models/object.h
+    models/object.cc
+    models/obj_parser.h
+    models/obj_parser.cc
     models/renderer.h
     models/renderer.cc
     models/transform.h

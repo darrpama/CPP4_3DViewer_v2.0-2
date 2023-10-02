@@ -27,4 +27,11 @@ void Model::ApplyScale(double x, double y, double z) {
   transform_.ApplyScale(x, y, z);
 }
 
+void Model::ParseObjFile(std::string &file_path) {
+  object_.Clear();
+  parser_.SetObject(&object_);
+  parser_.SetFilePath(file_path);
+  parser_.Parse();
+}
+
 }  // namespace s21

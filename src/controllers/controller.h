@@ -19,6 +19,7 @@ class Controller {
   void ApplyTranslation(double, double, double);
   void ApplyRotation(double, double, double);
   void ApplyScale(double, double, double);
+  void ParseObjFile(std::string &);
 
  private:
   Model model_;

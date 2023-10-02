@@ -28,4 +28,8 @@ void Controller::ApplyScale(double x, double y, double z) {
   model_.ApplyScale(x, y, z);
 }
 
+void Controller::ParseObjFile(std::string &file_path) {
+  model_.ParseObjFile(file_path);
+}
+
 } // namespace s21

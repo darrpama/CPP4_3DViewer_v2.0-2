@@ -15,18 +15,17 @@ namespace s21
 
 class OBJParser
 {
-  public:
-    OBJParser(const std::string& filepath) : filepath_(filepath) {};
-    void Parse();
-    Object GetObject();
-    unsigned GetVertexCount();
-    unsigned GetFaceCount();
+ public:
+  OBJParser() {};
+  void Parse();
+  void SetFilePath(const std::string&);
+  void SetObject(Object *);
+  unsigned GetVertexCount();
+  unsigned GetFaceCount();
 
-  private:
-    std::string filepath_;
-    Object object_{};
-    unsigned vertex_count_{};
-    unsigned face_count_{};
+ private:
+  Object *object_;
+  std::string file_path_;
 };
 
 }

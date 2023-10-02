@@ -23,19 +23,24 @@ struct Face
 
 class Object
 {
-  public:
-    Object();
-    Object(std::vector<Vertex>, std::vector<Face>);
-    std::vector<Vertex> GetVertices();
-    std::vector<Face> GetFaces();
-    void SetVertices(std::vector<Vertex>);
-    void SetFaces(std::vector<Face>);
-    void AddVertex(Vertex);
-    void AddFace(Face);
+ public:
+  Object();
+  Object(std::vector<Vertex>, std::vector<Face>);
+  std::vector<Vertex> GetVertices();
+  std::vector<Face> GetFaces();
+  void SetVertices(std::vector<Vertex>);
+  void SetFaces(std::vector<Face>);
+  void AddVertex(Vertex);
+  void AddFace(Face);
+  void Clear();
+  unsigned GetVertexCount();
+  unsigned GetFaceCount();
 
-  private:
-    std::vector<Vertex> vertices_;
-    std::vector<Face> faces;
+ private:
+  std::vector<Vertex> vertices_;
+  std::vector<Face> faces_;
+  unsigned vertex_count_{};
+  unsigned face_count_{};
 };
 
 }

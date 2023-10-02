@@ -2,56 +2,40 @@
 
 using namespace s21;
 
-void OBJParser::Parse()
-{
-  std::ifstream file(filepath_);
+void OBJParser::Parse() {
+  std::ifstream file(file_path_);
   std::string line;
 
-  while (std::getline(file, line))
-  {
-    if (line.substr(0, 2) == "v ")
-    {
+  while (std::getline(file, line)) {
+    if (line.substr(0, 2) == "v ") {
       Vertex v;
       std::sscanf(line.c_str(), "v %f %f %f", &v.x, &v.y, &v.z);
-      object_.AddVertex(v);
-      vertex_count_++;
+      object_->AddVertex(v);
     }
-    else if (line.substr(0, 2) == "f ")
-    {
+    else if (line.substr(0, 2) == "f ") {
       Face f;
-      std::istringstream iss(line.substr(2)); // Remove the "f " part
-      std::string vertexIndexStr;
+      std::istringstream iss(line.substr(2));  // Remove the "f " part
+      std::string vertex_index_str;
 
-      while (iss >> vertexIndexStr)
-      {
-        std::istringstream vertexIss(vertexIndexStr);
-        std::string vertexIndex;
-        std::getline(vertexIss, vertexIndex, '/'); // Extract the vertex index
+      while (iss >> vertex_index_str) {
+        std::istringstream vertex_iss(vertex_index_str);
+        std::string vertex_index;
+        std::getline(vertex_iss, vertex_index, '/');  // Extract the vertex index
 
         // Convert the vertex index to an integer and add it to the face
-        f.vertex_indices.push_back(std::stoi(vertexIndex));
+        f.vertex_indices.push_back(std::stoi(vertex_index));
       }
 
-      object_.AddFace(f);
-      face_count_++;
+      object_->AddFace(f);
     }
   }
 }
 
-
-unsigned OBJParser::GetVertexCount()
-{
-  return vertex_count_;
+void s21::OBJParser::SetFilePath(const std::string &file_path) {
+  file_path_ = file_path;
 }
 
 
-unsigned OBJParser::GetFaceCount()
-{
-  return face_count_;
-}
-
-
-Object OBJParser::GetObject()
-{
-  return object_;
+void OBJParser::SetObject(Object *object) {
+  object_ = object;
 }
