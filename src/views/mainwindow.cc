@@ -54,7 +54,6 @@ void MainWindow::on_uploadButton_clicked() {
   QString file_path = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("All Files (*.*)"));
   if (!file_path.isEmpty()) {
     std::cout << "file choosed!" << std::endl;
-    // TODO: что делать когда файл выбран?
     std::string file = file_path.toStdString();
     controller_.ParseObjFile(file);
   }
