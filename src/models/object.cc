@@ -1,16 +1,16 @@
 #include "Object.h"
 
-using namespace s21;
+namespace s21 {
 
 Object::Object() :
               vertices_(),
-              faces_() {};
+              faces_(),
+              vertex_count_(0), 
+              face_count_(0) {};
 
-
-Object::Object(std::vector<Vertex> vertices,
-               std::vector<Face> faces) :
-               vertices_(vertices),
-               faces_(faces) {};
+Object::Object(std::vector<Vertex> vertices, std::vector<Face> faces)
+    : vertices_(std::move(vertices)), faces_(std::move(faces)),
+      vertex_count_(vertices_.size()), face_count_(faces_.size()) {}
 
 std::vector<Vertex> Object::GetVertices() {
   return vertices_;
@@ -52,3 +52,5 @@ void Object::Clear() {
   vertex_count_ = 0;
   face_count_ = 0;
 }
+
+}  // namespace s21

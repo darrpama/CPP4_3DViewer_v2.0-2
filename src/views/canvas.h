@@ -8,6 +8,9 @@
 
 #include "../controllers/controller.h"
 
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+
 #include <iostream>
 #include <QtOpenGLWidgets>
 #include <vector>
@@ -18,7 +21,7 @@
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
  public:
   explicit Canvas(QWidget *);
-  void SetController(s21::Controller &);
+  void SetController(s21::Controller *);
 
  protected:
   void initializeGL() override;
@@ -33,7 +36,7 @@ class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
   QPoint lastMousePos_;
   float rotationX_;
   float rotationY_;
-  s21::Controller controller_{};
+  s21::Controller *controller_;
 };
 
 #endif // GRAPHWIDGET_H

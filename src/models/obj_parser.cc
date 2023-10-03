@@ -1,6 +1,6 @@
 #include "obj_parser.h"
 
-using namespace s21;
+namespace s21 {
 
 void OBJParser::Parse() {
   std::ifstream file(file_path_);
@@ -35,7 +35,8 @@ void s21::OBJParser::SetFilePath(const std::string &file_path) {
   file_path_ = file_path;
 }
 
-
 void OBJParser::SetObject(Object *object) {
   object_ = object;
 }
+
+}  // namespace s21

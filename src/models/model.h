@@ -8,7 +8,7 @@
 
 namespace s21 {
 
-class Model {
+class Model : Observable{
  public:
   Model() : render_(), object_(), transform_(), parser_() {}
 

@@ -4,8 +4,6 @@
 
 #include <QApplication>
 
-
-// TODO: implement observer pattern. Observer is Renderer class, Object class is Observable
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   s21::Model model = s21::Model();

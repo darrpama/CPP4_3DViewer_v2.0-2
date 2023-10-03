@@ -1,6 +1,8 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 
+#include "observable.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -20,12 +22,12 @@ struct Face
   std::vector<unsigned> vertex_indices{};
 };
 
-
 class Object
 {
  public:
   Object();
   Object(std::vector<Vertex>, std::vector<Face>);
+
   std::vector<Vertex> GetVertices();
   std::vector<Face> GetFaces();
   void SetVertices(std::vector<Vertex>);

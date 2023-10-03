@@ -5,21 +5,21 @@ Canvas::Canvas(QWidget* parent)
     , rotationX_(0.0f)
     , rotationY_(0.0f) {}
 
-void Canvas::SetController(s21::Controller &controller) {
+void Canvas::SetController(s21::Controller *controller) {
   controller_ = controller;
 }
 
 void Canvas::initializeGL() {
   initializeOpenGLFunctions();
-  controller_.InitOpenGL();
+  controller_->InitOpenGL();
 }
 
 void Canvas::paintGL() {
-  controller_.RenderObject();
+  controller_->RenderObject();
 }
 
 void Canvas::resizeGL(int w, int h) {
-  controller_.SetViewPort(w, h);
+  controller_->SetViewPort(w, h);
 }
 
 void Canvas::mousePressEvent(QMouseEvent* mouse) {

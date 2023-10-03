@@ -22,9 +22,9 @@ void s21::Renderer::SetProjectionMatrix() {
   glFrustum(-0.5 * aspectRatio, 0.5 * aspectRatio, -0.5, 0.5, 1.0, 10.0);
 }
 
-void s21::Renderer::RenderObject(Object object, Transform transform) {
-  (void) object;
-  (void) transform;
+void s21::Renderer::RenderObject(Object *object) {
+  std::cout << "Renderer: " << object->GetVertices().size() << std::endl;
+
   SetProjectionMatrix();
   // glClearColor(red_bg / 255.0f, green_bg / 255.0f, blue_bg / 255.0f, alpha_bg);
 
@@ -32,45 +32,20 @@ void s21::Renderer::RenderObject(Object object, Transform transform) {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glTranslatef(0.0f, 0.0f, -5.0f);
-  // glRotatef(rotationX_, 0, 1, 0);
-  // glRotatef(rotationY_, 1, 0, 0);
-
-  // Render your cube using OpenGL functions
-  glBegin(GL_LINES);
-    glColor3f(1.0, 0.0, 0.0); // Set the color to red
-    glVertex3f(-0.5, 0.5, -0.5); // Top left front
-    glVertex3f(0.5, 0.5, -0.5); // Top right front
-    glVertex3f(0.5, -0.5, -0.5); // Bottom right front
-    glVertex3f(-0.5, -0.5, -0.5); // Bottom left front
-
-    glColor3f(0.0, 0.5, 0.0); // Set the color to green
-    glVertex3f(-0.5, 0.5, 0.5); // Top left back
-    glVertex3f(0.5, 0.5, 0.5); // Top right back
-    glVertex3f(0.5, -0.5, 0.5); // Bottom right back
-    glVertex3f(-0.5, -0.5, 0.5); // Bottom left back
-
-    glColor3f(0.0, 0.0, 0.5); // Set the color to blue
-    glVertex3f(-0.5, 0.5, -0.5); // Top left front
-    glVertex3f(-0.5, -0.5, -0.5); // Bottom left front
-    glVertex3f(-0.5, -0.5, 0.5); // Bottom left back
-    glVertex3f(-0.5, 0.5, 0.5); // Top left back
-
-    glColor3f(0.5, 0.5, 0.0); // Set the color to yellow
-    glVertex3f(0.5, 0.5, -0.5); // Top right front
-    glVertex3f(0.5, -0.5, -0.5); // Bottom right front
-    glVertex3f(0.5, -0.5, 0.5); // Bottom right back
-    glVertex3f(0.5, 0.5, 0.5); // Top right back
-
-    glColor3f(0.5, 0.0, 0.5); // Set the color to magenta
-    glVertex3f(-0.5, 0.5, -0.5); // Top left front
-    glVertex3f(-0.5, 0.5, 0.5); // Top left back
-    glVertex3f(0.5, 0.5, 0.5); // Top right back
-    glVertex3f(0.5, 0.5, -0.5); // Top right front
-
-    glColor3f(0.0, 0.5, 0.5); // Set the color to cyan
-    glVertex3f(-0.5, -0.5, -0.5); // Bottom left front
-    glVertex3f(-0.5, -0.5, 0.5); // Bottom left back
-    glVertex3f(0.5, -0.5, 0.5); // Bottom right back
-    glVertex3f(0.5, -0.5, -0.5); // Bottom right front
+  
+  // Render only vertices of cube using OpenGL functions
+  std::vector<s21::Vertex> vertices = object->GetVertices();   
+  glEnable(GL_PROGRAM_POINT_SIZE);
+  
+  glBegin(GL_POINTS);  // TODO: hardcoded type of vertex
+  
+  glPointSize(10.0f);  // TODO: hardcoded size
+  
+  glColor3f(1.0, 0.0, 0.0); // TODO: hardcoded color
+  
+  for (auto& vertex: vertices) {
+    glVertex3f(vertex.x, vertex.y, vertex.z);
+    std::cout << vertex.x << " " << vertex.y << " " << vertex.z << std::endl;
+  }
   glEnd();
 }

@@ -9,7 +9,7 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
 {
   ui->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
-  canvas_->SetController(controller_);
+  canvas_->SetController(&controller_);
   upload_button_ = findChild<QPushButton*>("uploadButton");
   
   // position spins
@@ -33,8 +33,7 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   upload_button_->setPalette(palette);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
   delete ui;
 }
 
@@ -53,7 +52,6 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 void MainWindow::on_uploadButton_clicked() {
   QString file_path = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("All Files (*.*)"));
   if (!file_path.isEmpty()) {
-    std::cout << "file choosed!" << std::endl;
     std::string file = file_path.toStdString();
     controller_.ParseObjFile(file);
   }

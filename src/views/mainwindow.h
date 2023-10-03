@@ -1,6 +1,8 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
 
+#define GL_SILENCE_DEPRECATION
+
 #include "../controllers/controller.h"
 #include "canvas.h"
 

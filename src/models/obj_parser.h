@@ -2,6 +2,7 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H
 
 #include "object.h"
+#include "observable.h"
 
 #include <iostream>
 #include <fstream>
@@ -12,7 +13,6 @@
 
 namespace s21
 {
-
 class OBJParser
 {
  public:

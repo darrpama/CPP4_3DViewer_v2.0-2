@@ -11,7 +11,8 @@ void Model::SetViewPort(int w, int h) {
 }
 
 void Model::RenderObject() {
-  render_.RenderObject(object_, transform_);
+  std::cout << "Model::RenderObject: " << object_.GetVertices().size() << std::endl;
+  render_.RenderObject(&object_);
 }
 
 // TRANSFORM methods
@@ -32,6 +33,7 @@ void Model::ParseObjFile(std::string &file_path) {
   parser_.SetObject(&object_);
   parser_.SetFilePath(file_path);
   parser_.Parse();
+  std::cout << "Model::ParseObjFile: " << object_.GetVertices().size() << std::endl;
 }
 
 }  // namespace s21
