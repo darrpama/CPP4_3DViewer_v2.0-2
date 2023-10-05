@@ -20,8 +20,6 @@ class OBJParser
   void Parse();
   void SetFilePath(const std::string&);
   void SetObject(Object *);
-  unsigned GetVertexCount();
-  unsigned GetFaceCount();
 
  private:
   Object *object_;

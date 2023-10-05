@@ -1,12 +1,13 @@
-#include "Object.h"
+#include "object.h"
 
 namespace s21 {
 
-Object::Object() :
-              vertices_(),
-              faces_(),
-              vertex_count_(0), 
-              face_count_(0) {};
+Object::Object()
+    : vertices_(),
+      faces_(),
+      vertex_count_(0), 
+      face_count_(0),
+      edge_count_(0) {}
 
 Object::Object(std::vector<Vertex> vertices, std::vector<Face> faces)
     : vertices_(std::move(vertices)), faces_(std::move(faces)),
@@ -46,11 +47,30 @@ unsigned Object::GetFaceCount() {
   return face_count_;
 }
 
-void Object::Clear() {
+unsigned Object::GetEdgeCount() {
+  return edge_count_;
+}
+
+void Object::CountEdges() {
+  std::unordered_set<std::vector<unsigned>, VectorHash, VectorEqual> edges;
+  for (const auto& face : faces_) {
+    int num_vertices = face.vertex_indices.size();
+    for (int i = 0; i < num_vertices; i++) {
+      std::vector<unsigned> edge = {face.vertex_indices[i], face.vertex_indices[(i + 1) % num_vertices]};
+      std::sort(edge.begin(), edge.end());
+      edges.insert(edge);
+    }
+  }
+  edge_count_ = edges.size();
+}
+
+void Object::Clear()
+{
   faces_.clear();
   vertices_.clear();
   vertex_count_ = 0;
   face_count_ = 0;
+  edge_count_ = 0;
 }
 
 }  // namespace s21

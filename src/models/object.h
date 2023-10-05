@@ -8,18 +8,36 @@
 #include <string>
 #include <vector>
 #include <forward_list>
+#include <unordered_set>
+#include <algorithm>
 
 namespace s21
 {
 
-struct Vertex
-{
+struct Vertex {
   float x{}, y{}, z{};
 };
 
-struct Face
-{
+struct Face {
   std::vector<unsigned> vertex_indices{};
+};
+
+struct VectorHash {
+  template <typename T>
+  std::size_t operator()(const std::vector<T>& vec) const {
+    std::size_t seed = vec.size();
+    for (const auto& element : vec) {
+      seed ^= std::hash<T>{}(element) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+  }
+};
+
+struct VectorEqual {
+  template <typename T>
+  bool operator()(const std::vector<T>& lhs, const std::vector<T>& rhs) const {
+    return lhs == rhs;
+  }
 };
 
 class Object
@@ -37,12 +55,15 @@ class Object
   void Clear();
   unsigned GetVertexCount();
   unsigned GetFaceCount();
+  unsigned GetEdgeCount();
+  void CountEdges();
 
  private:
   std::vector<Vertex> vertices_;
   std::vector<Face> faces_;
   unsigned vertex_count_{};
   unsigned face_count_{};
+  unsigned edge_count_{};
 };
 
 }
