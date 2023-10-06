@@ -11,7 +11,6 @@ void Model::SetViewPort(int w, int h) {
 }
 
 void Model::RenderObject() {
-  std::cout << "Model::RenderObject: " << object_.GetVertices().size() << std::endl;
   render_.RenderObject(&object_);
 }
 
@@ -33,7 +32,6 @@ void Model::ParseObjFile(std::string &file_path) {
   parser_.SetObject(&object_);
   parser_.SetFilePath(file_path);
   parser_.Parse();
-  std::cout << "Model::ParseObjFile: " << object_.GetVertices().size() << std::endl;
 }
 
 }  // namespace s21

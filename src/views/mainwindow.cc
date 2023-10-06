@@ -31,6 +31,10 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   QColor iconColor("red");
   palette.setColor(QPalette::ButtonText, iconColor);
   upload_button_->setPalette(palette);
+
+  // Load default object for tests TODO: should be removed in prod
+  std::string file = "/Users/myregree/Desktop/projects/CPP4_3DViewer_v2.0-2/src/assets/objects/cube4.obj";
+  controller_.ParseObjFile(file);
 }
 
 MainWindow::~MainWindow() {
@@ -53,6 +57,7 @@ void MainWindow::on_uploadButton_clicked() {
   QString file_path = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("All Files (*.*)"));
   if (!file_path.isEmpty()) {
     std::string file = file_path.toStdString();
+    std::cout << file << std::endl;
     controller_.ParseObjFile(file);
   }
 }

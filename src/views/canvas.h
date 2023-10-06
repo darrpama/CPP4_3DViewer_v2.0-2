@@ -8,15 +8,14 @@
 
 #include "../controllers/controller.h"
 
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
+#include <QtOpenGLWidgets/qopenglwidget.h>
+#include <QOpenGLFunctions>
+#include <QMouseEvent>
 
-#include <iostream>
-#include <QtOpenGLWidgets>
 #include <vector>
 #include <utility>
 #include <unordered_map>
-#include <QMouseEvent>
+#include <iostream>
 
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
  public:

@@ -4,12 +4,11 @@
 #define GL_SILENCE_DEPRECATION
 
 #include "type.h"
-#include "Object.h"
+#include "object.h"
 #include "transform.h"
 
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <QtOpenGLWidgets>
+#include <QtOpenGLWidgets/qopenglwidget.h>
+#include <QOpenGLFunctions>
 
 namespace s21 {
 
@@ -19,7 +18,6 @@ class Renderer {
   void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject(Object *object);
-  void HandleInput();
   
  private:
   int width_;
