@@ -15,8 +15,16 @@ void Model::RenderObject() {
 }
 
 // TRANSFORM methods
-void Model::ApplyTranslation(double x, double y, double z) {
-  transform_.ApplyTranslation(x, y, z);
+void Model::ApplyTranslationX(double offset, &object) {
+  transform_.ApplyTranslation(offset, object_);
+}
+
+void Model::ApplyTranslationY(double offset, &object) {
+  transform_.ApplyTranslation(offset, object_);
+}
+
+void Model::ApplyTranslationZ(double offset, &object) {
+  transform_.ApplyTranslation(offset, object_);
 }
 
 void Model::ApplyRotation(double x, double y, double z) {

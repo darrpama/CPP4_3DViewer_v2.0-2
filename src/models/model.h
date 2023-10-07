@@ -18,7 +18,9 @@ class Model : Observable{
   void RenderObject();
 
 // TRANSFRORM methods
-  void ApplyTranslation(double, double, double);
+  void ApplyTranslationX(double offset);
+  void ApplyTranslationY(double offset);
+  void ApplyTranslationZ(double offset);
   void ApplyRotation(double, double, double);
   void ApplyScale(double, double, double);
 
