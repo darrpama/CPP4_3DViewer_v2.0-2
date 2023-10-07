@@ -16,7 +16,9 @@ class Controller {
   void InitOpenGL();
   void SetViewPort(int, int);
   void RenderObject();
-  void ApplyTranslation(double, double, double);
+  void ApplyTranslationX(double);
+  void ApplyTranslationY(double);
+  void ApplyTranslationZ(double);
   void ApplyRotation(double, double, double);
   void ApplyScale(double, double, double);
   void ParseObjFile(std::string &);

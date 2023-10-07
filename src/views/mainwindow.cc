@@ -64,15 +64,15 @@ void MainWindow::on_uploadButton_clicked() {
 
 // position X
 void MainWindow::on_position_x_valueChanged(double x) {
-  controller_.ApplyTranslation(x, position_y_->value(), position_z_->value());
+  controller_.ApplyTranslationX(x);
 }
 
 void MainWindow::on_position_y_valueChanged(double y) {
-  controller_.ApplyTranslation(position_x_->value(), y, position_z_->value());
+  controller_.ApplyTranslationY(y);
 }
 
 void MainWindow::on_position_z_valueChanged(double z) {
-  controller_.ApplyTranslation(position_x_->value(), position_y_->value(), z);
+  controller_.ApplyTranslationZ(z);
 }
 
 void MainWindow::on_rotation_x_valueChanged(double x) {
