@@ -266,6 +266,9 @@ background-color: none;</string>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
        </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="position_y">
        <property name="geometry">
@@ -279,6 +282,9 @@ background-color: none;</string>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
        </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="position_z">
        <property name="geometry">
@@ -291,6 +297,9 @@ background-color: none;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
        </property>
       </widget>
      </widget>
@@ -393,6 +402,9 @@ background-color: none;</string>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
        </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="rotation_y">
        <property name="geometry">
@@ -406,6 +418,9 @@ background-color: none;</string>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
        </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="rotation_z">
        <property name="geometry">
@@ -418,6 +433,9 @@ background-color: none;</string>
        </property>
        <property name="styleSheet">
         <string notr="true">color:white;</string>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
        </property>
       </widget>
      </widget>
@@ -448,52 +466,12 @@ background-color: rgba(255,255,255,0.1);</string>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>21</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:white;
-background-color: none;</string>
-       </property>
-       <property name="text">
-        <string>x</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_9">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>21</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:white;
-background-color: none;</string>
-       </property>
-       <property name="text">
-        <string>y</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_10">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>21</width>
+         <x>0</x>
+         <y>40</y>
+         <width>41</width>
          <height>31</height>
         </rect>
        </property>
@@ -502,44 +480,18 @@ background-color: none;</string>
 background-color: none;</string>
        </property>
        <property name="text">
-        <string>z</string>
+        <string>scale</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
-      <widget class="QDoubleSpinBox" name="scale_x">
+      <widget class="QDoubleSpinBox" name="scale_control">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>10</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:white;</string>
-       </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="scale_y">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
+         <x>50</x>
          <y>40</y>
-         <width>151</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color:white;</string>
-       </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="scale_z">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>70</y>
-         <width>151</width>
+         <width>141</width>
          <height>31</height>
         </rect>
        </property>
@@ -560,7 +512,7 @@ background-color: none;</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
