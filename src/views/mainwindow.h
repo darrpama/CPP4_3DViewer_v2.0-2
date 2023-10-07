@@ -36,9 +36,7 @@ private slots:
   void on_rotation_x_valueChanged(double);
   void on_rotation_y_valueChanged(double);
   void on_rotation_z_valueChanged(double);
-  void on_scale_x_valueChanged(double);
-  void on_scale_y_valueChanged(double);
-  void on_scale_z_valueChanged(double);
+  void on_scale_control_valueChanged(double);
 
 private:
   s21::Controller controller_;
