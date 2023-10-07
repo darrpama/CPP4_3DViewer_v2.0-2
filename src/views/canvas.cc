@@ -10,7 +10,6 @@ void Canvas::SetController(s21::Controller *controller) {
 }
 
 void Canvas::initializeGL() {
-  initializeOpenGLFunctions();
   controller_->InitOpenGL();
 }
 

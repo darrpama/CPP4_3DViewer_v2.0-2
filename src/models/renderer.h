@@ -9,6 +9,9 @@
 
 #include <QtOpenGLWidgets/qopenglwidget.h>
 #include <QOpenGLFunctions>
+#include <QOpenGLBuffer>
+#include <QOpenGLShader>
+#include <QOpenGLVertexArrayObject>
 
 namespace s21 {
 
@@ -17,12 +20,16 @@ class Renderer {
   void InitOpenGL();
   void SetViewPort(int, int);
   void SetProjectionMatrix();
-  void RenderObject(Object *object);
+  void RenderObject(Object *);
+  void DrawVertices(std::vector<Vertex> *);
+
   
  private:
   int width_;
   int height_;
-  GLuint shaderProgram{};
+  // QOpenGLShaderProgram program_;
+  // QOpenGLVertexArrayObject vao_;
+  // QOpenGLBuffer vbo_, ebo_;
 };
 }  // namespace s21
 
