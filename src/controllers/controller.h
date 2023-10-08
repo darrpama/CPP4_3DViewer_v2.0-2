@@ -19,7 +19,11 @@ class Controller {
   void ApplyTranslationX(double);
   void ApplyTranslationY(double);
   void ApplyTranslationZ(double);
-  void ApplyRotation(double, double, double);
+
+  void ApplyRotationX(double);
+  void ApplyRotationY(double);
+  void ApplyRotationZ(double);
+
   void ApplyScale(double, double, double);
   void ParseObjFile(std::string &);
 

@@ -14,22 +14,16 @@ class Transform {
   void ApplyTranslationY(double offset);
   void ApplyTranslationZ(double offset);
 
-  void ApplyRotation(double, double, double);
+  void ApplyRotationX(double angle);
+  void ApplyRotationY(double angle);
+  void ApplyRotationZ(double angle);
+
   void ApplyScale(double, double, double);
   void SetObject(Object *);
   // Matrix GetTransformationMatrix();
   
  private:
   Object *object_;
-  double translationX{};
-  double translationY{};
-  double translationZ{};
-  double rotationX{};
-  double rotationY{};
-  double rotationZ{};
-  double scaleX{};
-  double scaleY{};
-  double scaleZ{};
 
 };
 }  // namespace s21

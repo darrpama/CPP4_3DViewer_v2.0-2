@@ -76,15 +76,15 @@ void MainWindow::on_position_z_valueChanged(double z) {
 }
 
 void MainWindow::on_rotation_x_valueChanged(double x) {
-  controller_.ApplyRotation(x, rotation_y_->value(), rotation_z_->value());
+  controller_.ApplyRotationX(x);
 }
 
 void MainWindow::on_rotation_y_valueChanged(double y) {
-  controller_.ApplyRotation(rotation_x_->value(), y, rotation_z_->value());
+  controller_.ApplyRotationY(y);
 }
 
 void MainWindow::on_rotation_z_valueChanged(double z) {
-  controller_.ApplyRotation(rotation_x_->value(), rotation_y_->value(), z);
+  controller_.ApplyRotationZ(z);
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {

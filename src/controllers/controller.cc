@@ -28,9 +28,18 @@ void Controller::ApplyTranslationZ(double offset) {
   model_.ApplyTranslationZ(offset);
 }
 
-void Controller::ApplyRotation(double x, double y, double z) {
-  model_.ApplyRotation(x, y, z);
+void Controller::ApplyRotationX(double angle) {
+  model_.ApplyRotationX(x, y, z);
 }
+
+void Controller::ApplyRotationY(double angle) {
+  model_.ApplyRotationY(x, y, z);
+}
+
+void Controller::ApplyRotationZ(double angle) {
+  model_.ApplyRotationZ(x, y, z);
+}
+
 
 void Controller::ApplyScale(double x, double y, double z) {
   model_.ApplyScale(x, y, z);

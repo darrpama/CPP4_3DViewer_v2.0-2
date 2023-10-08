@@ -30,9 +30,22 @@ void Model::ApplyTranslationZ(double offset) {
   transform_.ApplyTranslationZ(offset);
 }
 
-void Model::ApplyRotation(double x, double y, double z) {
-  transform_.ApplyRotation(x, y, z);
+void Model::ApplyRotationX(double angle) {
+  transform_.SetObject(&object_);
+  transform_.ApplyRotation(angle);
 }
+
+void Model::ApplyRotationY(double angle) {
+  transform_.SetObject(&object_);
+  transform_.ApplyRotation(angle);
+}
+
+void Model::ApplyRotationZ(double angle) {
+  transform_.SetObject(&object_);
+  transform_.ApplyRotation(angle);
+}
+
+
 
 void Model::ApplyScale(double x, double y, double z) {
   transform_.ApplyScale(x, y, z);
