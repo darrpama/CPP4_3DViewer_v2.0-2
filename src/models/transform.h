@@ -18,9 +18,8 @@ class Transform {
   void ApplyRotationY(double angle);
   void ApplyRotationZ(double angle);
 
-  void ApplyScale(double, double, double);
+  void ApplyScale(double k);
   void SetObject(Object *);
-  // Matrix GetTransformationMatrix();
   
  private:
   Object *object_;

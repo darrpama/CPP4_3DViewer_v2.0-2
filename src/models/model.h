@@ -26,7 +26,7 @@ class Model : Observable{
   void ApplyRotationZ(double angle);
 
 
-  void ApplyScale(double, double, double);
+  void ApplyScale(double k);
 
 // PARSER methods
   void ParseObjFile(std::string &);

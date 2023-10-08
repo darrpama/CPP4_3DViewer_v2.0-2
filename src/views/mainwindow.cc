@@ -88,5 +88,5 @@ void MainWindow::on_rotation_z_valueChanged(double z) {
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {
-  controller_.ApplyScale(x, scale_y_->value(), scale_z_->value());
+  controller_.ApplyScale(x);
 }

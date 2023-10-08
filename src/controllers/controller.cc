@@ -29,20 +29,20 @@ void Controller::ApplyTranslationZ(double offset) {
 }
 
 void Controller::ApplyRotationX(double angle) {
-  model_.ApplyRotationX(x, y, z);
+  model_.ApplyRotationX(angle);
 }
 
 void Controller::ApplyRotationY(double angle) {
-  model_.ApplyRotationY(x, y, z);
+  model_.ApplyRotationY(angle);
 }
 
 void Controller::ApplyRotationZ(double angle) {
-  model_.ApplyRotationZ(x, y, z);
+  model_.ApplyRotationZ(angle);
 }
 
 
-void Controller::ApplyScale(double x, double y, double z) {
-  model_.ApplyScale(x, y, z);
+void Controller::ApplyScale(double x) {
+  model_.ApplyScale(x);
 }
 
 void Controller::ParseObjFile(std::string &file_path) {

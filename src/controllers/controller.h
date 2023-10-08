@@ -24,7 +24,8 @@ class Controller {
   void ApplyRotationY(double);
   void ApplyRotationZ(double);
 
-  void ApplyScale(double, double, double);
+  void ApplyScale(double);
+
   void ParseObjFile(std::string &);
 
  private:

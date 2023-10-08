@@ -1,4 +1,5 @@
 #include "model.h"
+
 namespace s21 {
 
 // RENDER methods
@@ -32,23 +33,22 @@ void Model::ApplyTranslationZ(double offset) {
 
 void Model::ApplyRotationX(double angle) {
   transform_.SetObject(&object_);
-  transform_.ApplyRotation(angle);
+  transform_.ApplyRotationX(angle);
 }
 
 void Model::ApplyRotationY(double angle) {
   transform_.SetObject(&object_);
-  transform_.ApplyRotation(angle);
+  transform_.ApplyRotationY(angle);
 }
 
 void Model::ApplyRotationZ(double angle) {
   transform_.SetObject(&object_);
-  transform_.ApplyRotation(angle);
+  transform_.ApplyRotationZ(angle);
 }
 
-
-
-void Model::ApplyScale(double x, double y, double z) {
-  transform_.ApplyScale(x, y, z);
+void Model::ApplyScale(double k) {
+  transform_.SetObject(&object_);
+  transform_.ApplyScale(k);
 }
 
 void Model::ParseObjFile(std::string &file_path) {
