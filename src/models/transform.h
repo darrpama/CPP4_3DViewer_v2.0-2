@@ -10,15 +10,17 @@ namespace s21 {
 class Transform {
  public:
   Transform() {};
-  void ApplyTranslationX(double offset, Object &object);
-  void ApplyTranslationY(double offset, Object &object);
-  void ApplyTranslationZ(double offset, Object &object);
+  void ApplyTranslationX(double offset);
+  void ApplyTranslationY(double offset);
+  void ApplyTranslationZ(double offset);
 
   void ApplyRotation(double, double, double);
   void ApplyScale(double, double, double);
+  void SetObject(Object *);
   // Matrix GetTransformationMatrix();
   
  private:
+  Object *object_;
   double translationX{};
   double translationY{};
   double translationZ{};

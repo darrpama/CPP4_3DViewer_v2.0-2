@@ -1,28 +1,36 @@
 #include "transform.h"
 
 namespace s21 {
-void Transform::ApplyTranslationX(double offset, Object &object) {
-  std::vector<Vertex> vertices = object.GetVertices();
-  for (unsigned i = 0; i < object.GetVertexCount(); ++i) {
+
+void Transform::SetObject(Object *object) {
+  object_ = object;
+}
+
+void Transform::ApplyTranslationX(double offset) {
+  std::cout << "offset: " << offset << std::endl;
+  std::vector<Vertex> vertices = object_->GetVertices();
+  for (unsigned i = 0; i < object_->GetVertexCount(); ++i) {
     vertices[i].x += offset;
   }
-  object.SetVertices(vertices);
+  object_->SetVertices(vertices);
 }
 
-void Transform::ApplyTranslationY(double offset, Object &object) {
-  std::vector<Vertex> vertices = object.GetVertices();
-  for (unsigned i = 0; i < object.GetVertexCount(); ++i) {
+void Transform::ApplyTranslationY(double offset) {
+  std::cout << "offset: " << offset << std::endl;
+  std::vector<Vertex> vertices = object_->GetVertices();
+  for (unsigned i = 0; i < object_->GetVertexCount(); ++i) {
     vertices[i].y += offset;
   }
-  object.SetVertices(vertices);
+  object_->SetVertices(vertices);
 }
 
-void Transform::ApplyTranslationZ(double offset, Object &object) {
-  std::vector<Vertex> vertices = object.GetVertices();
-  for (unsigned i = 0; i < object.GetVertexCount(); ++i) {
+void Transform::ApplyTranslationZ(double offset) {
+  std::cout << "offset: " << offset << std::endl;
+  std::vector<Vertex> vertices = object_->GetVertices();
+  for (unsigned i = 0; i < object_->GetVertexCount(); ++i) {
     vertices[i].z += offset;
   }
-  object.SetVertices(vertices);
+  object_->SetVertices(vertices);
 }
 
 void Transform::ApplyRotation(double x, double y, double z) {
