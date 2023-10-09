@@ -64,6 +64,18 @@ void Object::CountEdges() {
   edge_count_ = edges.size();
 }
 
+float *Object::GetVerticesAsArray() {
+  std::vector<float> floatArray;
+  floatArray.reserve(vertices_.size() * 3); // Reserve space for x, y, and z values
+
+  for (const auto& vertex : vertices_) {
+      floatArray.push_back(vertex.x);
+      floatArray.push_back(vertex.y);
+      floatArray.push_back(vertex.z);
+  }
+  return floatArray.data();
+}
+
 void Object::Clear()
 {
   faces_.clear();

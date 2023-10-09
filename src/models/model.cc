@@ -3,7 +3,7 @@ namespace s21 {
 
 // RENDER methods
 void Model::InitOpenGL() {
-  render_.InitOpenGL();
+  render_.InitOpenGL(&object_);
 }
 
 void Model::SetViewPort(int w, int h) {
@@ -11,7 +11,7 @@ void Model::SetViewPort(int w, int h) {
 }
 
 void Model::RenderObject() {
-  render_.RenderObject(&object_);
+  render_.RenderObject();
 }
 
 // TRANSFORM methods

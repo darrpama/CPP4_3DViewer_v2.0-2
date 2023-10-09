@@ -17,19 +17,22 @@ namespace s21 {
 
 class Renderer {
  public:
-  void InitOpenGL();
+  Renderer();
+  ~Renderer();
+  void InitOpenGL(Object *);
   void SetViewPort(int, int);
   void SetProjectionMatrix();
-  void RenderObject(Object *);
+  void RenderObject();
   void DrawVertices(std::vector<Vertex> *);
-
   
  private:
+  Object *object_;
   int width_;
   int height_;
-  // QOpenGLShaderProgram program_;
-  // QOpenGLVertexArrayObject vao_;
-  // QOpenGLBuffer vbo_, ebo_;
+  const char *vertex_shader_source;
+  const char *fragment_shader_source;
+  unsigned int vbo, vao, ebo;
+  unsigned int shader_program;
 };
 }  // namespace s21
 
