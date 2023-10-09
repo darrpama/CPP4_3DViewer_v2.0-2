@@ -21,8 +21,12 @@ class Model : Observable{
   void ApplyTranslationX(double offset);
   void ApplyTranslationY(double offset);
   void ApplyTranslationZ(double offset);
-  void ApplyRotation(double, double, double);
-  void ApplyScale(double, double, double);
+  void ApplyRotationX(double angle);
+  void ApplyRotationY(double angle);
+  void ApplyRotationZ(double angle);
+
+
+  void ApplyScale(double k);
 
 // PARSER methods
   void ParseObjFile(std::string &);

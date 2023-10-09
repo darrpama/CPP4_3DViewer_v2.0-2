@@ -23,10 +23,12 @@ std::vector<Face> Object::GetFaces() {
 
 void Object::SetVertices(std::vector<Vertex> vertices)  {
   vertices_ = vertices;
+  vertex_count_ = vertices.size();
 }
 
 void Object::SetFaces(std::vector<Face> faces)  {
   faces_ = faces;
+  face_count_ = faces.size();
 }
 
 void Object::AddVertex(Vertex vertex) {
