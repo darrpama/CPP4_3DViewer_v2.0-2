@@ -29,10 +29,10 @@ class Renderer {
   Object *object_;
   int width_;
   int height_;
-  const char *vertex_shader_source;
-  const char *fragment_shader_source;
   unsigned int vbo, vao, ebo;
   unsigned int shader_program;
+
+  unsigned int CreateShaderFromSource(int, const char *);
 };
 }  // namespace s21
 

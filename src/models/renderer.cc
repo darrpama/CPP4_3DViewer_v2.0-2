@@ -11,33 +11,37 @@ Renderer::~Renderer() {
   glDeleteProgram(shader_program);
 }
 
+// types:
+// 1 - GL_VERTEX_SHADER
+// 2 - GL_FRAGMENT_SHADER
+unsigned int Renderer::CreateShaderFromSource(int type, const char *source) {
+  unsigned int shader = glCreateShader(type);
+  glShaderSource(shader, 1, &source, NULL);
+  glCompileShader(shader);
+  return shader;
+}
+
 void Renderer::InitOpenGL(Object *object) {
   object_ = object;
   glEnable(GL_DEPTH_TEST);
 
-  vertex_shader_source = "#version 120\n"
+  // vertex shader
+  const char *vertex_shader_source = "#version 120\n"
     "attribute vec3 aPos;\n"
     "void main()\n"
     "{\n"
     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     "}\0";
+  unsigned int vertex_shader = CreateShaderFromSource(GL_VERTEX_SHADER, vertex_shader_source);
 
-  fragment_shader_source = "#version 120\n"
+  // fragment shader
+  const char *fragment_shader_source = "#version 120\n"
     "varying vec4 FragColor;\n"
     "void main()\n"
     "{\n"
-    "   gl_FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "   gl_FragColor = vec4(1.0f, 0.0f, 0.2f, 1.0f);\n"
     "}\0";
-
-  // vertex shader
-  unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
-  glCompileShader(vertex_shader);
-
-  // fragment shader
-  unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragment_shader, 1, &fragment_shader_source, NULL);
-  glCompileShader(fragment_shader);
+  unsigned int fragment_shader = CreateShaderFromSource(GL_FRAGMENT_SHADER, fragment_shader_source);
 
   // link our shaders to our program
   shader_program = glCreateProgram();
@@ -49,13 +53,18 @@ void Renderer::InitOpenGL(Object *object) {
   glDeleteShader(vertex_shader);
   glDeleteShader(fragment_shader);
 
-  // float *vertices = object->GetVerticesAsArray();
+  float *vertices2 = object->GetVerticesAsArray();
   float vertices[] = {
      0.5f,  0.5f, 0.0f,  // top right
      0.5f, -0.5f, 0.0f,  // bottom right
     -0.5f, -0.5f, 0.0f,  // bottom left
     -0.5f,  0.5f, 0.0f   // top left 
   };
+
+  std::cout << sizeof(vertices) << std::endl;
+  std::cout << sizeof(vertices) << std::endl;
+  std::cout << object_->GetVertexCount() * sizeof(float) * 3 << std::endl;
+
   unsigned int indices[] = {  // note that we start from 0!
       0, 1, 3,   // first triangle
       1, 2, 3    // second triangle
@@ -64,15 +73,16 @@ void Renderer::InitOpenGL(Object *object) {
 
   glGenVertexArrays(1, &vao);
   glGenBuffers(1, &vbo);
-  glGenBuffers(1, &ebo);
+  // glGenBuffers(1, &ebo);
   
   glBindVertexArray(vao);
 
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, object_->GetVertexCount() * sizeof(float) * 3, vertices2, GL_STATIC_DRAW);
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+  // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+  // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
@@ -109,8 +119,8 @@ void Renderer::RenderObject() {
   // glLoadIdentity();
   glPointSize(10.0f);
 
-  // glDrawArrays(GL_TRIANGLES, 0, 3);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount());
+  // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 }  // namespace s21
