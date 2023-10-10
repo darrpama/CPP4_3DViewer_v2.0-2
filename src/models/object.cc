@@ -66,6 +66,12 @@ void Object::CountEdges() {
   edge_count_ = edges.size();
 }
 
+void Object::CountVerticesInFaces() {
+  for (const auto& face : faces_) {
+    vertices_in_faces_ += face.vertex_indices.size();
+  }
+}
+
 float *Object::GetVerticesAsArray() {
   std::vector<float> floatArray;
   floatArray.reserve(vertices_.size() * 3); // Reserve space for x, y, and z values
@@ -85,6 +91,7 @@ void Object::Clear()
   vertex_count_ = 0;
   face_count_ = 0;
   edge_count_ = 0;
+  vertices_in_faces_ = 0;
 }
 
 }  // namespace s21
