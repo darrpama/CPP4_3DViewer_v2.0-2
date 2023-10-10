@@ -59,6 +59,7 @@ class Object
   void CountEdges();
   void CountVerticesInFaces();
   float *GetVerticesAsArray();
+  unsigned int *GetFacesAsArray();
 
  private:
   std::vector<Vertex> vertices_;
