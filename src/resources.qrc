@@ -4,5 +4,7 @@
         <file>assets/icons/upload.svg</file>
         <file>assets/icons/screenshot.svg</file>
         <file>assets/icons/screen_record.svg</file>
+        <file>models/shaders/vert.glsl</file>
+        <file>models/shaders/frag.glsl</file>
     </qresource>
 </RCC>

@@ -2,56 +2,14 @@
 
 namespace s21 {
 
-Renderer::Renderer() {}
-
-Renderer::~Renderer() {
-  glDeleteVertexArrays(1, &vao);
-  glDeleteBuffers(1, &vbo);
-  glDeleteBuffers(1, &ebo);
-  glDeleteProgram(shader_program);
-}
-
-// types:
-// 1 - GL_VERTEX_SHADER
-// 2 - GL_FRAGMENT_SHADER
-unsigned int Renderer::CreateShaderFromSource(int type, const char *source) {
-  unsigned int shader = glCreateShader(type);
-  glShaderSource(shader, 1, &source, NULL);
-  glCompileShader(shader);
-  return shader;
-}
-
 void Renderer::InitOpenGL(Object *object) {
   object_ = object;
-  glEnable(GL_DEPTH_TEST);
-
-  // vertex shader
-  const char *vertex_shader_source = "#version 120\n"
-    "attribute vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-    "}\0";
-  unsigned int vertex_shader = CreateShaderFromSource(GL_VERTEX_SHADER, vertex_shader_source);
-
-  // fragment shader
-  const char *fragment_shader_source = "#version 120\n"
-    "varying vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_FragColor = vec4(1.0f, 0.0f, 0.2f, 1.0f);\n"
-    "}\0";
-  unsigned int fragment_shader = CreateShaderFromSource(GL_FRAGMENT_SHADER, fragment_shader_source);
 
   // link our shaders to our program
-  shader_program = glCreateProgram();
-  glAttachShader(shader_program, vertex_shader);
-  glAttachShader(shader_program, fragment_shader);
-  glLinkProgram(shader_program);
-
-  // After linkning we do not need a shader objects
-  glDeleteShader(vertex_shader);
-  glDeleteShader(fragment_shader);
+  shader_program_.create();
+  shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
+  shader_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":models/shaders/frag.glsl");
+  shader_program_.link();
 
   float *vertices2 = object->GetVerticesAsArray();
   float vertices[] = {
@@ -61,34 +19,38 @@ void Renderer::InitOpenGL(Object *object) {
     -0.5f,  0.5f, 0.0f   // top left 
   };
 
-  std::cout << sizeof(vertices) << std::endl;
-  std::cout << sizeof(vertices) << std::endl;
-  std::cout << object_->GetVertexCount() * sizeof(float) * 3 << std::endl;
-
   unsigned int indices[] = {  // note that we start from 0!
       0, 1, 3,   // first triangle
       1, 2, 3    // second triangle
   };  
   // std::vector<Vertex> vertices = object->GetVertices();
 
-  glGenVertexArrays(1, &vao);
-  glGenBuffers(1, &vbo);
-  // glGenBuffers(1, &ebo);
+  vao_.create();
+
+  vbo_ = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+  vbo_.create();
+  vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+
+  ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
+  ebo_.create();
+  ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+
+  vao_.bind();
+  vbo_.bind();
+  vbo_.allocate(vertices, sizeof(vertices));
   
-  glBindVertexArray(vao);
+  shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 0);
+  shader_program_.enableAttributeArray("aPos");
 
-  glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  // glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glBufferData(GL_ARRAY_BUFFER, object_->GetVertexCount() * sizeof(float) * 3, vertices2, GL_STATIC_DRAW);
+  ebo_.bind();
+  ebo_.allocate(indices, sizeof(indices));
 
-  // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-  // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
+  shader_program_.bind();
   
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  vao_.release();
+  ebo_.release();
+  vbo_.release();
+  shader_program_.release();
 }
 
 void Renderer::SetViewPort(int w, int h) {
@@ -110,17 +72,26 @@ void Renderer::SetProjectionMatrix() {
 }
 
 void Renderer::RenderObject() {
-  // SetProjectionMatrix();
-  // use our shader program when we want to render an object
-  glUseProgram(shader_program);
-  glBindVertexArray(vao);
+  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  shader_program_.bind();
+  // Draw
+  vao_.bind();
+  glLineStipple(1, 0x00FF);
+  
+  glEnable(GL_POINT_SMOOTH);
+  
+  glPointSize(10);
+  QVector3D v_col(1.0, 0.0, 0.0);
 
-  // glMatrixMode(GL_MODELVIEW);
-  // glLoadIdentity();
-  glPointSize(10.0f);
-
-  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount());
-  // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+  shader_program_.setUniformValueArray("FragColor", &v_col, 1);
+  glDrawArrays(GL_POINTS, 1, 6);
+  
+  glDisable(GL_POINT_SMOOTH);
+  
+  vao_.release();
+  
+  shader_program_.release();
 }
 
 }  // namespace s21
