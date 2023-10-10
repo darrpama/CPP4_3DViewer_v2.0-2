@@ -57,7 +57,7 @@ class Object
   unsigned GetFaceCount();
   unsigned GetEdgeCount();
   void CountEdges();
-  void CountVerticesInFaces();
+  void SetVerticesInFaces(unsigned);
   float *GetVerticesAsArray();
   unsigned int *GetFacesAsArray();
 

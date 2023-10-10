@@ -5,6 +5,7 @@ namespace s21 {
 void OBJParser::Parse() {
   std::ifstream file(file_path_);
   std::string line;
+  unsigned vertices_in_faces = 0;
 
   while (std::getline(file, line)) {
     if (line.substr(0, 2) == "v ") {
@@ -24,9 +25,11 @@ void OBJParser::Parse() {
 
         // Convert the vertex index to an integer and add it to the face
         f.vertex_indices.push_back(std::stoi(vertex_index));
+        vertices_in_faces++;
       }
 
       object_->AddFace(f);
+      object_->SetVerticesInFaces(vertices_in_faces);
     }
   }
 }

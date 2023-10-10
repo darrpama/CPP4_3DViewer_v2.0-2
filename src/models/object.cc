@@ -66,10 +66,8 @@ void Object::CountEdges() {
   edge_count_ = edges.size();
 }
 
-void Object::CountVerticesInFaces() {
-  for (const auto& face : faces_) {
-    vertices_in_faces_ += face.vertex_indices.size();
-  }
+void Object::SetVerticesInFaces(unsigned vertices_in_faces) {
+  this->vertices_in_faces_ = vertices_in_faces;
 }
 
 float *Object::GetVerticesAsArray() {
