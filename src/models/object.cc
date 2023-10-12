@@ -79,7 +79,8 @@ float *Object::GetVerticesAsArray() {
       float_array.push_back(vertex.y);
       float_array.push_back(vertex.z);
   }
-  return float_array.data();
+  vertices_array_ = float_array.data();
+  return vertices_array_;
 }
 
 // TODO: change reserve memory algorithm
@@ -91,7 +92,8 @@ unsigned int *Object::GetFacesAsArray() {
       face.vertex_indices.at(i);
     }
   }
-  return int_array.data();
+  faces_array_ = int_array.data();
+  return faces_array_;
 }
 
 void Object::Clear()
