@@ -6,7 +6,7 @@ namespace s21 {
     object_ = object;
   }
 
-  void Transform::ApplyTranslationX(double offset) {
+  void Transform::ApplyTranslationX(float offset) {
     std::vector<Vertex> vertices = object_->GetVertices();
     for (size_t i = 0; i < vertices.size(); ++i) {
       vertices[i].x += offset;
@@ -14,7 +14,7 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyTranslationY(double offset) {
+  void Transform::ApplyTranslationY(float offset) {
     std::vector<Vertex> vertices = object_->GetVertices();
     for (size_t i = 0; i < vertices.size(); ++i) {
       vertices[i].y += offset;
@@ -22,7 +22,7 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyTranslationZ(double offset) {
+  void Transform::ApplyTranslationZ(float offset) {
     std::vector<Vertex> vertices = object_->GetVertices();
     for (size_t i = 0; i < vertices.size(); ++i) {
       vertices[i].z += offset;
@@ -30,10 +30,10 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyRotationX(double angle) {
+  void Transform::ApplyRotationX(float angle) {
     std::vector<Vertex> vertices = object_->GetVertices();
-    double temp_y = 0;
-    double temp_z = 0;
+    float temp_y = 0;
+    float temp_z = 0;
     for (size_t i = 0; i < vertices.size(); ++i) {
       temp_y = vertices[i].y;
       temp_z = vertices[i].z;
@@ -43,10 +43,10 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyRotationY(double angle) {
+  void Transform::ApplyRotationY(float angle) {
     std::vector<Vertex> vertices = object_->GetVertices();
-    double temp_x = 0;
-    double temp_z = 0;
+    float temp_x = 0;
+    float temp_z = 0;
     for (size_t i = 0; i < vertices.size(); ++i) {
       temp_x = vertices[i].x;
       temp_z = vertices[i].z;
@@ -56,10 +56,10 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyRotationZ(double angle) {
+  void Transform::ApplyRotationZ(float angle) {
     std::vector<Vertex> vertices = object_->GetVertices();
-    double temp_x = 0;
-    double temp_y = 0;
+    float temp_x = 0;
+    float temp_y = 0;
     for (size_t i = 0; i < vertices.size(); ++i) {
       temp_x = vertices[i].x;
       temp_y = vertices[i].y;
@@ -69,7 +69,7 @@ namespace s21 {
     object_->SetVertices(vertices);
   }
 
-  void Transform::ApplyScale(double k) {
+  void Transform::ApplyScale(float k) {
     std::vector<Vertex> vertices = object_->GetVertices();
     for (size_t i = 0; i < vertices.size(); ++i) {
       vertices[i].x *= k;

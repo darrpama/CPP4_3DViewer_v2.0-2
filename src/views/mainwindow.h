@@ -42,6 +42,7 @@ private:
   s21::Controller controller_;
   Ui::MainWindow *ui;
   Canvas *canvas_;
+  QLabel *filepath_label_;
   QPushButton *upload_button_;
   QDoubleSpinBox *position_x_;
   QDoubleSpinBox *position_y_;

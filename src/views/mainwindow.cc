@@ -11,6 +11,7 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   canvas_ = findChild<Canvas*>("canvas");
   canvas_->SetController(&controller_);
   upload_button_ = findChild<QPushButton*>("uploadButton");
+  filepath_label_ = findChild<QLabel*>("filepath_label");
   
   // position spins
   position_x_ = findChild<QDoubleSpinBox*>("position_x");
@@ -58,35 +59,36 @@ void MainWindow::on_uploadButton_clicked() {
   if (!file_path.isEmpty()) {
     std::string file = file_path.toStdString();
     std::cout << file << std::endl;
+    filepath_label_->setText(file_path);
     controller_.ParseObjFile(file);
   }
 }
 
 // position X
 void MainWindow::on_position_x_valueChanged(double x) {
-  controller_.ApplyTranslationX(x);
+  controller_.ApplyTranslationX((float) x);
 }
 
 void MainWindow::on_position_y_valueChanged(double y) {
-  controller_.ApplyTranslationY(y);
+  controller_.ApplyTranslationY((float) y);
 }
 
 void MainWindow::on_position_z_valueChanged(double z) {
-  controller_.ApplyTranslationZ(z);
+  controller_.ApplyTranslationZ((float) z);
 }
 
 void MainWindow::on_rotation_x_valueChanged(double x) {
-  controller_.ApplyRotationX(x);
+  controller_.ApplyRotationX((float) x);
 }
 
 void MainWindow::on_rotation_y_valueChanged(double y) {
-  controller_.ApplyRotationY(y);
+  controller_.ApplyRotationY((float) y);
 }
 
 void MainWindow::on_rotation_z_valueChanged(double z) {
-  controller_.ApplyRotationZ(z);
+  controller_.ApplyRotationZ((float) z);
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {
-  controller_.ApplyScale(x);
+  controller_.ApplyScale((float) x);
 }

@@ -16,15 +16,15 @@ class Controller {
   void InitOpenGL();
   void SetViewPort(int, int);
   void RenderObject();
-  void ApplyTranslationX(double);
-  void ApplyTranslationY(double);
-  void ApplyTranslationZ(double);
+  void ApplyTranslationX(float);
+  void ApplyTranslationY(float);
+  void ApplyTranslationZ(float);
 
-  void ApplyRotationX(double);
-  void ApplyRotationY(double);
-  void ApplyRotationZ(double);
+  void ApplyRotationX(float);
+  void ApplyRotationY(float);
+  void ApplyRotationZ(float);
 
-  void ApplyScale(double);
+  void ApplyScale(float);
 
   void ParseObjFile(std::string &);
 

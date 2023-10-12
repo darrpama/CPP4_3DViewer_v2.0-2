@@ -64,7 +64,9 @@ class Object
  private:
   std::vector<Vertex> vertices_;
   std::vector<Face> faces_;
-  size_t vertex_count_{};
+  float *vertices_array_;
+  unsigned *faces_array_;
+  unsigned vertex_count_{};
   unsigned face_count_{};
   unsigned edge_count_{};
   unsigned vertices_in_faces_{};
