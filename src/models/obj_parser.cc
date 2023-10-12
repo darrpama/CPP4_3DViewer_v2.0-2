@@ -36,6 +36,8 @@ void OBJParser::Parse() {
       object_->SetVerticesInFaces(vertices_in_faces);
     }
   }
+
+  std::cout << "Parser: i am done!" << std::endl;
 }
 
 void s21::OBJParser::SetFilePath(const std::string &file_path) {

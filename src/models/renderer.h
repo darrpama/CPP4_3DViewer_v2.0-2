@@ -18,7 +18,8 @@ namespace s21 {
 
 class Renderer {
  public:
-  void InitOpenGL(Object *);
+  void InitOpenGL();
+  void SetObject(Object *);
   void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject();
@@ -26,11 +27,12 @@ class Renderer {
   void DrawVertices(std::vector<Vertex> *);
   
  private:
-  Object *object_;
+  Object *object_ = nullptr;
   int width_;
   int height_;
   bool projection_type;
   float x_rot_, y_rot_, start_y_, start_x_;
+  float scale_factor;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
@@ -38,7 +40,6 @@ class Renderer {
   QMatrix4x4 view, projection;
   QVector3D camera_target_, camera_pos_, camera_up_, move_object;
   QQuaternion rotation_;
-  float scale_factor;
 };
 }  // namespace s21
 

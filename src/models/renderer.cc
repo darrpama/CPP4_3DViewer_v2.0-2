@@ -4,8 +4,18 @@ namespace s21 {
 
 // TODO BUG: need to fix a crash when obj file uploaded
 
-void Renderer::InitOpenGL(Object *object) {
+void Renderer::SetObject(Object *object) {
   object_ = object;
+  std::cout << "Face count: " << object_->GetFaceCount() << std::endl;
+  std::cout << "Edge count: " << object_->GetEdgeCount() << std::endl;
+  std::cout << "Vertex count: " << object_->GetVertexCount() << std::endl;
+}
+
+void Renderer::InitOpenGL() {
+  if (object_ == nullptr) {
+    return;
+  }
+
   projection_type = true;  // todo change to enum
   move_object = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor = 1.0f;
@@ -16,7 +26,7 @@ void Renderer::InitOpenGL(Object *object) {
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":models/shaders/frag.glsl");
   shader_program_.link();
 
-  float *vertices = object->GetVerticesAsArray();
+  float *vertices = object_->GetVerticesAsArray();
   // float vertices[] = {
   //   0.050000, -0.050000, -0.050000,
   //   0.050000, -0.050000, 0.050000,
@@ -70,6 +80,9 @@ void Renderer::SetViewPort(int w, int h) {
 }
 
 void Renderer::RenderObject() {
+  if (object_ == nullptr) {
+    return;
+  }
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -107,8 +120,8 @@ void Renderer::RenderObject() {
   QVector3D v_col(1.0, 0.0, 0.0);
   shader_program_.setUniformValueArray("FragColor", &v_col, 1);
   
-  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount() * 3);  // TODO BUG: program crashes here
-  // glDrawArrays(GL_POINTS, 0, 32);
+  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount() / 3);  // TODO BUG: program crashes here
+  // glDrawArrays(GL_POINTS, 0, 8);
   
   glDisable(GL_POINT_SMOOTH);
   

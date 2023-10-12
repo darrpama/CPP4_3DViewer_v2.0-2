@@ -4,7 +4,7 @@ namespace s21 {
 
 // RENDER methods
 void Model::InitOpenGL() {
-  render_.InitOpenGL(&object_);
+  render_.InitOpenGL();
 }
 
 void Model::SetViewPort(int w, int h) {
@@ -56,6 +56,7 @@ void Model::ParseObjFile(std::string &file_path) {
   parser_.SetObject(&object_);
   parser_.SetFilePath(file_path);
   parser_.Parse();
+  render_.SetObject(&object_);
 }
 
 }  // namespace s21
