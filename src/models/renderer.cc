@@ -2,8 +2,13 @@
 
 namespace s21 {
 
+// TODO BUG: need to fix a crash when obj file uploaded
+
 void Renderer::InitOpenGL(Object *object) {
   object_ = object;
+  projection_type = true;  // todo change to enum
+  move_object = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
+  scale_factor = 1.0f;
 
   // link our shaders to our program
   shader_program_.create();
@@ -11,19 +16,22 @@ void Renderer::InitOpenGL(Object *object) {
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":models/shaders/frag.glsl");
   shader_program_.link();
 
-  float *vertices2 = object->GetVerticesAsArray();
-  float vertices[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
-  };
+  float *vertices = object->GetVerticesAsArray();
+  // float vertices[] = {
+  //   0.050000, -0.050000, -0.050000,
+  //   0.050000, -0.050000, 0.050000,
+  //   -0.050000, -0.050000, 0.050000,
+  //   -0.050000, -0.050000, -0.050000,
+  //   0.050000, 0.050000, -0.050000,
+  //   0.050000, 0.050000, 0.050000,
+  //   -0.050000, 0.050000, 0.050000,
+  //   -0.050000, 0.050000, -0.050000
+  // };
 
   unsigned int indices[] = {  // note that we start from 0!
       0, 1, 3,   // first triangle
       1, 2, 3    // second triangle
-  };  
-  // std::vector<Vertex> vertices = object->GetVertices();
+  };
 
   vao_.create();
 
@@ -37,9 +45,11 @@ void Renderer::InitOpenGL(Object *object) {
 
   vao_.bind();
   vbo_.bind();
-  vbo_.allocate(vertices, sizeof(vertices));
   
-  shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 0);
+  vbo_.allocate(vertices, object_->GetVertexCount() * 3 * sizeof(float));
+  // vbo_.allocate(&vertices, sizeof(vertices));
+  
+  shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 3 * sizeof(GLfloat));
   shader_program_.enableAttributeArray("aPos");
 
   ebo_.bind();
@@ -59,39 +69,63 @@ void Renderer::SetViewPort(int w, int h) {
   height_ = h;
 }
 
-void Renderer::SetProjectionMatrix() {
-  // set matrix for projection
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  // glFrustum(-1, 1, -1, 1, 0, 1000);
-  float aspectRatio = static_cast<float>(width_) / height_;
-  glFrustum(-0.5 * aspectRatio, 0.5 * aspectRatio, -0.5, 0.5, 0.1, 1000000.0);
-
-  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 void Renderer::RenderObject() {
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  CalculateCamera();
+
   shader_program_.bind();
+
+  QMatrix4x4 model;
+  shader_program_.setUniformValueArray("view", &view, 1);
+  projection.setToIdentity();
+  view.setToIdentity();
+
+  projection_type
+      ? projection.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f)
+      : projection.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
+  
+  view.lookAt(camera_pos_, camera_target_, camera_up_);
+
+  shader_program_.setUniformValueArray("projection", &projection, 1);
+
+  model.setToIdentity();
+  model.translate(move_object);
+  model.rotate(rotation_);
+  model.scale(scale_factor);
+  shader_program_.setUniformValueArray("model", &model, 1);
+
+
   // Draw
   vao_.bind();
-  glLineStipple(1, 0x00FF);
-  
-  glEnable(GL_POINT_SMOOTH);
-  
-  glPointSize(10);
-  QVector3D v_col(1.0, 0.0, 0.0);
+  // glLineStipple(1, 0x00FF);
 
+  glEnable(GL_POINT_SMOOTH);
+  glPointSize(15);
+  
+  QVector3D v_col(1.0, 0.0, 0.0);
   shader_program_.setUniformValueArray("FragColor", &v_col, 1);
-  glDrawArrays(GL_POINTS, 1, 6);
+  
+  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount() * 3);  // TODO BUG: program crashes here
+  // glDrawArrays(GL_POINTS, 0, 32);
   
   glDisable(GL_POINT_SMOOTH);
   
   vao_.release();
-  
   shader_program_.release();
+}
+
+void Renderer::CalculateCamera() {
+  float r = 3.0f * cos(y_rot_ * M_PI / 180);
+  camera_pos_ = QVector3D(camera_target_.x() + r * sin(x_rot_ * M_PI / 180),
+                          camera_target_.y() + 3.0f * sin(y_rot_ * M_PI / 180),
+                          camera_target_.z() + r * cos(x_rot_ * M_PI / 180)) +
+                camera_target_;
+
+  camera_up_ = QVector3D(-sin(x_rot_ * M_PI / 180) * sin(y_rot_ * M_PI / 180),
+                         cos(y_rot_ * M_PI / 180),
+                         -cos(x_rot_ * M_PI / 180) * sin(y_rot_ * M_PI / 180));
 }
 
 }  // namespace s21

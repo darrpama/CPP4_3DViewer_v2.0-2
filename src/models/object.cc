@@ -41,7 +41,7 @@ void Object::AddFace(Face face) {
   face_count_++;
 }
 
-unsigned Object::GetVertexCount() {
+size_t Object::GetVertexCount() {
   return vertex_count_;
 }
 

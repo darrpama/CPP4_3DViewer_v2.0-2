@@ -22,16 +22,23 @@ class Renderer {
   void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject();
+  void CalculateCamera();
   void DrawVertices(std::vector<Vertex> *);
   
  private:
   Object *object_;
   int width_;
   int height_;
-
+  bool projection_type;
+  float x_rot_, y_rot_, start_y_, start_x_;
+  
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
   QOpenGLShaderProgram shader_program_;
+  QMatrix4x4 view, projection;
+  QVector3D camera_target_, camera_pos_, camera_up_, move_object;
+  QQuaternion rotation_;
+  float scale_factor;
 };
 }  // namespace s21
 

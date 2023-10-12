@@ -53,7 +53,7 @@ class Object
   void AddVertex(Vertex);
   void AddFace(Face);
   void Clear();
-  unsigned GetVertexCount();
+  size_t GetVertexCount();
   unsigned GetFaceCount();
   unsigned GetEdgeCount();
   void CountEdges();
@@ -64,7 +64,7 @@ class Object
  private:
   std::vector<Vertex> vertices_;
   std::vector<Face> faces_;
-  unsigned vertex_count_{};
+  size_t vertex_count_{};
   unsigned face_count_{};
   unsigned edge_count_{};
   unsigned vertices_in_faces_{};
