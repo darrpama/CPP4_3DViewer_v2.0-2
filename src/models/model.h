@@ -18,15 +18,15 @@ class Model : Observable{
   void RenderObject();
 
 // TRANSFRORM methods
-  void ApplyTranslationX(double offset);
-  void ApplyTranslationY(double offset);
-  void ApplyTranslationZ(double offset);
-  void ApplyRotationX(double angle);
-  void ApplyRotationY(double angle);
-  void ApplyRotationZ(double angle);
+  void ApplyTranslationX(float offset);
+  void ApplyTranslationY(float offset);
+  void ApplyTranslationZ(float offset);
+  void ApplyRotationX(float angle);
+  void ApplyRotationY(float angle);
+  void ApplyRotationZ(float angle);
 
 
-  void ApplyScale(double k);
+  void ApplyScale(float k);
 
 // PARSER methods
   void ParseObjFile(std::string &);

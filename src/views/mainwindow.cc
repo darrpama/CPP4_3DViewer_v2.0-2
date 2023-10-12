@@ -64,29 +64,29 @@ void MainWindow::on_uploadButton_clicked() {
 
 // position X
 void MainWindow::on_position_x_valueChanged(double x) {
-  controller_.ApplyTranslationX(x);
+  controller_.ApplyTranslationX((float) x);
 }
 
 void MainWindow::on_position_y_valueChanged(double y) {
-  controller_.ApplyTranslationY(y);
+  controller_.ApplyTranslationY((float) y);
 }
 
 void MainWindow::on_position_z_valueChanged(double z) {
-  controller_.ApplyTranslationZ(z);
+  controller_.ApplyTranslationZ((float) z);
 }
 
 void MainWindow::on_rotation_x_valueChanged(double x) {
-  controller_.ApplyRotationX(x);
+  controller_.ApplyRotationX((float) x);
 }
 
 void MainWindow::on_rotation_y_valueChanged(double y) {
-  controller_.ApplyRotationY(y);
+  controller_.ApplyRotationY((float) y);
 }
 
 void MainWindow::on_rotation_z_valueChanged(double z) {
-  controller_.ApplyRotationZ(z);
+  controller_.ApplyRotationZ((float) z);
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {
-  controller_.ApplyScale(x);
+  controller_.ApplyScale((float) x);
 }

@@ -1,6 +1,8 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 
+#include <cmath>
+
 #include "object.h"
 #include "type.h"
 #include "matrix.h"
@@ -10,15 +12,15 @@ namespace s21 {
 class Transform {
  public:
   Transform() {};
-  void ApplyTranslationX(double offset);
-  void ApplyTranslationY(double offset);
-  void ApplyTranslationZ(double offset);
+  void ApplyTranslationX(float offset);
+  void ApplyTranslationY(float offset);
+  void ApplyTranslationZ(float offset);
 
-  void ApplyRotationX(double angle);
-  void ApplyRotationY(double angle);
-  void ApplyRotationZ(double angle);
+  void ApplyRotationX(float angle);
+  void ApplyRotationY(float angle);
+  void ApplyRotationZ(float angle);
 
-  void ApplyScale(double k);
+  void ApplyScale(float k);
   void SetObject(Object *);
   
  private:
