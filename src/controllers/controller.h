@@ -11,7 +11,7 @@ class Controller {
 
  public:
   explicit Controller() : model_() {};
-  explicit Controller(Model &model) : model_(model) {};
+  explicit Controller(Model *model) : model_(model) {};
 
   void InitOpenGL();
   void SetViewPort(int, int);
@@ -29,7 +29,7 @@ class Controller {
   void ParseObjFile(std::string &);
 
  private:
-  Model model_;
+  Model *model_;
 };
 
 }  // namespace s21

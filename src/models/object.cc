@@ -66,16 +66,32 @@ void Object::CountEdges() {
   edge_count_ = edges.size();
 }
 
+void Object::SetVerticesInFaces(unsigned vertices_in_faces) {
+  this->vertices_in_faces_ = vertices_in_faces;
+}
+
 float *Object::GetVerticesAsArray() {
-  std::vector<float> floatArray;
-  floatArray.reserve(vertices_.size() * 3); // Reserve space for x, y, and z values
+  std::vector<float> float_array;
+  float_array.reserve(vertices_.size() * 3);
 
   for (const auto& vertex : vertices_) {
-      floatArray.push_back(vertex.x);
-      floatArray.push_back(vertex.y);
-      floatArray.push_back(vertex.z);
+      float_array.push_back(vertex.x);
+      float_array.push_back(vertex.y);
+      float_array.push_back(vertex.z);
   }
-  return floatArray.data();
+  return float_array.data();
+}
+
+// TODO: change reserve memory algorithm
+unsigned int *Object::GetFacesAsArray() {
+  std::vector<unsigned> int_array;
+  for (const auto& face : faces_) {
+    int_array.reserve(face.vertex_indices.size());
+    for (size_t i = 0; i < face.vertex_indices.size(); i++) {
+      face.vertex_indices.at(i);
+    }
+  }
+  return int_array.data();
 }
 
 void Object::Clear()
@@ -85,6 +101,7 @@ void Object::Clear()
   vertex_count_ = 0;
   face_count_ = 0;
   edge_count_ = 0;
+  vertices_in_faces_ = 0;
 }
 
 }  // namespace s21

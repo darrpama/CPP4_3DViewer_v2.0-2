@@ -4,15 +4,15 @@ namespace s21 {
 
 // Render endpoints
 void Controller::InitOpenGL() {
-  model_.InitOpenGL();
+  model_->InitOpenGL();
 }
 
 void Controller::SetViewPort(int w, int h) {
-  model_.SetViewPort(w, h);
+  model_->SetViewPort(w, h);
 }
 
 void Controller::RenderObject() {
-  model_.RenderObject();
+  model_->RenderObject();
 }
 
 // Transform endpoints
@@ -46,7 +46,7 @@ void Controller::ApplyScale(float x) {
 }
 
 void Controller::ParseObjFile(std::string &file_path) {
-  model_.ParseObjFile(file_path);
+  model_->ParseObjFile(file_path);
 }
 
 } // namespace s21

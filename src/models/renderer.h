@@ -12,13 +12,12 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLShader>
 #include <QOpenGLVertexArrayObject>
+#include <QOpenGLShaderProgram>
 
 namespace s21 {
 
 class Renderer {
  public:
-  Renderer();
-  ~Renderer();
   void InitOpenGL(Object *);
   void SetViewPort(int, int);
   void SetProjectionMatrix();
@@ -29,10 +28,10 @@ class Renderer {
   Object *object_;
   int width_;
   int height_;
-  const char *vertex_shader_source;
-  const char *fragment_shader_source;
-  unsigned int vbo, vao, ebo;
-  unsigned int shader_program;
+
+  QOpenGLVertexArrayObject vao_;
+  QOpenGLBuffer vbo_, ebo_;
+  QOpenGLShaderProgram shader_program_;
 };
 }  // namespace s21
 
