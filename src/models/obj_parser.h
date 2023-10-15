@@ -2,7 +2,6 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H
 
 #include "object.h"
-#include "observable.h"
 
 #include <iostream>
 #include <fstream>
@@ -13,10 +12,9 @@
 
 namespace s21
 {
-class OBJParser
-{
+class OBJParser {
  public:
-  OBJParser() {};
+  OBJParser(Object *obj) : object_(obj) {};
   void Parse();
   void SetFilePath(const std::string&);
   void SetObject(Object *);
@@ -26,6 +24,6 @@ class OBJParser
   std::string file_path_;
 };
 
-}
+}  // namespace s21
 
 #endif  // CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJ_PARSER_H

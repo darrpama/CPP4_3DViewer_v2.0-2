@@ -8,9 +8,13 @@
 
 namespace s21 {
 
-class Model : Observable{
+class Model {
  public:
-  Model() : render_(), object_(), transform_(), parser_() {}
+  Model(Object *obj) 
+    : object_(obj)
+    , render_(obj)
+    , transform_(obj)
+    , parser_(obj) {}
 
 // RENDER methods
   void InitOpenGL();
@@ -32,8 +36,8 @@ class Model : Observable{
   void ParseObjFile(std::string &);
 
  private:
+  Object *object_;
   Renderer render_;
-  Object object_;
   Transform transform_;
   OBJParser parser_;
 };

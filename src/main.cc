@@ -6,7 +6,9 @@
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
-  s21::Model model = s21::Model();
+
+  s21::Object object = s21::Object();
+  s21::Model model = s21::Model(&object);
   s21::Controller controller = s21::Controller(&model);
   MainWindow *window = new MainWindow(controller);
 

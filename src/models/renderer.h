@@ -18,8 +18,9 @@ namespace s21 {
 
 class Renderer {
  public:
+  Renderer(Object *obj) : object_(obj) {};
+  void InitObjectModel();
   void InitOpenGL();
-  void SetObject(Object *);
   void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject();
@@ -27,7 +28,7 @@ class Renderer {
   void DrawVertices(std::vector<Vertex> *);
   
  private:
-  Object *object_ = nullptr;
+  Object *object_;
   int width_;
   int height_;
   bool projection_type;

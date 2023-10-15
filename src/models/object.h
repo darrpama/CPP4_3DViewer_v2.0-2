@@ -1,8 +1,6 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 
-#include "observable.h"
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,8 +38,7 @@ struct VectorEqual {
   }
 };
 
-class Object
-{
+class Object {
  public:
   Object();
   Object(std::vector<Vertex>, std::vector<Face>);

@@ -11,7 +11,7 @@ namespace s21 {
 
 class Transform {
  public:
-  Transform() {};
+  Transform(Object *obj) : object_(obj) {};
   void ApplyTranslationX(float offset);
   void ApplyTranslationY(float offset);
   void ApplyTranslationZ(float offset);

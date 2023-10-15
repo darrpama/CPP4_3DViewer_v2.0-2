@@ -3,29 +3,7 @@
 namespace s21 {
 
 // TODO BUG: need to fix a crash when obj file uploaded
-
-void Renderer::SetObject(Object *object) {
-  object_ = object;
-  std::cout << "Face count: " << object_->GetFaceCount() << std::endl;
-  std::cout << "Edge count: " << object_->GetEdgeCount() << std::endl;
-  std::cout << "Vertex count: " << object_->GetVertexCount() << std::endl;
-}
-
-void Renderer::InitOpenGL() {
-  if (object_ == nullptr) {
-    return;
-  }
-
-  projection_type = true;  // todo change to enum
-  move_object = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
-  scale_factor = 1.0f;
-
-  // link our shaders to our program
-  shader_program_.create();
-  shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
-  shader_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":models/shaders/frag.glsl");
-  shader_program_.link();
-
+void Renderer::InitObjectModel() {
   float *vertices = object_->GetVerticesAsArray();
   // float vertices[] = {
   //   0.050000, -0.050000, -0.050000,
@@ -43,15 +21,6 @@ void Renderer::InitOpenGL() {
       1, 2, 3    // second triangle
   };
 
-  vao_.create();
-
-  vbo_ = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-  vbo_.create();
-  vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-
-  ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
-  ebo_.create();
-  ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
 
   vao_.bind();
   vbo_.bind();
@@ -63,7 +32,8 @@ void Renderer::InitOpenGL() {
   shader_program_.enableAttributeArray("aPos");
 
   ebo_.bind();
-  ebo_.allocate(indices, sizeof(indices));
+  // ebo_.allocate(indices, sizeof(indices));
+  ebo_.allocate(&indices, sizeof(indices));
 
   shader_program_.bind();
   
@@ -71,6 +41,31 @@ void Renderer::InitOpenGL() {
   ebo_.release();
   vbo_.release();
   shader_program_.release();
+}
+
+void Renderer::InitOpenGL() {
+  if (object_ == nullptr) {
+    return;
+  }
+  projection_type = true;  // todo change to enum
+  move_object = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
+  scale_factor = 1.0f;
+
+  // link our shaders to our program
+  shader_program_.create();
+  shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
+  shader_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":models/shaders/frag.glsl");
+  shader_program_.link();
+
+  vao_.create();
+
+  vbo_ = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+  vbo_.create();
+  vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+
+  ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
+  ebo_.create();
+  ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
 }
 
 void Renderer::SetViewPort(int w, int h) {
