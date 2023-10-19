@@ -4,43 +4,53 @@ namespace s21 {
 
 // TODO BUG: need to fix a crash when obj file uploaded
 void Renderer::InitObjectModel() {
-  float *vertices = object_->GetVerticesAsArray();
-  // float vertices[] = {
-  //   0.050000, -0.050000, -0.050000,
-  //   0.050000, -0.050000, 0.050000,
-  //   -0.050000, -0.050000, 0.050000,
-  //   -0.050000, -0.050000, -0.050000,
-  //   0.050000, 0.050000, -0.050000,
-  //   0.050000, 0.050000, 0.050000,
-  //   -0.050000, 0.050000, 0.050000,
-  //   -0.050000, 0.050000, -0.050000
-  // };
+//  float *vertices = object_->GetVerticesAsArray();
+  float vertices[] = {
+    // front face
+    -0.5f, -0.5f,  0.5f,
+      0.5f, -0.5f,  0.5f,
+      0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f,  0.5f,
+    // back face
+    -0.5f, -0.5f, -0.5f,
+      0.5f, -0.5f, -0.5f,
+      0.5f,  0.5f, -0.5f,
+    -0.5f,  0.5f, -0.5f
+  };
 
-  unsigned int indices[] = {  // note that we start from 0!
-      0, 1, 3,   // first triangle
-      1, 2, 3    // second triangle
+  unsigned int indices[] = {
+    // front face
+    0, 1, 2,
+    2, 3, 0,
+    // back face
+    4, 5, 6,
+    6, 7, 4,
+    // top face
+    3, 2, 6,
+    6, 7, 3,
+    // bottom face
+    0, 1, 5,
+    5, 4, 0,
+    // left face
+    0, 3, 7,
+    7, 4, 0,
+    // right face
+    1, 2, 6,
+    6, 5, 1
   };
 
 
+  vao_.create();
   vao_.bind();
+  vbo_.create();
   vbo_.bind();
-  
-  vbo_.allocate(vertices, object_->GetVertexCount() * 3 * sizeof(float));
-  // vbo_.allocate(&vertices, sizeof(vertices));
-  
+  vbo_.allocate(vertices, 8 * 3 * sizeof(float));
   shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 3 * sizeof(GLfloat));
   shader_program_.enableAttributeArray("aPos");
-
+  ebo_.create();
   ebo_.bind();
-  // ebo_.allocate(indices, sizeof(indices));
-  ebo_.allocate(&indices, sizeof(indices));
-
-  shader_program_.bind();
-  
+  ebo_.allocate(indices, 36 * sizeof(unsigned int));
   vao_.release();
-  ebo_.release();
-  vbo_.release();
-  shader_program_.release();
 }
 
 void Renderer::InitOpenGL() {
@@ -80,47 +90,30 @@ void Renderer::RenderObject() {
   }
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
   CalculateCamera();
-
   shader_program_.bind();
-
   QMatrix4x4 model;
   shader_program_.setUniformValueArray("view", &view, 1);
   projection.setToIdentity();
   view.setToIdentity();
-
   projection_type
       ? projection.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f)
       : projection.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
-  
   view.lookAt(camera_pos_, camera_target_, camera_up_);
-
   shader_program_.setUniformValueArray("projection", &projection, 1);
-
   model.setToIdentity();
   model.translate(move_object);
   model.rotate(rotation_);
   model.scale(scale_factor);
   shader_program_.setUniformValueArray("model", &model, 1);
 
-
   // Draw
   vao_.bind();
-  // glLineStipple(1, 0x00FF);
-
-  glEnable(GL_POINT_SMOOTH);
-  glPointSize(15);
-  
-  QVector3D v_col(1.0, 0.0, 0.0);
-  shader_program_.setUniformValueArray("FragColor", &v_col, 1);
-  
-  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount() / 3);  // TODO BUG: program crashes here
-  // glDrawArrays(GL_POINTS, 0, 8);
-  
-  glDisable(GL_POINT_SMOOTH);
-  
+  ebo_.bind();
+  glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+  ebo_.release();
   vao_.release();
+  
   shader_program_.release();
 }
 
