@@ -46,12 +46,6 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QMainWindow::resizeEvent(event);
   QSize newSize = event->size();
 
-  // Calculate the desired size for the QOpenGLWidget
-  int glWidgetWidth = newSize.width();
-  int glWidgetHeight = newSize.height();
-
-  // Resize the QOpenGLWidget
-  canvas_->resize(glWidgetWidth, glWidgetHeight);
 }
 
 void MainWindow::on_uploadButton_clicked() {
