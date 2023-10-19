@@ -35,7 +35,7 @@
      </widget>
     </item>
     <item row="0" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,2,2,2">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,2,2,2">
       <property name="spacing">
        <number>20</number>
       </property>
@@ -110,8 +110,7 @@
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-background-color: rgba(255,255,255,0.1);</string>
+         <string notr="true">background-color: rgba(255,255,255,0.1);</string>
         </property>
         <property name="title">
          <string>Projection</string>
@@ -126,7 +125,7 @@ background-color: rgba(255,255,255,0.1);</string>
          <item row="0" column="0">
           <widget class="QPushButton" name="pushButton">
            <property name="styleSheet">
-            <string notr="true">color:white;</string>
+            <string notr="true">color: black;</string>
            </property>
            <property name="text">
             <string>parallel</string>
@@ -136,7 +135,7 @@ background-color: rgba(255,255,255,0.1);</string>
          <item row="0" column="1">
           <widget class="QPushButton" name="pushButton_2">
            <property name="styleSheet">
-            <string notr="true">color:white;</string>
+            <string notr="true">color: black;</string>
            </property>
            <property name="text">
             <string>central</string>
@@ -161,13 +160,24 @@ background-color: rgba(255,255,255,0.1);</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">color:white;
-background-color: rgba(255,255,255,0.1);</string>
+         <string notr="true">color: black;
+background-color: rgba(225,225,225,0.1);
+</string>
         </property>
         <property name="title">
          <string>Colors</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButton_8">
+           <property name="styleSheet">
+            <string notr="true">background-color:red;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="2">
           <widget class="QPushButton" name="pushButton_9">
            <property name="styleSheet">
@@ -182,16 +192,6 @@ background-color: rgba(255,255,255,0.1);</string>
           <widget class="QPushButton" name="pushButton_6">
            <property name="styleSheet">
             <string notr="true">color:white;</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_8">
-           <property name="styleSheet">
-            <string notr="true">background-color:red;</string>
            </property>
            <property name="text">
             <string/>
@@ -219,7 +219,7 @@ background-color: rgba(255,255,255,0.1);</string>
          <enum>QTabWidget::Triangular</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideLeft</enum>
@@ -235,7 +235,7 @@ background-color: rgba(255,255,255,0.1);</string>
              <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:white;
+             <string notr="true">color: black;
 background-color: rgba(255,255,255,0.1);</string>
             </property>
             <property name="title">
@@ -248,7 +248,7 @@ background-color: rgba(255,255,255,0.1);</string>
              <item row="0" column="0">
               <widget class="QLabel" name="label_2">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -262,7 +262,7 @@ background-color: none;</string>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="position_x">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -272,7 +272,7 @@ background-color: none;</string>
              <item row="1" column="0">
               <widget class="QLabel" name="label_3">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -286,7 +286,7 @@ background-color: none;</string>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="position_y">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -296,7 +296,7 @@ background-color: none;</string>
              <item row="2" column="0">
               <widget class="QLabel" name="label_4">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -310,7 +310,7 @@ background-color: none;</string>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="position_z">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -333,7 +333,7 @@ background-color: none;</string>
              <enum>Qt::LeftToRight</enum>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:white;
+             <string notr="true">color: black;
 background-color: rgba(255,255,255,0.1);</string>
             </property>
             <property name="title">
@@ -346,7 +346,7 @@ background-color: rgba(255,255,255,0.1);</string>
              <item row="0" column="0">
               <widget class="QLabel" name="label_5">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -360,7 +360,7 @@ background-color: none;</string>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="rotation_x">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -370,7 +370,7 @@ background-color: none;</string>
              <item row="1" column="0">
               <widget class="QLabel" name="label_6">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -384,7 +384,7 @@ background-color: none;</string>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="rotation_y">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -394,7 +394,7 @@ background-color: none;</string>
              <item row="2" column="0">
               <widget class="QLabel" name="label_7">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -408,7 +408,7 @@ background-color: none;</string>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="rotation_z">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
@@ -432,7 +432,8 @@ background-color: none;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">color:white;
-background-color: rgba(255,255,255,0.1);</string>
+background-color: rgba(225,225,225,0.1);
+</string>
             </property>
             <property name="title">
              <string/>
@@ -444,7 +445,7 @@ background-color: rgba(255,255,255,0.1);</string>
              <item row="0" column="0">
               <widget class="QLabel" name="label_10">
                <property name="styleSheet">
-                <string notr="true">color:white;
+                <string notr="true">color: black;
 background-color: none;</string>
                </property>
                <property name="text">
@@ -458,7 +459,7 @@ background-color: none;</string>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="scale_control">
                <property name="styleSheet">
-                <string notr="true">color:white;</string>
+                <string notr="true">color: black;</string>
                </property>
               </widget>
              </item>
@@ -482,8 +483,9 @@ background-color: none;</string>
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox_6">
             <property name="styleSheet">
-             <string notr="true">color:white;
-background-color: rgba(255,255,255,0.1);</string>
+             <string notr="true">color: black;
+background-color: rgba(225,225,225,0.1);
+</string>
             </property>
             <property name="title">
              <string>Type</string>
@@ -525,8 +527,9 @@ background-color: rgba(255,255,255,0.1);</string>
           <item row="1" column="0">
            <widget class="QGroupBox" name="groupBox_9">
             <property name="styleSheet">
-             <string notr="true">color:white;
-background-color: rgba(255,255,255,0.1);</string>
+             <string notr="true">color: black;
+background-color: rgba(225,225,225,0.1);
+</string>
             </property>
             <property name="title">
              <string>Thikness</string>
@@ -555,7 +558,7 @@ background-color: rgba(255,255,255,0.1);</string>
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox_10">
             <property name="styleSheet">
-             <string notr="true">color:white;
+             <string notr="true">color: black;
 background-color: rgba(255,255,255,0.1);</string>
             </property>
             <property name="title">
@@ -598,7 +601,7 @@ background-color: rgba(255,255,255,0.1);</string>
           <item row="1" column="0">
            <widget class="QGroupBox" name="groupBox_12">
             <property name="styleSheet">
-             <string notr="true">color:white;
+             <string notr="true">color: black;
 background-color: rgba(255,255,255,0.1);</string>
             </property>
             <property name="title">
@@ -668,7 +671,7 @@ background-color: rgba(255,255,255,0.1);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QLabel {
-	color: white;
+	color: black;
 }</string>
         </property>
         <property name="text">
@@ -686,7 +689,7 @@ background-color: rgba(255,255,255,0.1);</string>
      <x>0</x>
      <y>0</y>
      <width>1147</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
