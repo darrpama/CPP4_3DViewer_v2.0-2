@@ -84,7 +84,7 @@ float *Object::GetVerticesAsArray() {
 }
 
 // TODO: change reserve memory algorithm
-unsigned int *Object::GetFacesAsArray() {
+unsigned int* Object::GetFacesAsArray() {
   std::vector<unsigned> int_array;
   for (const auto& face : faces_) {
     int_array.reserve(face.vertex_indices.size());
