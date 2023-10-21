@@ -4,7 +4,11 @@ namespace s21 {
 
 // RENDER methods
 void Model::InitOpenGL() {
+  // object_->Clear();
+  // parser_.SetFilePath("/Users/myregree/Desktop/projects/CPP4_3DViewer_v2.0-2/src/assets/objects/cube4.obj");
+  // parser_.Parse();
   render_.InitOpenGL();
+  // render_.InitObjectModel();
 }
 
 void Model::SetViewPort(int w, int h) {

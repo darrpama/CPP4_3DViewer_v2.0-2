@@ -31,9 +31,10 @@ class Renderer {
   Object *object_;
   int width_;
   int height_;
-  bool projection_type;
+  bool projection_type_;
   float x_rot_, y_rot_, start_y_, start_x_;
-  float scale_factor;
+  float scale_factor_;
+  float *vertices_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
