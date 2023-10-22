@@ -7,7 +7,7 @@ void Renderer::InitOpenGL() {
     return;
   }
   projection_type_ = false;
-  move_object = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
+  move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor_ = 1.0f;
 
   // link our shaders to our program
@@ -25,30 +25,23 @@ void Renderer::InitOpenGL() {
   // ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
   // ebo_.create();
   // ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+
+  vao_.bind();
+  vao_.release();
 }
 
 void Renderer::InitObjectModel() {
-  vertices_ = object_->GetVerticesAsArray();
-
-  // unsigned int indices[] = {  // note that we start from 0!
-  //     0, 1, 3,   // first triangle
-  //     1, 2, 3    // second triangle
-  // };
+  vertices_ = object_->GetFlattenedVertices();
+  // faces_ = object_->GetFacesAsArray();
 
   vao_.bind();
   vbo_.bind();
-  
-  vbo_.allocate(vertices_, object_->GetVertexCount() * 3 * sizeof(float));
-  
+  vbo_.allocate(vertices_.data(), object_->GetVertexCount() * 3 * sizeof(GLfloat));
   shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 3 * sizeof(GLfloat));
   shader_program_.enableAttributeArray("aPos");
 
   // ebo_.bind();
-  // ebo_.allocate(indices, sizeof(indices));
-  // ebo_.allocate(&indices, sizeof(indices));
-
-  shader_program_.bind();
-  
+  // ebo_.allocate(faces_, object_->GetFaceCount() * 3 * sizeof(unsigned int));
   vao_.release();
   // ebo_.release();
   vbo_.release();
@@ -62,55 +55,64 @@ void Renderer::SetViewPort(int w, int h) {
 }
 
 void Renderer::RenderObject() {
-  if (object_ == nullptr) {
-    return;
-  }
+  if (object_ == nullptr) return;
+
   glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   CalculateCamera();
 
   shader_program_.bind();
-
-  shader_program_.setUniformValueArray("view", &view, 1);
-  projection.setToIdentity();
   
-  projection.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f);
+  QMatrix4x4 model;
+
+  shader_program_.setUniformValueArray("view", &view_, 1);
+  projection_.setToIdentity();
+  view_.setToIdentity();
+  
+  projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f);
 
   // projection_type_
   //     ? projection.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f)
   //     : projection.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
   
-  view.setToIdentity();
-  view.lookAt(camera_pos_, camera_target_, camera_up_);
+  view_.lookAt(camera_pos_, camera_target_, camera_up_);
 
-  shader_program_.setUniformValueArray("projection", &projection, 1);
+  shader_program_.setUniformValueArray("projection", &projection_, 1);
 
-  QMatrix4x4 model;
   model.setToIdentity();
-  model.translate(move_object);
+  model.translate(move_object_);
   model.rotate(rotation_);
   model.scale(scale_factor_);
   shader_program_.setUniformValueArray("model", &model, 1);
 
   // Draw
+  DrawModel();
+
+  shader_program_.release();
+}
+
+void Renderer::DrawModel() {
   vao_.bind();
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
+  glLineWidth(5.0f);
+
+  // Draw lines 
+  // TODO: not work, need to triangulate faces 
   // glLineStipple(1, 0x00FF);
-  // glEnable(GL_POINT_SMOOTH);
+  // glEnable(GL_LINE_STIPPLE);
+  //   glDrawElements(GL_TRIANGLES, object_->GetFaceCount() * 3, GL_UNSIGNED_INT, nullptr);
+  // glDisable(GL_LINE_STIPPLE);
 
-  glPointSize(10);
-  
-  QVector3D v_col(1.0, 0.0, 0.0);
-  shader_program_.setUniformValueArray("FragColor", &v_col, 1);
-  
-  std::cout << "vertex count: " << object_->GetVertexCount() << std::endl;
+  // Draw points
+  glEnable(GL_POINT_SMOOTH);
+    glPointSize(10);
+    QVector3D vertex_color(1.0, 0.0, 0.0);
+    shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
+    glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
+  glDisable(GL_POINT_SMOOTH);
 
-  glDrawArrays(GL_POINTS, 0, object_->GetVertexCount());
-  
-  // glDisable(GL_POINT_SMOOTH);
-  
-  // vao_.release();
-  // shader_program_.release();
+  vao_.release();
 }
 
 void Renderer::CalculateCamera() {

@@ -5,10 +5,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <QVector>
 #include <forward_list>
 #include <unordered_set>
 #include <algorithm>
-
+using GLfloat = float;
+using GLuint = unsigned int;
 namespace s21
 {
 
@@ -44,7 +46,12 @@ class Object {
   Object(std::vector<Vertex>, std::vector<Face>);
 
   std::vector<Vertex> GetVertices();
+  QVector<GLfloat> GetFlattenedVertices();
   std::vector<Face> GetFaces();
+
+  std::vector<std::vector<unsigned>> faces;
+
+  unsigned int *GetFacesAsArray();
   void SetVertices(std::vector<Vertex>);
   void SetFaces(std::vector<Face>);
   void AddVertex(Vertex);
@@ -55,8 +62,6 @@ class Object {
   unsigned GetEdgeCount();
   void CountEdges();
   void SetVerticesInFaces(unsigned);
-  float *GetVerticesAsArray();
-  unsigned int *GetFacesAsArray();
 
  private:
   std::vector<Vertex> vertices_;

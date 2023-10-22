@@ -17,6 +17,17 @@ std::vector<Vertex> Object::GetVertices() {
   return vertices_;
 }
 
+QVector<GLfloat> Object::GetFlattenedVertices() {
+  QVector<GLfloat> float_array;
+  float_array.reserve(vertices_.size() * 3);
+  for (const auto& vertex : vertices_) {
+      float_array.push_back(vertex.x);
+      float_array.push_back(vertex.y);
+      float_array.push_back(vertex.z);
+  }
+  return float_array;
+}
+
 std::vector<Face> Object::GetFaces() {
   return faces_;
 }
@@ -70,31 +81,6 @@ void Object::SetVerticesInFaces(unsigned vertices_in_faces) {
   this->vertices_in_faces_ = vertices_in_faces;
 }
 
-float *Object::GetVerticesAsArray() {
-  std::vector<float> float_array;
-  float_array.reserve(vertices_.size() * 3);
-
-  for (const auto& vertex : vertices_) {
-      float_array.push_back(vertex.x);
-      float_array.push_back(vertex.y);
-      float_array.push_back(vertex.z);
-  }
-  vertices_array_ = float_array.data();
-  return vertices_array_;
-}
-
-// TODO: change reserve memory algorithm
-unsigned int* Object::GetFacesAsArray() {
-  std::vector<unsigned> int_array;
-  for (const auto& face : faces_) {
-    int_array.reserve(face.vertex_indices.size());
-    for (size_t i = 0; i < face.vertex_indices.size(); i++) {
-      face.vertex_indices.at(i);
-    }
-  }
-  faces_array_ = int_array.data();
-  return faces_array_;
-}
 
 void Object::Clear()
 {

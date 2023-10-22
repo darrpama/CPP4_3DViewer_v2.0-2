@@ -10,6 +10,7 @@
 #include <QtOpenGLWidgets/qopenglwidget.h>
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
+#include <QVector>
 #include <QOpenGLShader>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
@@ -24,6 +25,7 @@ class Renderer {
   void SetViewPort(int, int);
   void SetProjectionMatrix();
   void RenderObject();
+  void DrawModel();
   void CalculateCamera();
   void DrawVertices(std::vector<Vertex> *);
   
@@ -34,13 +36,14 @@ class Renderer {
   bool projection_type_;
   float x_rot_, y_rot_, start_y_, start_x_;
   float scale_factor_;
-  float *vertices_;
+  QVector<GLfloat> vertices_;
+  unsigned int *faces_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
   QOpenGLShaderProgram shader_program_;
-  QMatrix4x4 view, projection;
-  QVector3D camera_target_, camera_pos_, camera_up_, move_object;
+  QMatrix4x4 view_, projection_;
+  QVector3D camera_target_, camera_pos_, camera_up_, move_object_;
   QQuaternion rotation_;
 };
 }  // namespace s21
