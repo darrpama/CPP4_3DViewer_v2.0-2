@@ -28,6 +28,7 @@ class Renderer {
   void DrawModel();
   void CalculateCamera();
   void DrawVertices(std::vector<Vertex> *);
+  void PrintVertices();
   
  private:
   Object *object_;

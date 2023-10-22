@@ -81,9 +81,9 @@ void Renderer::RenderObject() {
   shader_program_.setUniformValueArray("projection", &projection_, 1);
 
   model.setToIdentity();
-  model.translate(move_object_);
-  model.rotate(rotation_);
-  model.scale(scale_factor_);
+  // model.translate(move_object_);
+  // model.rotate(rotation_);
+  // model.scale(scale_factor_);
   shader_program_.setUniformValueArray("model", &model, 1);
 
   // Draw
@@ -93,6 +93,8 @@ void Renderer::RenderObject() {
 }
 
 void Renderer::DrawModel() {
+  vertices_ = object_->GetFlattenedVertices();
+  PrintVertices();
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
   glLineWidth(5.0f);
@@ -127,6 +129,21 @@ void Renderer::CalculateCamera() {
 
   camera_pos_ = QVector3D(xpos, ypos, zpos) + camera_target_;
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
+}
+
+void Renderer::PrintVertices() {
+  int j = 0;
+  for (size_t i = 0; i < vertices_.size(); i++) {
+    float vertex_value = vertices_[i];
+    std::cout << vertex_value << " ";
+    j++;
+    if (j >= 3) {
+      std::cout << std::endl;
+      j = 0;
+    }
+  }
+  std::cout << std::endl << std::endl;
+  
 }
 
 }  // namespace s21

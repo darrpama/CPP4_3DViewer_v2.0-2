@@ -18,23 +18,18 @@
 #include <iostream>
 
 class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
+  Q_OBJECT
  public:
   explicit Canvas(QWidget *);
   void SetController(s21::Controller *);
+  void UpdateWidget();
 
  protected:
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int, int) override;
-
-  void mousePressEvent(QMouseEvent* event) override;
-  void mouseMoveEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent* event) override;
  
  private:
-  QPoint lastMousePos_;
-  float rotationX_;
-  float rotationY_;
   s21::Controller *controller_;
 };
 

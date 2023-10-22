@@ -4,10 +4,10 @@
 
 MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   : QMainWindow(parent)
-  , ui(new Ui::MainWindow)
+  , ui_(new Ui::MainWindow)
   , controller_(controller)
 {
-  ui->setupUi(this);
+  ui_->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
   canvas_->SetController(&controller_);
   upload_button_ = findChild<QPushButton*>("uploadButton");
@@ -39,13 +39,12 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
-  delete ui;
+  delete ui_;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
   QMainWindow::resizeEvent(event);
   QSize newSize = event->size();
-
 }
 
 void MainWindow::on_uploadButton_clicked() {
@@ -60,14 +59,17 @@ void MainWindow::on_uploadButton_clicked() {
 // position X
 void MainWindow::on_position_x_valueChanged(double x) {
   controller_.ApplyTranslationX((float) x);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_position_y_valueChanged(double y) {
   controller_.ApplyTranslationY((float) y);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_position_z_valueChanged(double z) {
   controller_.ApplyTranslationZ((float) z);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_rotation_x_valueChanged(double x) {

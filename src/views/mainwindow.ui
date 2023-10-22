@@ -219,7 +219,7 @@ background-color: rgba(225,225,225,0.1);
          <enum>QTabWidget::Triangular</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideLeft</enum>
@@ -266,6 +266,9 @@ background-color: none;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -362,8 +365,14 @@ background-color: none;</string>
                <property name="styleSheet">
                 <string notr="true">color: black;</string>
                </property>
+               <property name="decimals">
+                <number>3</number>
+               </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>

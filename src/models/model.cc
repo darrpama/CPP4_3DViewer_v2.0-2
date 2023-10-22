@@ -22,30 +22,37 @@ void Model::RenderObject() {
 // TRANSFORM methods
 void Model::ApplyTranslationX(float offset) {
   transform_.ApplyTranslationX(offset);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyTranslationY(float offset) {
   transform_.ApplyTranslationY(offset);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyTranslationZ(float offset) {
   transform_.ApplyTranslationZ(offset);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyRotationX(float angle) {
   transform_.ApplyRotationX(angle);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyRotationY(float angle) {
   transform_.ApplyRotationY(angle);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyRotationZ(float angle) {
   transform_.ApplyRotationZ(angle);
+  render_.InitObjectModel();
 }
 
 void Model::ApplyScale(float k) {
   transform_.ApplyScale(k);
+  render_.InitObjectModel();
 }
 
 void Model::ParseObjFile(std::string &file_path) {

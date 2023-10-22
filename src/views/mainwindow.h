@@ -40,7 +40,7 @@ private slots:
 
 private:
   s21::Controller controller_;
-  Ui::MainWindow *ui;
+  Ui::MainWindow *ui_;
   Canvas *canvas_;
   QLabel *filepath_label_;
   QPushButton *upload_button_;
