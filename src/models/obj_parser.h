@@ -18,6 +18,7 @@ class OBJParser {
   void Parse();
   void SetFilePath(const std::string&);
   void SetObject(Object *);
+  std::vector<Face> TriangulateFace(const Face& face);
 
  private:
   Object *object_;
