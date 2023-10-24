@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1147</width>
-    <height>928</height>
+    <width>1388</width>
+    <height>931</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -320,7 +320,7 @@ background-color: rgba(225,225,225,0.1);
            <widget class="QGroupBox" name="groupBox">
             <property name="minimumSize">
              <size>
-              <width>0</width>
+              <width>102</width>
               <height>111</height>
              </size>
             </property>
@@ -341,7 +341,7 @@ background-color: rgba(225,225,225,0.1);
               <widget class="QLabel" name="label_2">
                <property name="minimumSize">
                 <size>
-                 <width>20</width>
+                 <width>100</width>
                  <height>0</height>
                 </size>
                </property>
@@ -382,7 +382,7 @@ background-color: rgba(225,225,225,0.1);
               <widget class="QLabel" name="label_3">
                <property name="minimumSize">
                 <size>
-                 <width>20</width>
+                 <width>100</width>
                  <height>0</height>
                 </size>
                </property>
@@ -420,7 +420,7 @@ background-color: rgba(225,225,225,0.1);
               <widget class="QLabel" name="label_4">
                <property name="minimumSize">
                 <size>
-                 <width>20</width>
+                 <width>100</width>
                  <height>0</height>
                 </size>
                </property>
@@ -831,7 +831,7 @@ background-color: rgba(255,255,255,0.1);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1147</width>
+     <width>1388</width>
      <height>24</height>
     </rect>
    </property>

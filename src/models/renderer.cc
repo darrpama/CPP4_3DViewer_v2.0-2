@@ -1,6 +1,11 @@
 #include "renderer.h"
 
 namespace s21 {
+Renderer::~Renderer() {
+  vbo_.destroy();
+  vao_.destroy();
+  ebo_.destroy();
+}
 
 void Renderer::InitOpenGL() {
   if (object_ == nullptr) {
@@ -22,9 +27,9 @@ void Renderer::InitOpenGL() {
   vbo_.create();
   vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
 
-  // ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
-  // ebo_.create();
-  // ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
+  ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
+  ebo_.create();
+  ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
 
   vao_.bind();
   vao_.release();
@@ -32,7 +37,7 @@ void Renderer::InitOpenGL() {
 
 void Renderer::InitObjectModel() {
   vertices_ = object_->GetFlattenedVertices();
-  // faces_ = object_->GetFacesAsArray();
+  faces_ = object_->GetFlattenedFaces();
 
   vao_.bind();
   vbo_.bind();
@@ -40,10 +45,10 @@ void Renderer::InitObjectModel() {
   shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 3 * sizeof(GLfloat));
   shader_program_.enableAttributeArray("aPos");
 
-  // ebo_.bind();
-  // ebo_.allocate(faces_, object_->GetFaceCount() * 3 * sizeof(unsigned int));
+  ebo_.bind();
+  ebo_.allocate(faces_.data(), object_->GetFaceCount() * sizeof(faces_[0]));
   vao_.release();
-  // ebo_.release();
+  ebo_.release();
   vbo_.release();
   shader_program_.release();
 }
@@ -94,17 +99,16 @@ void Renderer::RenderObject() {
 
 void Renderer::DrawModel() {
   vertices_ = object_->GetFlattenedVertices();
-  PrintVertices();
+  PrintFaces();
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
   glLineWidth(5.0f);
 
   // Draw lines 
-  // TODO: not work, need to triangulate faces 
-  // glLineStipple(1, 0x00FF);
-  // glEnable(GL_LINE_STIPPLE);
-  //   glDrawElements(GL_TRIANGLES, object_->GetFaceCount() * 3, GL_UNSIGNED_INT, nullptr);
-  // glDisable(GL_LINE_STIPPLE);
+  glLineStipple(1, 0x00FF);
+  glEnable(GL_LINE_STRIP);
+    glDrawElements(GL_TRIANGLES, object_->GetFaceCount() * 3, GL_UNSIGNED_INT, nullptr);
+  glDisable(GL_LINE_STRIP);
 
   // Draw points
   glEnable(GL_POINT_SMOOTH);
@@ -131,11 +135,11 @@ void Renderer::CalculateCamera() {
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
 }
 
-void Renderer::PrintVertices() {
+void Renderer::PrintFaces() {
   int j = 0;
-  for (size_t i = 0; i < vertices_.size(); i++) {
-    float vertex_value = vertices_[i];
-    std::cout << vertex_value << " ";
+  for (size_t i = 0; i < faces_.size(); i++) {
+    unsigned int value = faces_[i];
+    std::cout << value << " ";
     j++;
     if (j >= 3) {
       std::cout << std::endl;
@@ -143,7 +147,6 @@ void Renderer::PrintVertices() {
     }
   }
   std::cout << std::endl << std::endl;
-  
 }
 
 }  // namespace s21

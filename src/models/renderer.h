@@ -20,6 +20,7 @@ namespace s21 {
 class Renderer {
  public:
   Renderer(Object *obj) : object_(obj) {};
+  ~Renderer();
   void InitObjectModel();
   void InitOpenGL();
   void SetViewPort(int, int);
@@ -28,7 +29,7 @@ class Renderer {
   void DrawModel();
   void CalculateCamera();
   void DrawVertices(std::vector<Vertex> *);
-  void PrintVertices();
+  void PrintFaces();
   
  private:
   Object *object_;
@@ -38,7 +39,7 @@ class Renderer {
   float x_rot_, y_rot_, start_y_, start_x_;
   float scale_factor_;
   QVector<GLfloat> vertices_;
-  unsigned int *faces_;
+  QVector<unsigned int> faces_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

@@ -46,12 +46,12 @@ class Object {
   Object(std::vector<Vertex>, std::vector<Face>);
 
   std::vector<Vertex> GetVertices();
-  QVector<GLfloat> GetFlattenedVertices();
   std::vector<Face> GetFaces();
+  QVector<GLfloat> GetFlattenedVertices();
+  QVector<unsigned int> GetFlattenedFaces();
 
   std::vector<std::vector<unsigned>> faces;
 
-  unsigned int *GetFacesAsArray();
   void SetVertices(std::vector<Vertex>);
   void SetFaces(std::vector<Face>);
   void AddVertex(Vertex);
