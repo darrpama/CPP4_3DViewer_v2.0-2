@@ -19,7 +19,7 @@ struct Vertex {
 };
 
 struct Face {
-  std::vector<unsigned> vertex_indices{};
+  std::vector<unsigned int> vertex_indices{};
 };
 
 struct VectorHash {

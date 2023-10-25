@@ -99,7 +99,7 @@ void Renderer::RenderObject() {
 
 void Renderer::DrawModel() {
   vertices_ = object_->GetFlattenedVertices();
-  PrintFaces();
+  // PrintFaces();
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
   glLineWidth(5.0f);
@@ -107,7 +107,7 @@ void Renderer::DrawModel() {
   // Draw lines 
   glLineStipple(1, 0x00FF);
   glEnable(GL_LINE_STRIP);
-    glDrawElements(GL_TRIANGLES, object_->GetFaceCount() * 3, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, object_->GetFaceCount(), GL_UNSIGNED_INT, nullptr);
   glDisable(GL_LINE_STRIP);
 
   // Draw points
