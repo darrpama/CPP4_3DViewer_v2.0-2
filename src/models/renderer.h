@@ -39,7 +39,7 @@ class Renderer {
   float x_rot_, y_rot_, start_y_, start_x_;
   float scale_factor_;
   QVector<GLfloat> vertices_;
-  QVector<unsigned int> faces_;
+  QVector<GLuint> faces_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

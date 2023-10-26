@@ -28,18 +28,13 @@ QVector<GLfloat> Object::GetFlattenedVertices() {
   return float_array;
 }
 
-QVector<unsigned int> Object::GetFlattenedFaces() {
-  QVector<unsigned int> int_array;
+QVector<GLuint> Object::GetFlattenedFaces() {
+  QVector<GLuint> int_array;
   int_array.reserve(faces_.size() * 3);
-  std::cout << "print in GetFlattenedFaces()" << std::endl;
   for (const auto& face : faces_) {
     for (const auto& index : face.vertex_indices) {
-      std::cout << index << " ";
-      int_array.push_back(index);
-      int_array.push_back(index);
-      int_array.push_back(index);
+      int_array.push_back(index-1);
     }
-    std::cout << std::endl;
   }
   return int_array;
 }

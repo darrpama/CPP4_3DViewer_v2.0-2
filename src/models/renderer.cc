@@ -46,7 +46,10 @@ void Renderer::InitObjectModel() {
   shader_program_.enableAttributeArray("aPos");
 
   ebo_.bind();
-  ebo_.allocate(faces_.data(), object_->GetFaceCount() * sizeof(faces_[0]));
+  ebo_.allocate(faces_.data(), sizeof(faces_[0]) * faces_.size());
+  
+  shader_program_.bind();
+  
   vao_.release();
   ebo_.release();
   vbo_.release();
@@ -107,7 +110,7 @@ void Renderer::DrawModel() {
   // Draw lines 
   glLineStipple(1, 0x00FF);
   glEnable(GL_LINE_STRIP);
-    glDrawElements(GL_TRIANGLES, object_->GetFaceCount(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
   glDisable(GL_LINE_STRIP);
 
   // Draw points

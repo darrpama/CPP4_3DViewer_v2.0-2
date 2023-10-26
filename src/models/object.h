@@ -48,7 +48,7 @@ class Object {
   std::vector<Vertex> GetVertices();
   std::vector<Face> GetFaces();
   QVector<GLfloat> GetFlattenedVertices();
-  QVector<unsigned int> GetFlattenedFaces();
+  QVector<GLuint> GetFlattenedFaces();
 
   std::vector<std::vector<unsigned>> faces;
 
