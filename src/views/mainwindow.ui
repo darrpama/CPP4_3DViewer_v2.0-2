@@ -306,7 +306,7 @@ background-color: rgba(225,225,225,0.1);
          <enum>QTabWidget::Triangular</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideLeft</enum>
@@ -365,7 +365,7 @@ background-color: rgba(225,225,225,0.1);
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="position_x">
                <property name="styleSheet">
-                <string notr="true">color: black;</string>
+                <string notr="true"/>
                </property>
                <property name="decimals">
                 <number>3</number>
@@ -374,7 +374,7 @@ background-color: rgba(225,225,225,0.1);
                 <double>-99.989999999999995</double>
                </property>
                <property name="singleStep">
-                <double>0.001000000000000</double>
+                <double>0.100000000000000</double>
                </property>
               </widget>
              </item>
@@ -414,6 +414,9 @@ background-color: rgba(225,225,225,0.1);
                <property name="minimum">
                 <double>-99.989999999999995</double>
                </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -451,6 +454,9 @@ background-color: rgba(225,225,225,0.1);
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
                </property>
               </widget>
              </item>
@@ -517,7 +523,7 @@ background-color: none;</string>
                 <double>-99.989999999999995</double>
                </property>
                <property name="singleStep">
-                <double>0.001000000000000</double>
+                <double>0.100000000000000</double>
                </property>
               </widget>
              </item>
@@ -546,6 +552,9 @@ background-color: none;</string>
                <property name="minimum">
                 <double>-99.989999999999995</double>
                </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
               </widget>
              </item>
              <item row="2" column="0">
@@ -572,6 +581,9 @@ background-color: none;</string>
                </property>
                <property name="minimum">
                 <double>-99.989999999999995</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
                </property>
               </widget>
              </item>

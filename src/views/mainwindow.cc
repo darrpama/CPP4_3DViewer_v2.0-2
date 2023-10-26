@@ -74,16 +74,20 @@ void MainWindow::on_position_z_valueChanged(double z) {
 
 void MainWindow::on_rotation_x_valueChanged(double x) {
   controller_.ApplyRotationX((float) x);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_rotation_y_valueChanged(double y) {
   controller_.ApplyRotationY((float) y);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_rotation_z_valueChanged(double z) {
   controller_.ApplyRotationZ((float) z);
+  canvas_->UpdateWidget();
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {
   controller_.ApplyScale((float) x);
+  canvas_->UpdateWidget();
 }

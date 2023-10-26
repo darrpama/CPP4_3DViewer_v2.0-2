@@ -14,6 +14,11 @@ using GLuint = unsigned int;
 namespace s21
 {
 
+enum coordinate {
+  x,
+  y,
+  z
+};
 struct Vertex {
   float x{}, y{}, z{};
 };
@@ -54,14 +59,19 @@ class Object {
 
   void SetVertices(std::vector<Vertex>);
   void SetFaces(std::vector<Face>);
+  void SetVerticesInFaces(unsigned);
   void AddVertex(Vertex);
   void AddFace(Face);
   void Clear();
   size_t GetVertexCount();
   unsigned GetFaceCount();
   unsigned GetEdgeCount();
+  float GetOffset(coordinate);
+  void SetOffset(coordinate, float);
+  float GetAngle(coordinate);
+  void SetAngle(coordinate, float);
   void CountEdges();
-  void SetVerticesInFaces(unsigned);
+ 
 
  private:
   std::vector<Vertex> vertices_;
@@ -72,6 +82,12 @@ class Object {
   unsigned face_count_{};
   unsigned edge_count_{};
   unsigned vertices_in_faces_{};
+  float current_x_offset_{};
+  float current_y_offset_{};
+  float current_z_offset_{};
+  float current_x_angle_{};
+  float current_y_angle_{};
+  float current_z_angle_{};
 };
 
 }

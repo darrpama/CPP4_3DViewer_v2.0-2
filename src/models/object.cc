@@ -75,6 +75,50 @@ unsigned Object::GetEdgeCount() {
   return edge_count_;
 }
 
+float  Object::GetOffset(coordinate coord) {
+  if(coord == x) {
+    return current_x_offset_;
+  } else if (coord == y) {
+    return current_y_offset_;
+  } else if (coord == z) {
+    return current_z_offset_;
+  } else {
+    return 0;
+  }
+}
+
+void Object::SetOffset(coordinate coord, float offset) {
+  if(coord == x) {
+    current_x_offset_ = offset;
+  } else if (coord == y) {
+    current_y_offset_ = offset;
+  } else if (coord == z) {
+    current_z_offset_ = offset;
+  }
+}
+
+float Object::GetAngle(coordinate coord) {
+  if(coord == x) {
+    return current_x_angle_;
+  } else if (coord == y) {
+    return current_y_angle_;
+  } else if (coord == z) {
+    return current_z_angle_;
+  } else {
+    return 0;
+  }
+}
+
+void Object::SetAngle(coordinate coord, float angle) {
+  if(coord == x) {
+    current_x_angle_ = angle;
+  } else if (coord == y) {
+    current_y_angle_ = angle;
+  } else if (coord == z) {
+    current_z_angle_ = angle;
+  }
+}
+
 void Object::CountEdges() {
   std::unordered_set<std::vector<unsigned>, VectorHash, VectorEqual> edges;
   for (const auto& face : faces_) {
