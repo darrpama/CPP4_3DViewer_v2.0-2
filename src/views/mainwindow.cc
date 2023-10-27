@@ -15,6 +15,9 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   upload_button_ = findChild<QPushButton*>("uploadButton");
   filepath_label_ = findChild<QLabel*>("filepath_label");
 
+  // color buttons
+  background_color_button_ = findChild<QPushButton*>("background_color");
+
   // projection
   central_projection_radio_ = findChild<QRadioButton*>("central_projection_radio");
   parallel_projection_radio_ = findChild<QRadioButton*>("parallel_projection_radio");
@@ -109,7 +112,12 @@ void MainWindow::on_scale_control_valueChanged(double x) {
 }
 
 void MainWindow::on_background_color_clicked() {
-  controller_.SetBackgroundColor(QColorDialog::getColor());
+  QColor color = QColorDialog::getColor();
+  controller_.SetBackgroundColor(color);
+  background_color_button_->setStyleSheet("background-color: rgb(" +
+                      QString::number(color.red()) + ", " +
+                      QString::number(color.green()) + ", " +
+                      QString::number(color.blue()) + ");");
   canvas_->UpdateWidget();
 }
 
