@@ -110,9 +110,12 @@ void Renderer::CalculateCamera() {
   
   float r = 3.0f * cos(yy);
   
-  float xpos = camera_target_.x() + r * sin(xx);
-  float ypos = camera_target_.y() + 3.0f * sin(yy);
-  float zpos = camera_target_.z() + r * cos(xx);
+  // float xpos = camera_target_.x() + r * sin(xx);
+  // float ypos = camera_target_.y() + 3.0f * sin(yy);
+  // float zpos = camera_target_.z() + r * cos(xx);
+  float xpos = camera_target_.x() + 0;
+  float ypos = camera_target_.y() + 0;
+  float zpos = camera_target_.z() + 2;
 
   camera_pos_ = QVector3D(xpos, ypos, zpos) + camera_target_;
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
@@ -122,9 +125,8 @@ void Renderer::SetCamera() {
   shader_program_.setUniformValueArray("view", &view_, 1);
   projection_.setToIdentity();
   view_.setToIdentity();
-
   projection_type_
-      ? projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f)
+      ? projection_.perspective(65.0f, (float) height_ / width_, 0.1f, 100.0f)
       : projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
   std::cout << "projection type: " << projection_type_ << std::endl;
   view_.lookAt(camera_pos_, camera_target_, camera_up_);
