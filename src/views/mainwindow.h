@@ -59,6 +59,7 @@ private:
   QDoubleSpinBox *scale_z_;
   QRadioButton *central_projection_radio_;
   QRadioButton *parallel_projection_radio_;
+  QPushButton *background_color_button_;
 
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
