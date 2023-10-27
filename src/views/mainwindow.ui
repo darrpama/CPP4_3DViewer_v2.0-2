@@ -290,7 +290,7 @@ background-color: rgba(225,225,225,0.1);
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideLeft</enum>

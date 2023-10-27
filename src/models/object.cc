@@ -76,11 +76,11 @@ unsigned Object::GetEdgeCount() {
 }
 
 float  Object::GetOffset(coordinate coord) {
-  if(coord == x) {
+  if(coord == X) {
     return current_x_offset_;
-  } else if (coord == y) {
+  } else if (coord == Y) {
     return current_y_offset_;
-  } else if (coord == z) {
+  } else if (coord == Z) {
     return current_z_offset_;
   } else {
     return 0;
@@ -88,21 +88,21 @@ float  Object::GetOffset(coordinate coord) {
 }
 
 void Object::SetOffset(coordinate coord, float offset) {
-  if(coord == x) {
+  if(coord == X) {
     current_x_offset_ = offset;
-  } else if (coord == y) {
+  } else if (coord == Y) {
     current_y_offset_ = offset;
-  } else if (coord == z) {
+  } else if (coord == Z) {
     current_z_offset_ = offset;
   }
 }
 
 float Object::GetAngle(coordinate coord) {
-  if(coord == x) {
+  if(coord == X) {
     return current_x_angle_;
-  } else if (coord == y) {
+  } else if (coord == Y) {
     return current_y_angle_;
-  } else if (coord == z) {
+  } else if (coord == Z) {
     return current_z_angle_;
   } else {
     return 0;
@@ -110,11 +110,11 @@ float Object::GetAngle(coordinate coord) {
 }
 
 void Object::SetAngle(coordinate coord, float angle) {
-  if(coord == x) {
+  if(coord == X) {
     current_x_angle_ = angle;
-  } else if (coord == y) {
+  } else if (coord == Y) {
     current_y_angle_ = angle;
-  } else if (coord == z) {
+  } else if (coord == Z) {
     current_z_angle_ = angle;
   }
 }

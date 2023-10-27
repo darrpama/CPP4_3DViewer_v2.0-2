@@ -14,11 +14,7 @@ using GLuint = unsigned int;
 namespace s21
 {
 
-enum coordinate {
-  x,
-  y,
-  z
-};
+enum coordinate {X, Y, Z};
 struct Vertex {
   float x{}, y{}, z{};
 };
