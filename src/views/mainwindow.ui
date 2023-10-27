@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1388</width>
-    <height>931</height>
+    <height>840</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1147</width>
-    <height>500</height>
+    <height>840</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -294,7 +294,7 @@
            <property name="minimumSize">
             <size>
              <width>300</width>
-             <height>240</height>
+             <height>160</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -667,13 +667,13 @@
            <property name="minimumSize">
             <size>
              <width>300</width>
-             <height>250</height>
+             <height>240</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>1000</width>
-             <height>250</height>
+             <height>240</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -681,7 +681,7 @@
 </string>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="tab_4">
             <attribute name="title">
@@ -852,13 +852,13 @@
            <property name="minimumSize">
             <size>
              <width>300</width>
-             <height>120</height>
+             <height>100</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>1000</width>
-             <height>120</height>
+             <height>100</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -871,60 +871,54 @@
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
            </property>
-           <widget class="QWidget" name="">
-            <property name="geometry">
-             <rect>
-              <x>70</x>
-              <y>20</y>
-              <width>146</width>
-              <height>92</height>
-             </rect>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Vertex count</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Face count</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Edge count</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLabel" name="label_13">
-               <property name="text">
-                <string>TextLabel</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Vertex count</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>Face count</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>Edge count</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
