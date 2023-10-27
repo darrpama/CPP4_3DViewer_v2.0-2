@@ -63,12 +63,21 @@ void Model::SetParallelProjection() {
   render_.SetParallelProjection();
 }
 
-
+// PARSE
 void Model::ParseObjFile(std::string &file_path) {
   object_->Clear();
   parser_.SetFilePath(file_path);
   parser_.Parse();
   render_.InitObjectModel();
 }
+
+// COLORS
+void Model::SetBackgroundColor(QColor color) {
+  render_.SetBackgroundColor(color);
+}
+
+void Model::SetPointsColor(QColor color) {}
+
+void Model::SetLinesColor(QColor color) {}
 
 }  // namespace s21

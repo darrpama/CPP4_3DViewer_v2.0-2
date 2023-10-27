@@ -234,7 +234,7 @@ background-color: rgba(225,225,225,0.1);
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QPushButton" name="pushButton_6">
+             <widget class="QPushButton" name="background_color">
               <property name="styleSheet">
                <string notr="true">color:white;</string>
               </property>
@@ -244,7 +244,7 @@ background-color: rgba(225,225,225,0.1);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_8">
+             <widget class="QPushButton" name="points_color">
               <property name="styleSheet">
                <string notr="true">background-color:red;</string>
               </property>
@@ -254,7 +254,7 @@ background-color: rgba(225,225,225,0.1);
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_9">
+             <widget class="QPushButton" name="lines_color">
               <property name="styleSheet">
                <string notr="true">background-color:cyan;</string>
               </property>

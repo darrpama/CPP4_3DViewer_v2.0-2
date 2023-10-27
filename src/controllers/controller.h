@@ -33,7 +33,11 @@ class Controller {
   void ApplyRotationY(float);
   void ApplyRotationZ(float);
   void ApplyScale(float);
-
+  
+  // colors
+  void SetBackgroundColor(QColor);
+  void SetPointsColor(QColor);
+  void SetLinesColor(QColor);
 
  private:
   Model *model_;

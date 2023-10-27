@@ -13,6 +13,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QColorDialog>
 #include <QPalette>
 
 QT_BEGIN_NAMESPACE
@@ -39,6 +40,7 @@ class MainWindow : public QMainWindow
   void on_rotation_y_valueChanged(double);
   void on_rotation_z_valueChanged(double);
   void on_scale_control_valueChanged(double);
+  void on_background_color_clicked();
 
 private:
   s21::Controller controller_;

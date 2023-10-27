@@ -13,6 +13,7 @@ void Renderer::InitOpenGL() {
   projection_type_ = true;
   move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor_ = 1.0f;
+  background_color_ = QColor();
 
   shader_program_.create();
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
@@ -60,7 +61,12 @@ void Renderer::SetViewPort(int w, int h) {
 }
 
 void Renderer::InitPaint() {
-  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+  glClearColor(
+    background_color_.red() / 255.0f,
+    background_color_.green() / 255.0f,
+    background_color_.blue() / 255.0f,
+    1.0f
+  );
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -125,5 +131,18 @@ void Renderer::SetCamera() {
 
   shader_program_.setUniformValueArray("projection", &projection_, 1);
 }
+
+void Renderer::SetBackgroundColor(QColor color) {
+  background_color_ = color;
+}
+
+void Renderer::SetPointsColor(QColor color) {
+
+}
+
+void Renderer::SetLinesColor(QColor color) {
+
+}
+
 
 }  // namespace s21

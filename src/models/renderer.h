@@ -31,6 +31,9 @@ class Renderer {
   void SetCamera();
   void SetCentralProjection() {projection_type_ = true;}
   void SetParallelProjection() {projection_type_ = false;}
+  void SetBackgroundColor(QColor);
+  void SetPointsColor(QColor);
+  void SetLinesColor(QColor);
   
  private:
   Object *object_;
@@ -41,6 +44,11 @@ class Renderer {
   float scale_factor_;
   QVector<GLfloat> vertices_;
   QVector<GLuint> faces_;
+
+  // COLORS
+  QColor background_color_;
+  QColor points_color_;
+  QColor lines_color_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

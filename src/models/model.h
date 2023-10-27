@@ -37,6 +37,11 @@ class Model {
   void SetCentralProjection();
   void SetParallelProjection();
 
+// COLORS
+  void SetBackgroundColor(QColor);
+  void SetPointsColor(QColor);
+  void SetLinesColor(QColor);
+
  private:
   Object *object_;
   Renderer render_;

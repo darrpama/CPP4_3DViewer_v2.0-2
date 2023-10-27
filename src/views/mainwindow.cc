@@ -108,3 +108,8 @@ void MainWindow::on_scale_control_valueChanged(double x) {
   canvas_->UpdateWidget();
 }
 
+void MainWindow::on_background_color_clicked() {
+  controller_.SetBackgroundColor(QColorDialog::getColor());
+  canvas_->UpdateWidget();
+}
+
