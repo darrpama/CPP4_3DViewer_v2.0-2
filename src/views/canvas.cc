@@ -14,7 +14,7 @@ void Canvas::initializeGL() {
 }
 
 void Canvas::paintGL() {
-  controller_->RenderObject();
+  controller_->PaintGL();
 }
 
 void Canvas::resizeGL(int w, int h) {

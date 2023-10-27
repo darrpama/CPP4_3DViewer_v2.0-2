@@ -24,12 +24,13 @@ class Renderer {
   void InitObjectModel();
   void InitOpenGL();
   void SetViewPort(int, int);
-  void SetProjectionMatrix();
-  void RenderObject();
+  void PaintGL();
+  void InitPaint();
   void DrawModel();
   void CalculateCamera();
-  void DrawVertices(std::vector<Vertex> *);
-  void PrintFaces();
+  void SetCamera();
+  void SetCentralProjection() {projection_type_ = true;}
+  void SetParallelProjection() {projection_type_ = false;}
   
  private:
   Object *object_;

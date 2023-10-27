@@ -11,8 +11,8 @@ void Controller::SetViewPort(int w, int h) {
   model_->SetViewPort(w, h);
 }
 
-void Controller::RenderObject() {
-  model_->RenderObject();
+void Controller::PaintGL() {
+  model_->PaintGL();
 }
 
 // Transform endpoints
@@ -47,6 +47,15 @@ void Controller::ApplyScale(float x) {
 
 void Controller::ParseObjFile(std::string &file_path) {
   model_->ParseObjFile(file_path);
+}
+
+void Controller::SetCentralProjection() {
+  model_->SetCentralProjection();
+}
+
+void Controller::SetParallelProjection() {
+  model_->SetParallelProjection();
+
 }
 
 } // namespace s21

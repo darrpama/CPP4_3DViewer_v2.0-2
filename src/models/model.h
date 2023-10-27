@@ -19,7 +19,10 @@ class Model {
 // RENDER methods
   void InitOpenGL();
   void SetViewPort(int, int);
-  void RenderObject();
+  void PaintGL();
+
+// PARSER methods
+  void ParseObjFile(std::string &);
 
 // TRANSFRORM methods
   void ApplyTranslationX(float offset);
@@ -28,12 +31,11 @@ class Model {
   void ApplyRotationX(float angle);
   void ApplyRotationY(float angle);
   void ApplyRotationZ(float angle);
-
-
   void ApplyScale(float k);
 
-// PARSER methods
-  void ParseObjFile(std::string &);
+// PROJECTION
+  void SetCentralProjection();
+  void SetParallelProjection();
 
  private:
   Object *object_;

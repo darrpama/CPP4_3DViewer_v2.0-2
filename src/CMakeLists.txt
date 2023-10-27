@@ -25,8 +25,6 @@ set(PROJECT_SOURCES
     controllers/controller.cc
     models/model.h
     models/model.cc
-    models/matrix.h
-    models/matrix.cc
     models/object.h
     models/object.cc
     models/obj_parser.h

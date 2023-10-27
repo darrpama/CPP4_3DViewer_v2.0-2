@@ -10,8 +10,14 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   ui_->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
   canvas_->SetController(&controller_);
+
+  // upload ui
   upload_button_ = findChild<QPushButton*>("uploadButton");
   filepath_label_ = findChild<QLabel*>("filepath_label");
+
+  // projection
+  central_projection_radio_ = findChild<QRadioButton*>("central_projection_radio");
+  parallel_projection_radio_ = findChild<QRadioButton*>("parallel_projection_radio");
   
   // position spins
   position_x_ = findChild<QDoubleSpinBox*>("position_x");
@@ -28,14 +34,12 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   scale_y_ = findChild<QDoubleSpinBox*>("scale_y");
   scale_z_ = findChild<QDoubleSpinBox*>("scale_z");
 
+  // set default values
   QPalette palette = upload_button_->palette();
   QColor iconColor("red");
   palette.setColor(QPalette::ButtonText, iconColor);
   upload_button_->setPalette(palette);
-
-  // // Load default object for tests TODO: should be removed in prod
-  // std::string file = "/Users/myregree/Desktop/projects/CPP4_3DViewer_v2.0-2/src/assets/objects/cube4.obj";
-  // controller_.ParseObjFile(file);
+  central_projection_radio_->setChecked(true);
 }
 
 MainWindow::~MainWindow() {
@@ -47,8 +51,20 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QSize newSize = event->size();
 }
 
+void MainWindow::on_central_projection_radio_toggled(bool checked) {
+  if (checked) controller_.SetCentralProjection();
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_parallel_projection_radio_toggled(bool checked) {
+  if (checked) controller_.SetParallelProjection();
+  canvas_->UpdateWidget();
+}
+
 void MainWindow::on_uploadButton_clicked() {
-  QString file_path = QFileDialog::getOpenFileName(this, tr("Select File"), "", tr("All Files (*.*)"));
+  QString file_path = QFileDialog::getOpenFileName(
+    this, tr("Select File"), "", tr("All Files (*.*)")
+  );
   if (!file_path.isEmpty()) {
     std::string file = file_path.toStdString();
     filepath_label_->setText(file_path);
@@ -91,3 +107,4 @@ void MainWindow::on_scale_control_valueChanged(double x) {
   controller_.ApplyScale((float) x);
   canvas_->UpdateWidget();
 }
+

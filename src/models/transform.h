@@ -5,7 +5,6 @@
 
 #include "object.h"
 #include "type.h"
-#include "matrix.h"
 
 namespace s21 {
 

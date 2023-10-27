@@ -23,13 +23,15 @@ class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
-public:
+ public:
   MainWindow(s21::Controller &controller, QWidget *parent = nullptr);
   ~MainWindow();
   void resizeEvent(QResizeEvent* event);
 
-private slots:
+ private slots:
   void on_uploadButton_clicked();
+  void on_central_projection_radio_toggled(bool);
+  void on_parallel_projection_radio_toggled(bool);
   void on_position_x_valueChanged(double);
   void on_position_y_valueChanged(double);
   void on_position_z_valueChanged(double);
@@ -53,6 +55,8 @@ private:
   QDoubleSpinBox *scale_x_;
   QDoubleSpinBox *scale_y_;
   QDoubleSpinBox *scale_z_;
+  QRadioButton *central_projection_radio_;
+  QRadioButton *parallel_projection_radio_;
 
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

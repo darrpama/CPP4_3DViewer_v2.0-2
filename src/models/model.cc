@@ -15,8 +15,8 @@ void Model::SetViewPort(int w, int h) {
   render_.SetViewPort(w, h);
 }
 
-void Model::RenderObject() {
-  render_.RenderObject();
+void Model::PaintGL() {
+  render_.PaintGL();
 }
 
 // TRANSFORM methods
@@ -54,6 +54,15 @@ void Model::ApplyScale(float k) {
   transform_.ApplyScale(k);
   render_.InitObjectModel();
 }
+
+void Model::SetCentralProjection() {
+  render_.SetCentralProjection();
+}
+
+void Model::SetParallelProjection() {
+  render_.SetParallelProjection();
+}
+
 
 void Model::ParseObjFile(std::string &file_path) {
   object_->Clear();

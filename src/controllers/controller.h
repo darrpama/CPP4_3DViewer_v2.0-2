@@ -13,20 +13,27 @@ class Controller {
   explicit Controller() : model_() {};
   explicit Controller(Model *model) : model_(model) {};
 
+  // render
   void InitOpenGL();
   void SetViewPort(int, int);
-  void RenderObject();
+  void PaintGL();
+
+  // parser
+  void ParseObjFile(std::string &);
+
+  // projection
+  void SetCentralProjection();
+  void SetParallelProjection();
+
+  // transform
   void ApplyTranslationX(float);
   void ApplyTranslationY(float);
   void ApplyTranslationZ(float);
-
   void ApplyRotationX(float);
   void ApplyRotationY(float);
   void ApplyRotationZ(float);
-
   void ApplyScale(float);
 
-  void ParseObjFile(std::string &);
 
  private:
   Model *model_;
