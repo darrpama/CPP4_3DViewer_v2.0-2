@@ -145,7 +145,7 @@ QString MainWindow::MakeColorStyle(QColor color) {
 
 
 void MainWindow::on_edge_type_none_clicked() {
-  controller_.SetEdgeType(s21::EdgeType::NONE);
+  controller_.SetEdgeType(s21::EdgeType::NO_EDGE);
   canvas_->UpdateWidget();
 }
 
@@ -162,6 +162,29 @@ void MainWindow::on_edge_type_dashed_clicked() {
 
 void MainWindow::on_edge_thikness_sliderMoved(int position) {
   controller_.SetEdgeThikness(position);
+  canvas_->UpdateWidget();
+}
+
+
+void MainWindow::on_vertice_type_none_clicked() {
+  controller_.SetVerticeType(s21::VerticeType::NO_VERTICE);
+  canvas_->UpdateWidget();
+}
+
+
+void MainWindow::on_vertice_type_circle_clicked() {
+  controller_.SetVerticeType(s21::VerticeType::CIRCLE);
+  canvas_->UpdateWidget();
+}
+
+
+void MainWindow::on_vertice_type_square_clicked() {
+  controller_.SetVerticeType(s21::VerticeType::SQUARE);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_vertice_size_sliderMoved(int position) {
+  controller_.SetVerticeSize(position);
   canvas_->UpdateWidget();
 }
 

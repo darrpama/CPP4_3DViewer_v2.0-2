@@ -31,9 +31,14 @@ class MainWindow : public QMainWindow
   QString MakeColorStyle(QColor);
 
  private slots:
+  // upload
   void on_uploadButton_clicked();
+  
+  // projection
   void on_central_projection_radio_toggled(bool);
   void on_parallel_projection_radio_toggled(bool);
+  
+  // transform
   void on_position_x_valueChanged(double);
   void on_position_y_valueChanged(double);
   void on_position_z_valueChanged(double);
@@ -41,13 +46,27 @@ class MainWindow : public QMainWindow
   void on_rotation_y_valueChanged(double);
   void on_rotation_z_valueChanged(double);
   void on_scale_control_valueChanged(double);
+  
+  // colors
   void on_background_color_clicked();
   void on_points_color_clicked();
   void on_lines_color_clicked();
+  
+  // edge type
   void on_edge_type_none_clicked();
   void on_edge_type_solid_clicked();
   void on_edge_type_dashed_clicked();
+  
+  // edge thikness
   void on_edge_thikness_sliderMoved(int);
+  
+  // vertice types
+  void on_vertice_type_none_clicked();
+  void on_vertice_type_circle_clicked();
+  void on_vertice_type_square_clicked();
+
+  // vertice size
+  void on_vertice_size_sliderMoved(int);
 
 private:
   s21::Controller controller_;

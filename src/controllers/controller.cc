@@ -80,5 +80,14 @@ void Controller::SetEdgeThikness(int position) {
   model_->SetEdgeThikness(position);
 }
 
+// VERTICES
+void Controller::SetVerticeType(VerticeType type) {
+  model_->SetVerticeType(type);
+}
+
+void Controller::SetVerticeSize(int size) {
+  model_->SetVerticeSize(size);
+}
+
 
 } // namespace s21

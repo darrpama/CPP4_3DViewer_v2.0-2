@@ -43,6 +43,10 @@ class Controller {
   void SetEdgeType(EdgeType);
   void SetEdgeThikness(int);
 
+  // vertices
+  void SetVerticeType(VerticeType);
+  void SetVerticeSize(int);
+
  private:
   Model *model_;
 };

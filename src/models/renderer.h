@@ -17,7 +17,8 @@
 
 namespace s21 {
 
-enum EdgeType {NONE, SOLID, DASHED};
+enum EdgeType {NO_EDGE, SOLID, DASHED};
+enum VerticeType {NO_VERTICE, CIRCLE, SQUARE};
 
 class Renderer {
  public:
@@ -28,16 +29,20 @@ class Renderer {
   void SetViewPort(int, int);
   void PaintGL();
   void InitPaint();
-  void DrawModel();
+  void DrawLines();
+  void DrawPoints();
   void CalculateCamera();
   void SetCamera();
-  void SetCentralProjection() {projection_type_ = true;}
-  void SetParallelProjection() {projection_type_ = false;}
-  void SetBackgroundColor(QColor color) {background_color_ = color; }
-  void SetPointsColor(QColor color) {points_color_ = color; }
-  void SetLinesColor(QColor color) {lines_color_ = color; }
-  void SetEdgeType(EdgeType);
-  void SetEdgeThikness(int);
+  void SetCentralProjection() { projection_type_ = true; }
+  void SetParallelProjection() { projection_type_ = false; }
+  void SetBackgroundColor(QColor color) { background_color_ = color; }
+  void SetPointsColor(QColor color) { points_color_ = color; }
+  void SetLinesColor(QColor color) { lines_color_ = color; }
+  void SetEdgeType(EdgeType type) { edge_type_ = type; }
+  void SetVerticeType(VerticeType type) { vertice_type_ = type; }
+  void SetEdgeThikness(int value) { edge_thikness_ = value; }
+  void SetVerticeSize(int value) { vertice_size_ = value; }
+
   QVector3D NormalizeColor(QColor);
 
  private:
@@ -55,9 +60,13 @@ class Renderer {
   QColor points_color_;
   QColor lines_color_;
 
-  // EDGE TYPES
+  // EDGE
   EdgeType edge_type_;
-  int edge_thikness_;
+  int edge_thikness_ = 1;
+
+  // VERTICE
+  VerticeType vertice_type_;
+  int vertice_size_ = 1;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

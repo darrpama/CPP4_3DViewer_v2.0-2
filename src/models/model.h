@@ -43,8 +43,12 @@ class Model {
   void SetLinesColor(QColor);
 
 // EDGE
-  void SetEdgeType(EdgeType);
-  void SetEdgeThikness(int);
+void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }
+void SetEdgeThikness(int position) { render_.SetEdgeThikness(position); }
+
+// VERTICES
+void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
+void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
 
  private:
   Object *object_;
