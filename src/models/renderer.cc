@@ -10,10 +10,13 @@ Renderer::~Renderer() {
 void Renderer::InitOpenGL() {
   if (object_ == nullptr) return;
 
+  background_color_ = QColor(0,0,0);
+  points_color_ = QColor(0,255,255);
+  lines_color_ = QColor(255,0,0);
+
   projection_type_ = true;
   move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor_ = 1.0f;
-  background_color_ = QColor();
 
   shader_program_.create();
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
@@ -90,13 +93,28 @@ void Renderer::DrawModel() {
   // Draw lines 
   glLineStipple(1, 0x00FF);
   glEnable(GL_LINE_STRIP);
+    QVector3D lines_color(
+      lines_color_.red() / 255.0f,
+      lines_color_.green() / 255.0f,
+      lines_color_.blue() / 255.0f
+    );
+    shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
     glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
   glDisable(GL_LINE_STRIP);
 
   // Draw points
   glEnable(GL_POINT_SMOOTH);
     glPointSize(10);
-    QVector3D vertex_color(1.0, 0.0, 0.0);
+    // glColor3f(
+    //   points_color_.red() / 255.0f,
+    //   points_color_.green() / 255.0f,
+    //   points_color_.blue() / 255.0f
+    // );
+    QVector3D vertex_color(
+      points_color_.red() / 255.0f,
+      points_color_.green() / 255.0f,
+      points_color_.blue() / 255.0f
+    );
     shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
     glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
   glDisable(GL_POINT_SMOOTH);
@@ -105,8 +123,8 @@ void Renderer::DrawModel() {
 }
 
 void Renderer::CalculateCamera() {
-  float xx = x_rot_ * M_PI / 180;
-  float yy = y_rot_ * M_PI / 180;
+  float xx = x_rotation_ * M_PI / 180;
+  float yy = y_rotation_ * M_PI / 180;
   
   float r = 3.0f * cos(yy);
   
@@ -128,22 +146,9 @@ void Renderer::SetCamera() {
   projection_type_
       ? projection_.perspective(65.0f, (float) height_ / width_, 0.1f, 100.0f)
       : projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
-  std::cout << "projection type: " << projection_type_ << std::endl;
   view_.lookAt(camera_pos_, camera_target_, camera_up_);
 
   shader_program_.setUniformValueArray("projection", &projection_, 1);
-}
-
-void Renderer::SetBackgroundColor(QColor color) {
-  background_color_ = color;
-}
-
-void Renderer::SetPointsColor(QColor color) {
-
-}
-
-void Renderer::SetLinesColor(QColor color) {
-
 }
 
 

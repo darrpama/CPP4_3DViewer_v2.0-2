@@ -263,7 +263,7 @@
             <item>
              <widget class="QPushButton" name="points_color">
               <property name="styleSheet">
-               <string notr="true">background-color:red;</string>
+               <string notr="true">background-color:cyan;</string>
               </property>
               <property name="text">
                <string/>
@@ -273,7 +273,7 @@
             <item>
              <widget class="QPushButton" name="lines_color">
               <property name="styleSheet">
-               <string notr="true">background-color:cyan;</string>
+               <string notr="true">background-color:red;</string>
               </property>
               <property name="text">
                <string/>

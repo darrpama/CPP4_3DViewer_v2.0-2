@@ -41,6 +41,9 @@ class MainWindow : public QMainWindow
   void on_rotation_z_valueChanged(double);
   void on_scale_control_valueChanged(double);
   void on_background_color_clicked();
+  void on_points_color_clicked();
+  void on_lines_color_clicked();
+  QString MakeColorStyle(QColor);
 
 private:
   s21::Controller controller_;
@@ -60,6 +63,8 @@ private:
   QRadioButton *central_projection_radio_;
   QRadioButton *parallel_projection_radio_;
   QPushButton *background_color_button_;
+  QPushButton *points_color_button_;
+  QPushButton *lines_color_button_;
 
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

@@ -49,8 +49,6 @@ void OBJParser::Parse() {
     }
   }
   object_->SetFaces(triangulated_faces);
-
-  // std::cout << "Parser: i am done!" << std::endl;
 }
 
 void s21::OBJParser::SetFilePath(const std::string &file_path) {

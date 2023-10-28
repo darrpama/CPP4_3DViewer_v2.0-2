@@ -17,6 +17,8 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
 
   // color buttons
   background_color_button_ = findChild<QPushButton*>("background_color");
+  points_color_button_ = findChild<QPushButton*>("points_color");
+  lines_color_button_ = findChild<QPushButton*>("lines_color");
 
   // projection
   central_projection_radio_ = findChild<QRadioButton*>("central_projection_radio");
@@ -38,10 +40,6 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   scale_z_ = findChild<QDoubleSpinBox*>("scale_z");
 
   // set default values
-  QPalette palette = upload_button_->palette();
-  QColor iconColor("red");
-  palette.setColor(QPalette::ButtonText, iconColor);
-  upload_button_->setPalette(palette);
   central_projection_radio_->setChecked(true);
 }
 
@@ -114,10 +112,28 @@ void MainWindow::on_scale_control_valueChanged(double x) {
 void MainWindow::on_background_color_clicked() {
   QColor color = QColorDialog::getColor();
   controller_.SetBackgroundColor(color);
-  background_color_button_->setStyleSheet("background-color: rgb(" +
-                      QString::number(color.red()) + ", " +
-                      QString::number(color.green()) + ", " +
-                      QString::number(color.blue()) + ");");
+  background_color_button_->setStyleSheet(MakeColorStyle(color));
   canvas_->UpdateWidget();
+}
+
+void MainWindow::on_points_color_clicked() {
+  QColor color = QColorDialog::getColor();
+  controller_.SetPointsColor(color);
+  points_color_button_->setStyleSheet(MakeColorStyle(color));
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_lines_color_clicked() {
+  QColor color = QColorDialog::getColor();
+  controller_.SetLinesColor(color);
+  lines_color_button_->setStyleSheet(MakeColorStyle(color));
+  canvas_->UpdateWidget();
+}
+
+QString MainWindow::MakeColorStyle(QColor color) {
+  return "background-color: rgb(" +
+    QString::number(color.red()) + ", " +
+    QString::number(color.green()) + ", " +
+    QString::number(color.blue()) + ");";
 }
 

@@ -1,6 +1,8 @@
 #version 120
-varying vec4 FragColor;
+
+uniform vec3 FragColor;
+
 void main()
 {
-   gl_FragColor = vec4(1.0f, 0.0f, 0.2f, 1.0f);
+   gl_FragColor = vec4(FragColor, 1.0f);
 }

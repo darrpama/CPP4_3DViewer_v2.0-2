@@ -63,7 +63,11 @@ void Controller::SetBackgroundColor(QColor color) {
   model_->SetBackgroundColor(color);
 }
 
-void Controller::SetPointsColor(QColor color) {}
-void Controller::SetLinesColor(QColor color) {}
+void Controller::SetPointsColor(QColor color) {
+  model_->SetPointsColor(color);
+}
+void Controller::SetLinesColor(QColor color) {
+  model_->SetLinesColor(color);
+}
 
 } // namespace s21
