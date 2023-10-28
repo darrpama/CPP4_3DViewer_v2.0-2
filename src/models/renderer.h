@@ -37,7 +37,8 @@ class Renderer {
   void SetPointsColor(QColor color) {points_color_ = color; }
   void SetLinesColor(QColor color) {lines_color_ = color; }
   void SetEdgeType(EdgeType);
-  QVector3D NormalizeColor(QColor color);
+  void SetEdgeThikness(int);
+  QVector3D NormalizeColor(QColor);
 
  private:
   Object *object_;
@@ -56,6 +57,7 @@ class Renderer {
 
   // EDGE TYPES
   EdgeType edge_type_;
+  int edge_thikness_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

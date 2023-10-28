@@ -744,7 +744,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QGroupBox" name="groupBox_9">
+              <widget class="QGroupBox" name="edge_thikness_group">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -760,9 +760,12 @@
                </property>
                <layout class="QGridLayout" name="gridLayout_9">
                 <item row="0" column="0">
-                 <widget class="QSlider" name="horizontalSlider">
+                 <widget class="QSlider" name="edge_thikness">
                   <property name="styleSheet">
                    <string notr="true">background-color:none;</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>

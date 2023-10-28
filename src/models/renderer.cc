@@ -94,7 +94,7 @@ void Renderer::DrawModel() {
 
   // Draw lines
   if (edge_type_ != EdgeType::NONE) {
-    glLineWidth(5.0f);
+    glLineWidth(static_cast<float>(edge_thikness_));
     if (edge_type_ == EdgeType::SOLID) {
       glEnable(GL_LINE_STRIP);
     }
@@ -157,6 +157,10 @@ void Renderer::SetCamera() {
 
 void Renderer::SetEdgeType(EdgeType type) {
   edge_type_ = type;
+}
+
+void Renderer::SetEdgeThikness(int value) {
+  edge_thikness_ = value;
 }
 
 QVector3D Renderer::NormalizeColor(QColor color) {

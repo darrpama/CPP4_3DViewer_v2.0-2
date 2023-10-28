@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
   MainWindow(s21::Controller &controller, QWidget *parent = nullptr);
   ~MainWindow();
   void resizeEvent(QResizeEvent* event);
+  QString MakeColorStyle(QColor);
 
  private slots:
   void on_uploadButton_clicked();
@@ -46,7 +47,7 @@ class MainWindow : public QMainWindow
   void on_edge_type_none_clicked();
   void on_edge_type_solid_clicked();
   void on_edge_type_dashed_clicked();
-  QString MakeColorStyle(QColor);
+  void on_edge_thikness_sliderMoved(int);
 
 private:
   s21::Controller controller_;

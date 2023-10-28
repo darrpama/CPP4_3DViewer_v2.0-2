@@ -159,3 +159,9 @@ void MainWindow::on_edge_type_dashed_clicked() {
   canvas_->UpdateWidget();
 }
 
+
+void MainWindow::on_edge_thikness_sliderMoved(int position) {
+  controller_.SetEdgeThikness(position);
+  canvas_->UpdateWidget();
+}
+

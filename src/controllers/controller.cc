@@ -71,9 +71,13 @@ void Controller::SetLinesColor(QColor color) {
   model_->SetLinesColor(color);
 }
 
-// EDGE TYPE
+// EDGE
 void Controller::SetEdgeType(EdgeType type) {
   model_->SetEdgeType(type);
+}
+
+void Controller::SetEdgeThikness(int position) {
+  model_->SetEdgeThikness(position);
 }
 
 

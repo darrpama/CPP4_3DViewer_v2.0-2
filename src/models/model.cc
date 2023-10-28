@@ -87,9 +87,13 @@ void Model::SetLinesColor(QColor color) {
   render_.InitObjectModel();
 }
 
-// EDGE TYPES
+// EDGE
 void Model::SetEdgeType(EdgeType type) {
   render_.SetEdgeType(type);
+}
+
+void Model::SetEdgeThikness(int position) {
+  render_.SetEdgeThikness(position);
 }
 
 
