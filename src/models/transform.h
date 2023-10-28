@@ -2,6 +2,7 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 
 #include <cmath>
+#include <QMatrix4x4>
 
 #include "object.h"
 #include "type.h"
@@ -10,21 +11,19 @@ namespace s21 {
 
 class Transform {
  public:
-  Transform(Object *obj) : object_(obj) {};
-  void ApplyTranslationX(float offset);
-  void ApplyTranslationY(float offset);
-  void ApplyTranslationZ(float offset);
+  Transform();
+  void UpdateTranslationMatrix(float, float, float);
+  void UpdateRotatitionMatrix(float, float, float);
+  void UpdateScaleMatrix(float);
 
-  void ApplyRotationX(float angle);
-  void ApplyRotationY(float angle);
-  void ApplyRotationZ(float angle);
+  void CalculateTransformMatrix();
+  QMatrix4x4 GetTransformMatrix();
 
-  void ApplyScale(float k);
-  void SetObject(Object *);
-  
  private:
-  Object *object_;
-
+  QMatrix4x4 TranslationMatrix;
+  QMatrix4x4 RotationMatrix;
+  QMatrix4x4 ScaleMatrix;
+  QMatrix4x4 TransformMatrix;
 };
 }  // namespace s21
 

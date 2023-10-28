@@ -71,7 +71,7 @@ class Renderer {
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
   QOpenGLShaderProgram shader_program_;
-  QMatrix4x4 view_, projection_;
+  QMatrix4x4 view_, projection_, transform_;
   QVector3D camera_target_, camera_pos_, camera_up_, move_object_;
   QQuaternion rotation_;
 };
