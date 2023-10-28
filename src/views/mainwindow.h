@@ -43,6 +43,9 @@ class MainWindow : public QMainWindow
   void on_background_color_clicked();
   void on_points_color_clicked();
   void on_lines_color_clicked();
+  void on_edge_type_none_clicked();
+  void on_edge_type_solid_clicked();
+  void on_edge_type_dashed_clicked();
   QString MakeColorStyle(QColor);
 
 private:
@@ -65,6 +68,11 @@ private:
   QPushButton *background_color_button_;
   QPushButton *points_color_button_;
   QPushButton *lines_color_button_;
+
+  // Edge types
+  QRadioButton *edge_type_none_;
+  QRadioButton *edge_type_solid_;
+  QRadioButton *edge_type_dashed_;
 
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

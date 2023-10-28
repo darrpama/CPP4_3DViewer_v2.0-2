@@ -39,8 +39,14 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   scale_y_ = findChild<QDoubleSpinBox*>("scale_y");
   scale_z_ = findChild<QDoubleSpinBox*>("scale_z");
 
+  // Edge types
+  edge_type_none_ = findChild<QRadioButton*>("edge_type_none");
+  edge_type_solid_ = findChild<QRadioButton*>("edge_type_solid");
+  edge_type_dashed_ = findChild<QRadioButton*>("edge_type_dashed");
+
   // set default values
   central_projection_radio_->setChecked(true);
+  edge_type_none_->setChecked(true);
 }
 
 MainWindow::~MainWindow() {
@@ -135,5 +141,21 @@ QString MainWindow::MakeColorStyle(QColor color) {
     QString::number(color.red()) + ", " +
     QString::number(color.green()) + ", " +
     QString::number(color.blue()) + ");";
+}
+
+
+void MainWindow::on_edge_type_none_clicked() {
+  controller_.SetEdgeType(s21::EdgeType::NONE);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_edge_type_solid_clicked() {
+  controller_.SetEdgeType(s21::EdgeType::SOLID);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_edge_type_dashed_clicked() {
+  controller_.SetEdgeType(s21::EdgeType::DASHED);
+  canvas_->UpdateWidget();
 }
 

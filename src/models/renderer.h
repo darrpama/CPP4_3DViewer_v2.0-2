@@ -17,6 +17,8 @@
 
 namespace s21 {
 
+enum EdgeType {NONE, SOLID, DASHED};
+
 class Renderer {
  public:
   Renderer(Object *obj) : object_(obj) {};
@@ -34,6 +36,8 @@ class Renderer {
   void SetBackgroundColor(QColor color) {background_color_ = color; }
   void SetPointsColor(QColor color) {points_color_ = color; }
   void SetLinesColor(QColor color) {lines_color_ = color; }
+  void SetEdgeType(EdgeType);
+  QVector3D NormalizeColor(QColor color);
 
  private:
   Object *object_;
@@ -49,6 +53,9 @@ class Renderer {
   QColor background_color_;
   QColor points_color_;
   QColor lines_color_;
+
+  // EDGE TYPES
+  EdgeType edge_type_;
   
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;

@@ -66,8 +66,15 @@ void Controller::SetBackgroundColor(QColor color) {
 void Controller::SetPointsColor(QColor color) {
   model_->SetPointsColor(color);
 }
+
 void Controller::SetLinesColor(QColor color) {
   model_->SetLinesColor(color);
 }
+
+// EDGE TYPE
+void Controller::SetEdgeType(EdgeType type) {
+  model_->SetEdgeType(type);
+}
+
 
 } // namespace s21

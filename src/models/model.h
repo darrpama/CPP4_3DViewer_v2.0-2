@@ -42,6 +42,9 @@ class Model {
   void SetPointsColor(QColor);
   void SetLinesColor(QColor);
 
+// EDGE TYPES
+  void SetEdgeType(EdgeType);
+
  private:
   Object *object_;
   Renderer render_;

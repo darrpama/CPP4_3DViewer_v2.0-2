@@ -39,6 +39,9 @@ class Controller {
   void SetPointsColor(QColor);
   void SetLinesColor(QColor);
 
+  // edge types
+  void SetEdgeType(EdgeType);
+
  private:
   Model *model_;
 };

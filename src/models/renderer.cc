@@ -10,6 +10,7 @@ Renderer::~Renderer() {
 void Renderer::InitOpenGL() {
   if (object_ == nullptr) return;
 
+  // colors
   background_color_ = QColor(0,0,0);
   points_color_ = QColor(0,255,255);
   lines_color_ = QColor(255,0,0);
@@ -17,6 +18,8 @@ void Renderer::InitOpenGL() {
   projection_type_ = true;
   move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor_ = 1.0f;
+
+  edge_type_ = EdgeType::NONE;
 
   shader_program_.create();
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
@@ -88,33 +91,34 @@ void Renderer::DrawModel() {
   vertices_ = object_->GetFlattenedVertices();
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
-  glLineWidth(5.0f);
 
-  // Draw lines 
-  glLineStipple(1, 0x00FF);
-  glEnable(GL_LINE_STRIP);
-    QVector3D lines_color(
-      lines_color_.red() / 255.0f,
-      lines_color_.green() / 255.0f,
-      lines_color_.blue() / 255.0f
-    );
+  // Draw lines
+  if (edge_type_ != EdgeType::NONE) {
+    glLineWidth(5.0f);
+    if (edge_type_ == EdgeType::SOLID) {
+      glEnable(GL_LINE_STRIP);
+    }
+    if (edge_type_ == EdgeType::DASHED) {
+      glLineStipple(1, 0x00FF);
+      glEnable(GL_LINE_STIPPLE);
+    }
+    
+    QVector3D lines_color = NormalizeColor(lines_color_);
     shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
     glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
-  glDisable(GL_LINE_STRIP);
+    
+    if (edge_type_ == EdgeType::SOLID) {
+      glDisable(GL_LINE_STRIP);
+    }
+    if (edge_type_ == EdgeType::DASHED) {
+      glDisable(GL_LINE_STIPPLE);
+    }
+  }
 
   // Draw points
   glEnable(GL_POINT_SMOOTH);
     glPointSize(10);
-    // glColor3f(
-    //   points_color_.red() / 255.0f,
-    //   points_color_.green() / 255.0f,
-    //   points_color_.blue() / 255.0f
-    // );
-    QVector3D vertex_color(
-      points_color_.red() / 255.0f,
-      points_color_.green() / 255.0f,
-      points_color_.blue() / 255.0f
-    );
+    QVector3D vertex_color = NormalizeColor(points_color_);
     shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
     glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
   glDisable(GL_POINT_SMOOTH);
@@ -149,6 +153,18 @@ void Renderer::SetCamera() {
   view_.lookAt(camera_pos_, camera_target_, camera_up_);
 
   shader_program_.setUniformValueArray("projection", &projection_, 1);
+}
+
+void Renderer::SetEdgeType(EdgeType type) {
+  edge_type_ = type;
+}
+
+QVector3D Renderer::NormalizeColor(QColor color) {
+    return QVector3D(
+      color.red() / 255.0f,
+      color.green() / 255.0f,
+      color.blue() / 255.0f
+    );
 }
 
 

@@ -87,4 +87,10 @@ void Model::SetLinesColor(QColor color) {
   render_.InitObjectModel();
 }
 
+// EDGE TYPES
+void Model::SetEdgeType(EdgeType type) {
+  render_.SetEdgeType(type);
+}
+
+
 }  // namespace s21
