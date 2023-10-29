@@ -44,6 +44,11 @@ class Model {
   void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
   void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
 
+  // MODEL PARAMETERS
+  size_t GetVertexCount() { return object_->GetVertexCount(); }
+  size_t GetFaceCount() { return object_->GetFaceCount(); }
+  size_t GetEdgeCount() { return object_->GetEdgeCount(); }
+
  private:
   Object *object_;
   Renderer render_;

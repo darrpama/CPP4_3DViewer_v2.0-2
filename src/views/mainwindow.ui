@@ -382,10 +382,16 @@
                    <number>3</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-1000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>1000.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>0.100000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
                   </property>
                  </widget>
                 </item>
@@ -526,14 +532,26 @@
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
+                  <property name="suffix">
+                   <string> degree</string>
+                  </property>
                   <property name="decimals">
-                   <number>3</number>
+                   <number>0</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-360.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>360.000000000000000</double>
                   </property>
                   <property name="singleStep">
-                   <double>2.000000000000000</double>
+                   <double>5.000000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::DefaultStepType</enum>
+                  </property>
+                  <property name="value">
+                   <double>0.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -555,14 +573,23 @@
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
+                  <property name="suffix">
+                   <string> degree</string>
+                  </property>
                   <property name="decimals">
-                   <number>3</number>
+                   <number>0</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-360.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>360.000000000000000</double>
                   </property>
                   <property name="singleStep">
-                   <double>2.000000000000000</double>
+                   <double>5.000000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::DefaultStepType</enum>
                   </property>
                  </widget>
                 </item>
@@ -584,14 +611,23 @@
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
+                  <property name="suffix">
+                   <string> degree</string>
+                  </property>
                   <property name="decimals">
-                   <number>3</number>
+                   <number>0</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-360.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>360.000000000000000</double>
                   </property>
                   <property name="singleStep">
-                   <double>2.000000000000000</double>
+                   <double>5.000000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::DefaultStepType</enum>
                   </property>
                  </widget>
                 </item>
@@ -645,7 +681,19 @@
                    <string notr="true"/>
                   </property>
                   <property name="decimals">
-                   <number>3</number>
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.010000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
                   </property>
                  </widget>
                 </item>
@@ -681,7 +729,7 @@
 </string>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="tab_4">
             <attribute name="title">
@@ -767,6 +815,9 @@
                   <property name="minimum">
                    <number>1</number>
                   </property>
+                  <property name="sliderPosition">
+                   <number>3</number>
+                  </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -850,6 +901,9 @@
                   <property name="styleSheet">
                    <string notr="true">background-color:none;</string>
                   </property>
+                  <property name="sliderPosition">
+                   <number>10</number>
+                  </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -911,21 +965,21 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QLabel" name="label_11">
+               <widget class="QLabel" name="vertex_count_label">
                 <property name="text">
                  <string>0</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLabel" name="label_12">
+               <widget class="QLabel" name="face_count_label">
                 <property name="text">
                  <string>0</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QLabel" name="label_13">
+               <widget class="QLabel" name="edge_count_label">
                 <property name="text">
                  <string>0</string>
                 </property>

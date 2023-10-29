@@ -58,8 +58,8 @@ class Object {
   void Clear();
   void CountEdges();
   size_t GetVertexCount() { return vertex_count_; }
-  unsigned GetFaceCount() { return face_count_; }
-  unsigned GetEdgeCount() { return edge_count_; }
+  size_t GetFaceCount() { return face_count_; }
+  size_t GetEdgeCount() { return edge_count_; }
 
  private:
   std::vector<std::vector<unsigned>> faces;
@@ -67,9 +67,9 @@ class Object {
   std::vector<Face> faces_;
   float *vertices_array_;
   unsigned *faces_array_;
-  unsigned vertex_count_{};
-  unsigned face_count_{};
-  unsigned edge_count_{};
+  size_t vertex_count_{};
+  size_t face_count_{};
+  size_t edge_count_{};
   unsigned vertices_in_faces_{};
 };
 

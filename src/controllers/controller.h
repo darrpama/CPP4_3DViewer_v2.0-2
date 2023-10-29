@@ -42,6 +42,11 @@ class Controller {
   void SetVerticeType(VerticeType);
   void SetVerticeSize(int);
 
+  // object parameters
+  unsigned GetVertexCount();
+  unsigned GetFaceCount();
+  unsigned GetEdgeCount();
+
  private:
   Model *model_;
 };

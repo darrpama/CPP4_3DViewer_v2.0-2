@@ -43,12 +43,33 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   edge_type_none_ = findChild<QRadioButton*>("edge_type_none");
   edge_type_solid_ = findChild<QRadioButton*>("edge_type_solid");
   edge_type_dashed_ = findChild<QRadioButton*>("edge_type_dashed");
-  vertice_type_none_ = findChild<QRadioButton*>("vertice_type_none");
 
-  // set default values
+  // Vertice types
+  vertice_type_none_ = findChild<QRadioButton*>("vertice_type_none");
+  vertice_type_circle_ = findChild<QRadioButton*>("vertice_type_circle");
+  vertice_type_square_ = findChild<QRadioButton*>("vertice_type_square");
+
+  // Slider types
+  vertice_size_ = findChild<QSlider*>("vertice_size");
+  edge_thickness_ = findChild<QSlider*>("edge_thickness");
+
+  vertex_count_label_ = findChild<QLabel*>("vertex_count_label");
+  face_count_label_ = findChild<QLabel*>("face_count_label");
+  edge_count_label_ = findChild<QLabel*>("edge_count_label");
+
+  // Set default values
   central_projection_radio_->setChecked(true);
-  edge_type_none_->setChecked(true);
-  vertice_type_none_->setChecked(true);
+  edge_type_solid_->setChecked(true);
+  vertice_type_circle_->setChecked(true);
+}
+
+// TODO: remove hardcoded values
+void MainWindow::SetDefaultValues() {
+  controller_.SetEdgeType(s21::EdgeType::SOLID);
+  controller_.SetEdgeThikness(10);
+  controller_.SetVerticeType(s21::VerticeType::CIRCLE);
+  controller_.SetVerticeSize(3); 
+  canvas_->UpdateWidget();
 }
 
 MainWindow::~MainWindow() {
@@ -68,6 +89,10 @@ void MainWindow::on_uploadButton_clicked() {
     std::string file = file_path.toStdString();
     filepath_label_->setText(file_path);
     controller_.ParseObjFile(file);
+    vertex_count_label_->setText(QString::number(controller_.GetVertexCount()));
+    face_count_label_->setText(QString::number(controller_.GetFaceCount()));
+    edge_count_label_->setText(QString::number(controller_.GetEdgeCount()));
+    SetDefaultValues();
   }
 }
 

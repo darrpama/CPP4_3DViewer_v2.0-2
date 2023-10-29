@@ -69,5 +69,16 @@ void Controller::SetVerticeSize(int size) {
   model_->SetVerticeSize(size);
 }
 
+unsigned Controller::GetVertexCount() {
+  return model_->GetVertexCount();
+}
+
+unsigned Controller::GetFaceCount() {
+  return model_->GetFaceCount();
+}
+
+unsigned Controller::GetEdgeCount() {
+  return model_->GetEdgeCount();
+}
 
 } // namespace s21

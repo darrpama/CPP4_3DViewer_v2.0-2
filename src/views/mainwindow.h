@@ -92,6 +92,9 @@ private:
   Ui::MainWindow *ui_;
   Canvas *canvas_;
   QLabel *filepath_label_;
+  QLabel *vertex_count_label_;
+  QLabel *face_count_label_;
+  QLabel *edge_count_label_;
   QPushButton *upload_button_;
   QDoubleSpinBox *position_x_;
   QDoubleSpinBox *position_y_;
@@ -115,10 +118,18 @@ private:
 
   // Vertice types
   QRadioButton *vertice_type_none_;
+  QRadioButton *vertice_type_circle_;
+  QRadioButton *vertice_type_square_;
+
+  // Sliders
+  QSlider *vertice_size_;
+  QSlider *edge_thickness_;
 
   void ApplyTranslation();
   void ApplyRotation();
   void MakeScreenshot(QWidget*);
   void StartRecording(QWidget*);
+  void SetDefaultValues();
 };
+
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
