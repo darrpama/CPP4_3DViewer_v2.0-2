@@ -60,16 +60,6 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QSize newSize = event->size();
 }
 
-void MainWindow::on_central_projection_radio_toggled(bool checked) {
-  if (checked) controller_.SetProjectionType(s21::ProjectionType::CENTRAL);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_parallel_projection_radio_toggled(bool checked) {
-  if (checked) controller_.SetProjectionType(s21::ProjectionType::PARALLEL);
-  canvas_->UpdateWidget();
-}
-
 void MainWindow::on_uploadButton_clicked() {
   QString file_path = QFileDialog::getOpenFileName(
     this, tr("Select File"), "", tr("All Files (*.*)")
@@ -84,9 +74,9 @@ void MainWindow::on_uploadButton_clicked() {
 // position X
 void MainWindow::ApplyTranslation() {
   controller_.ApplyTranslation(
-    (float) position_x_->value(), 
-    (float) position_y_->value(), 
-    (float) position_z_->value()
+    position_x_->value(), 
+    position_y_->value(), 
+    position_z_->value()
   );
   canvas_->UpdateWidget();
 }
@@ -133,48 +123,28 @@ QString MainWindow::MakeColorStyle(QColor color) {
     QString::number(color.blue()) + ");";
 }
 
-
-void MainWindow::on_edge_type_none_clicked() {
-  controller_.SetEdgeType(s21::EdgeType::NO_EDGE);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_edge_type_solid_clicked() {
-  controller_.SetEdgeType(s21::EdgeType::SOLID);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_edge_type_dashed_clicked() {
-  controller_.SetEdgeType(s21::EdgeType::DASHED);
-  canvas_->UpdateWidget();
-}
-
-
 void MainWindow::on_edge_thikness_sliderMoved(int position) {
   controller_.SetEdgeThikness(position);
   canvas_->UpdateWidget();
 }
 
-
-void MainWindow::on_vertice_type_none_clicked() {
-  controller_.SetVerticeType(s21::VerticeType::NO_VERTICE);
-  canvas_->UpdateWidget();
-}
-
-
-void MainWindow::on_vertice_type_circle_clicked() {
-  controller_.SetVerticeType(s21::VerticeType::CIRCLE);
-  canvas_->UpdateWidget();
-}
-
-
-void MainWindow::on_vertice_type_square_clicked() {
-  controller_.SetVerticeType(s21::VerticeType::SQUARE);
-  canvas_->UpdateWidget();
-}
-
 void MainWindow::on_vertice_size_sliderMoved(int position) {
   controller_.SetVerticeSize(position);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::SetVerticeType(s21::VerticeType type) {
+  controller_.SetVerticeType(type);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::SetEdgeType(s21::EdgeType type) {
+  controller_.SetEdgeType(type);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
+  if (checked) controller_.SetProjectionType(type);
   canvas_->UpdateWidget();
 }
 

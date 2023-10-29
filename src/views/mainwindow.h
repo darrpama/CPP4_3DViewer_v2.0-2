@@ -35,9 +35,9 @@ class MainWindow : public QMainWindow
   void on_uploadButton_clicked();
   
   // projection
-  void on_central_projection_radio_toggled(bool);
-  void on_parallel_projection_radio_toggled(bool);
-  
+  void on_central_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::CENTRAL, checked); }
+  void on_parallel_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::PARALLEL, checked); }
+
   // transform
   void on_position_x_valueChanged(double x) { ApplyTranslation(); }
   void on_position_y_valueChanged(double y) { ApplyTranslation(); }
@@ -53,17 +53,23 @@ class MainWindow : public QMainWindow
   void on_lines_color_clicked();
   
   // edge type
-  void on_edge_type_none_clicked();
-  void on_edge_type_solid_clicked();
-  void on_edge_type_dashed_clicked();
-  
+
+  void on_edge_type_none_clicked() {SetEdgeType(s21::EdgeType::NO_EDGE); }
+  void on_edge_type_solid_clicked() {SetEdgeType(s21::EdgeType::SOLID); }
+  void on_edge_type_dashed_clicked() {SetEdgeType(s21::EdgeType::DASHED); }
+
+  void SetEdgeType(s21::EdgeType);
+
   // edge thikness
   void on_edge_thikness_sliderMoved(int);
   
   // vertice types
-  void on_vertice_type_none_clicked();
-  void on_vertice_type_circle_clicked();
-  void on_vertice_type_square_clicked();
+  void on_vertice_type_none_clicked() { SetVerticeType(s21::VerticeType::NO_VERTICE); }
+  void on_vertice_type_circle_clicked() { SetVerticeType(s21::VerticeType::CIRCLE); }
+  void on_vertice_type_square_clicked() { SetVerticeType(s21::VerticeType::SQUARE); }
+  
+  void SetVerticeType(s21::VerticeType);
+  void SetProjectionType(s21::ProjectionType, bool);
 
   // vertice size
   void on_vertice_size_sliderMoved(int);

@@ -5,7 +5,6 @@
 #include <QMatrix4x4>
 
 #include "object.h"
-#include "type.h"
 
 namespace s21 {
 

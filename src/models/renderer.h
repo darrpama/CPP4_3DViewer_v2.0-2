@@ -3,7 +3,6 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include "type.h"
 #include "object.h"
 #include "transform.h"
 
