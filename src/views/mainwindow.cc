@@ -148,3 +148,81 @@ void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
   canvas_->UpdateWidget();
 }
 
+void MainWindow::on_screencast_button_clicked() {
+  ScreencastThread* screencastThread = new ScreencastThread(this);
+  screencastThread->start();
+}
+
+void MainWindow::MakeScreenshot(QWidget* widget) {
+  QPixmap pixmap = widget->grab();
+  QString folderPath = QDir::currentPath() + "/saved";
+  QDir folderDir(folderPath);
+  if (!folderDir.exists()) {
+    folderDir.mkpath(".");
+  }
+
+  QString imagePath = folderPath + "/widget_image.png";
+  if (pixmap.save(imagePath)) {
+    std::cout << "image saved!" << std::endl;
+  } else {
+    std::cout << "image not saved... there is an error!" << std::endl;
+  }
+}
+
+void MainWindow::MakeScreencast(QWidget* widget) {
+  const int width = 640;
+  const int height = 480;
+  const int fps = 10;
+  const int durationSeconds = 5;
+  const int totalFrames = fps * durationSeconds;
+
+  QString folderPath = QDir::currentPath() + "/saved";
+  QDir folderDir(folderPath);
+  if (!folderDir.exists()) {
+      folderDir.mkpath(".");
+  }
+
+  QString webpPath = "/Users/myregree/Desktop/custom_affine_transformation.webp";
+  
+  QImageWriter webpWriter(webpPath);
+  webpWriter.setFormat("webp");
+  webpWriter.setQuality(100);
+  // gifWriter.setText("FrameRate", QString::number(fps));
+  QElapsedTimer timer;
+  timer.start();
+  
+  std::cout << "[ Start record ]" << std::endl;
+  
+  for (int frame = 0; frame < totalFrames; ++frame) {
+    std::cout << "frame #" << frame << std::endl;
+    qreal progress = static_cast<qreal>(frame) / totalFrames;
+    QPixmap pixmap = widget->grab();
+    QImage image = pixmap.toImage();
+
+    if (webpWriter.write(image)) {
+      std::cout << " -> image written" << std::endl;
+    } else {
+      std::cout << " -> image not written. ERROR: " << webpWriter.errorString().toStdString() << std::endl;
+    }
+
+    int frameTime = 1000 / fps; // in milliseconds
+    int elapsed = timer.elapsed();
+    int remainingTime = frameTime - elapsed;
+    if (remainingTime > 0) {
+      QThread::msleep(remainingTime);
+    }
+    timer.restart();
+  }
+
+  // // print supported formats
+  // std::cout << "Supported formats: " << std::endl;
+  // QList formats = QImageWriter::supportedImageFormats();
+  // for (size_t i = 0; i < formats.size(); i++)
+  // {
+  //   std::cout << formats.at(i).toStdString() << std::endl;
+  // }
+  
+  std::cout << "[ End record ]" << std::endl;
+  webpWriter.device()->close();
+}
+

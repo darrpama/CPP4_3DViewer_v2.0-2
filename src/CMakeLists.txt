@@ -16,6 +16,8 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Core Gui OpenGLWidgets)
 set(PROJECT_SOURCES
     resources.qrc
     main.cc
+    views/screencastthread.h
+    views/screencastthread.cc
     views/mainwindow.h
     views/mainwindow.cc
     views/mainwindow.ui

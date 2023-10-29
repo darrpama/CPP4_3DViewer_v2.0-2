@@ -5,6 +5,7 @@
 
 #include "../controllers/controller.h"
 #include "canvas.h"
+#include "screencastthread.h"
 
 #include <iostream>
 
@@ -15,6 +16,14 @@
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QPalette>
+
+#include <QApplication>
+#include <QScreen>
+#include <QPixmap>
+#include <QDir>
+#include <QPainter>
+#include <QImageWriter>
+#include <QElapsedTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -29,6 +38,7 @@ class MainWindow : public QMainWindow
   ~MainWindow();
   void resizeEvent(QResizeEvent* event);
   QString MakeColorStyle(QColor);
+  static void MakeScreencast(QWidget*);
 
  private slots:
   // upload
@@ -73,6 +83,9 @@ class MainWindow : public QMainWindow
 
   // vertice size
   void on_vertice_size_sliderMoved(int);
+  
+  void on_screenshot_button_clicked() { MakeScreenshot(canvas_); }
+  void on_screencast_button_clicked();
 
 private:
   s21::Controller controller_;
@@ -105,5 +118,7 @@ private:
 
   void ApplyTranslation();
   void ApplyRotation();
+  void MakeScreenshot(QWidget*);
+  void StartRecording(QWidget*);
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
