@@ -28,11 +28,6 @@ class Renderer {
   void InitOpenGL();
   void SetViewPort(int, int);
   void PaintGL();
-  void InitPaint();
-  void DrawLines();
-  void DrawPoints();
-  void CalculateCamera();
-  void SetCamera();
   void SetCentralProjection() { projection_type_ = true; }
   void SetParallelProjection() { projection_type_ = false; }
   void SetBackgroundColor(QColor color) { background_color_ = color; }
@@ -44,39 +39,32 @@ class Renderer {
   void SetVerticeSize(int value) { vertice_size_ = value; }
   void SetTransformMatrix(QMatrix4x4 m) { transformation_ = m; };
 
-  QVector3D NormalizeColor(QColor);
-  void PrintMatrix();
-
  private:
   Object *object_;
   Transform *transform_;
-  int width_;
-  int height_;
+  int width_, height_;
   bool projection_type_;
-  float x_rotation_, y_rotation_, start_y_, start_x_;
-  float scale_factor_;
+  float x_rotation_, y_rotation_, start_y_, start_x_, scale_factor_;
   QVector<GLfloat> vertices_;
   QVector<GLuint> faces_;
-
-  // COLORS
-  QColor background_color_;
-  QColor points_color_;
-  QColor lines_color_;
-
-  // EDGE
+  QColor background_color_, points_color_, lines_color_;
   EdgeType edge_type_;
-  int edge_thikness_ = 1;
-
-  // VERTICE
   VerticeType vertice_type_;
+  int edge_thikness_ = 1;
   int vertice_size_ = 1;
-  
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
   QOpenGLShaderProgram shader_program_;
   QMatrix4x4 view_, projection_, transformation_;
   QVector3D camera_target_, camera_pos_, camera_up_, move_object_;
   QQuaternion rotation_;
+
+  QVector3D NormalizeColor(QColor);
+  void CalculateCamera();
+  void SetCamera();
+  void InitPaint();
+  void DrawLines();
+  void DrawPoints();
 };
 }  // namespace s21
 

@@ -1,9 +1,5 @@
 #include "renderer.h"
 
-#include <iostream>
-#include <QtCore/QDebug>
-#include <QtGui/QMatrix4x4>
-
 namespace s21 {
 Renderer::~Renderer() {
   vbo_.destroy();
@@ -69,6 +65,21 @@ void Renderer::SetViewPort(int w, int h) {
   height_ = h;
 }
 
+void Renderer::PaintGL() {
+  if (object_ == nullptr) return;
+
+  InitPaint();
+  CalculateCamera();
+  shader_program_.bind();
+  SetCamera();
+  vao_.bind();
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  DrawLines();
+  DrawPoints();
+  vao_.release();
+  shader_program_.release();
+}
+
 void Renderer::InitPaint() {
   glClearColor(
     background_color_.red() / 255.0f,
@@ -77,22 +88,6 @@ void Renderer::InitPaint() {
     1.0f
   );
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-void Renderer::PaintGL() {
-  if (object_ == nullptr) return;
-  vertices_ = object_->GetFlattenedVertices();
-
-  InitPaint();
-  CalculateCamera();
-  shader_program_.bind();
-  SetCamera();
-  vao_.bind();
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // GL_FILL
-  DrawLines();
-  DrawPoints();
-  vao_.release();
-  shader_program_.release();
 }
 
 void Renderer::DrawLines() {
@@ -142,12 +137,12 @@ void Renderer::CalculateCamera() {
   float xx = x_rotation_ * M_PI / 180;
   float yy = y_rotation_ * M_PI / 180;
   float r = 3.0f * cos(yy);
-  // float xpos = camera_target_.x() + r * sin(xx);
-  // float ypos = camera_target_.y() + 3.0f * sin(yy);
-  // float zpos = camera_target_.z() + r * cos(xx);
-  float xpos = camera_target_.x() + 0;
-  float ypos = camera_target_.y() + 0;
-  float zpos = camera_target_.z() + 2;
+  float xpos = camera_target_.x() + r * sin(xx);
+  float ypos = camera_target_.y() + 3.0f * sin(yy);
+  float zpos = camera_target_.z() + r * cos(xx);
+  // float xpos = camera_target_.x() + 0;
+  // float ypos = camera_target_.y() + 0;
+  // float zpos = camera_target_.z() + 2;
   camera_pos_ = QVector3D(xpos, ypos, zpos) + camera_target_;
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
 }
@@ -170,15 +165,5 @@ QVector3D Renderer::NormalizeColor(QColor color) {
     color.blue() / 255.0f
   );
 }
-
-void Renderer::PrintMatrix() {
-  // for (int row = 0; row < 4; ++row) {
-  //   for (int column = 0; column < 4; ++column) {
-  //     std::cout << transformation_(row, column) << " ";
-  //   }
-  //   std::cout << std::endl;
-  // }
-}
-
 
 }  // namespace s21

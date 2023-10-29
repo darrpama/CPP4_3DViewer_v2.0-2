@@ -51,17 +51,14 @@ void Model::ParseObjFile(std::string &file_path) {
 // COLORS
 void Model::SetBackgroundColor(QColor color) {
   render_.SetBackgroundColor(color);
-  render_.InitObjectModel();
 }
 
 void Model::SetPointsColor(QColor color) {
   render_.SetPointsColor(color);
-  render_.InitObjectModel();
 }
 
 void Model::SetLinesColor(QColor color) {
   render_.SetLinesColor(color);
-  render_.InitObjectModel();
 }
 
 }  // namespace s21

@@ -50,26 +50,19 @@ class Object {
   std::vector<Face> GetFaces();
   QVector<GLfloat> GetFlattenedVertices();
   QVector<GLuint> GetFlattenedFaces();
-
-  std::vector<std::vector<unsigned>> faces;
-
   void SetVertices(std::vector<Vertex>);
   void SetFaces(std::vector<Face>);
   void SetVerticesInFaces(unsigned);
   void AddVertex(Vertex);
   void AddFace(Face);
   void Clear();
-  size_t GetVertexCount();
-  unsigned GetFaceCount();
-  unsigned GetEdgeCount();
-  float GetOffset(coordinate);
-  void SetOffset(coordinate, float);
-  float GetAngle(coordinate);
-  void SetAngle(coordinate, float);
   void CountEdges();
- 
+  size_t GetVertexCount() { return vertex_count_; }
+  unsigned GetFaceCount() { return face_count_; }
+  unsigned GetEdgeCount() { return edge_count_; }
 
  private:
+  std::vector<std::vector<unsigned>> faces;
   std::vector<Vertex> vertices_;
   std::vector<Face> faces_;
   float *vertices_array_;
@@ -78,12 +71,6 @@ class Object {
   unsigned face_count_{};
   unsigned edge_count_{};
   unsigned vertices_in_faces_{};
-  float current_x_offset_{};
-  float current_y_offset_{};
-  float current_z_offset_{};
-  float current_x_angle_{};
-  float current_y_angle_{};
-  float current_z_angle_{};
 };
 
 }
