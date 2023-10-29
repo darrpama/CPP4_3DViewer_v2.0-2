@@ -61,12 +61,12 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void MainWindow::on_central_projection_radio_toggled(bool checked) {
-  if (checked) controller_.SetCentralProjection();
+  if (checked) controller_.SetProjectionType(s21::ProjectionType::CENTRAL);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_parallel_projection_radio_toggled(bool checked) {
-  if (checked) controller_.SetParallelProjection();
+  if (checked) controller_.SetProjectionType(s21::ProjectionType::PARALLEL);
   canvas_->UpdateWidget();
 }
 
@@ -82,10 +82,6 @@ void MainWindow::on_uploadButton_clicked() {
 }
 
 // position X
-void MainWindow::on_position_x_valueChanged(double x) { ApplyTranslation(); }
-void MainWindow::on_position_y_valueChanged(double y) { ApplyTranslation(); }
-void MainWindow::on_position_z_valueChanged(double z) { ApplyTranslation(); }
-
 void MainWindow::ApplyTranslation() {
   controller_.ApplyTranslation(
     (float) position_x_->value(), 
@@ -94,10 +90,6 @@ void MainWindow::ApplyTranslation() {
   );
   canvas_->UpdateWidget();
 }
-
-void MainWindow::on_rotation_x_valueChanged(double x) { ApplyRotation(); }
-void MainWindow::on_rotation_y_valueChanged(double y) { ApplyRotation(); }
-void MainWindow::on_rotation_z_valueChanged(double z) { ApplyRotation(); }
 
 void MainWindow::ApplyRotation() {
   controller_.ApplyRotation(

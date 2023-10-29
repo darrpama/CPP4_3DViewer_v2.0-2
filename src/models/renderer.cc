@@ -14,9 +14,11 @@ void Renderer::InitOpenGL() {
   points_color_ = QColor(0,255,255);
   lines_color_ = QColor(255,0,0);
 
-  projection_type_ = true;
+  projection_type_ = ProjectionType::CENTRAL;
   move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
   scale_factor_ = 1.0f;
+  edge_thikness_ = 1;
+  vertice_size_ = 1;
 
   edge_type_ = EdgeType::NO_EDGE;
 
@@ -151,9 +153,13 @@ void Renderer::SetCamera() {
   shader_program_.setUniformValueArray("view", &view_, 1);
   projection_.setToIdentity();
   view_.setToIdentity();
-  projection_type_
-      ? projection_.perspective(65.0f, (float) height_ / width_, 0.1f, 100.0f)
-      : projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
+
+  if (projection_type_ == ProjectionType::CENTRAL) {
+    projection_.perspective(65.0f, (float) height_ / width_, 0.1f, 100.0f);
+  } else {
+    projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
+  }
+  
   view_.lookAt(camera_pos_, camera_target_, camera_up_);
   shader_program_.setUniformValueArray("projection", &projection_, 1);
 }

@@ -34,12 +34,8 @@ void Controller::ParseObjFile(std::string &file_path) {
 }
 
 // PROJECTION
-void Controller::SetCentralProjection() {
-  model_->SetCentralProjection();
-}
-
-void Controller::SetParallelProjection() {
-  model_->SetParallelProjection();
+void Controller::SetProjectionType(ProjectionType type) {
+  model_->SetProjectionType(type);
 }
 
 // COLORS

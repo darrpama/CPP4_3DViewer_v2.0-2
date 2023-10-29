@@ -19,6 +19,7 @@ namespace s21 {
 
 enum EdgeType {NO_EDGE, SOLID, DASHED};
 enum VerticeType {NO_VERTICE, CIRCLE, SQUARE};
+enum ProjectionType {CENTRAL, PARALLEL};
 
 class Renderer {
  public:
@@ -26,10 +27,10 @@ class Renderer {
   ~Renderer();
   void InitObjectModel();
   void InitOpenGL();
-  void SetViewPort(int, int);
   void PaintGL();
-  void SetCentralProjection() { projection_type_ = true; }
-  void SetParallelProjection() { projection_type_ = false; }
+  void SetViewPort(int, int);
+
+  void SetProjectionType(ProjectionType type) { projection_type_ = type; }
   void SetBackgroundColor(QColor color) { background_color_ = color; }
   void SetPointsColor(QColor color) { points_color_ = color; }
   void SetLinesColor(QColor color) { lines_color_ = color; }
@@ -42,21 +43,34 @@ class Renderer {
  private:
   Object *object_;
   Transform *transform_;
-  int width_, height_;
-  bool projection_type_;
-  float x_rotation_, y_rotation_, start_y_, start_x_, scale_factor_;
+  int width_;
+  int height_;
+  float x_rotation_;
+  float y_rotation_;
+  float start_y_;
+  float start_x_;
+  float scale_factor_;
   QVector<GLfloat> vertices_;
   QVector<GLuint> faces_;
-  QColor background_color_, points_color_, lines_color_;
+  QColor background_color_;
+  QColor points_color_;
+  QColor lines_color_;
+  ProjectionType projection_type_;
   EdgeType edge_type_;
   VerticeType vertice_type_;
-  int edge_thikness_ = 1;
-  int vertice_size_ = 1;
+  int edge_thikness_;
+  int vertice_size_;
   QOpenGLVertexArrayObject vao_;
-  QOpenGLBuffer vbo_, ebo_;
+  QOpenGLBuffer vbo_;
+  QOpenGLBuffer ebo_;
   QOpenGLShaderProgram shader_program_;
-  QMatrix4x4 view_, projection_, transformation_;
-  QVector3D camera_target_, camera_pos_, camera_up_, move_object_;
+  QMatrix4x4 view_;
+  QMatrix4x4 projection_;
+  QMatrix4x4 transformation_;
+  QVector3D camera_target_;
+  QVector3D camera_pos_;
+  QVector3D camera_up_;
+  QVector3D move_object_;
   QQuaternion rotation_;
 
   QVector3D NormalizeColor(QColor);

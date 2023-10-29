@@ -22,8 +22,7 @@ class Controller {
   void ParseObjFile(std::string &);
 
   // projection
-  void SetCentralProjection();
-  void SetParallelProjection();
+  void SetProjectionType(ProjectionType);
 
   // transform
   void ApplyTranslation(float, float, float);

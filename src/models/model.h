@@ -15,33 +15,32 @@ class Model {
     , render_(obj, m)
     , parser_(obj) {}
 
-// RENDER methods
+  // RENDER methods
   void InitOpenGL();
   void SetViewPort(int, int);
   void PaintGL();
 
-// PARSER methods
+  // PARSER methods
   void ParseObjFile(std::string &);
 
-// TRANSFRORM methods
+  // TRANSFRORM methods
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float, float);
   void ApplyScale(float);
 
-// PROJECTION
-  void SetCentralProjection();
-  void SetParallelProjection();
+  // PROJECTION
+  void SetProjectionType(ProjectionType type) { render_.SetProjectionType(type); }
 
-// COLORS
-  void SetBackgroundColor(QColor);
-  void SetPointsColor(QColor);
-  void SetLinesColor(QColor);
+  // COLORS
+  void SetBackgroundColor(QColor color) { render_.SetBackgroundColor(color); }
+  void SetPointsColor(QColor color) { render_.SetPointsColor(color); }
+  void SetLinesColor(QColor color) { render_.SetLinesColor(color); }
 
-// EDGE
+  // EDGE
   void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }
   void SetEdgeThikness(int position) { render_.SetEdgeThikness(position); }
 
-// VERTICES
+  // VERTICES
   void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
   void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
 

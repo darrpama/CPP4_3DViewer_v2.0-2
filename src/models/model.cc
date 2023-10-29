@@ -32,33 +32,12 @@ void Model::ApplyScale(float f) {
   render_.SetTransformMatrix(transform_.GetTransformMatrix());
 }
 
-void Model::SetCentralProjection() {
-  render_.SetCentralProjection();
-}
-
-void Model::SetParallelProjection() {
-  render_.SetParallelProjection();
-}
-
 // PARSE
 void Model::ParseObjFile(std::string &file_path) {
   object_->Clear();
   parser_.SetFilePath(file_path);
   parser_.Parse();
   render_.InitObjectModel();
-}
-
-// COLORS
-void Model::SetBackgroundColor(QColor color) {
-  render_.SetBackgroundColor(color);
-}
-
-void Model::SetPointsColor(QColor color) {
-  render_.SetPointsColor(color);
-}
-
-void Model::SetLinesColor(QColor color) {
-  render_.SetLinesColor(color);
 }
 
 }  // namespace s21
