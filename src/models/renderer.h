@@ -22,7 +22,7 @@ enum VerticeType {NO_VERTICE, CIRCLE, SQUARE};
 
 class Renderer {
  public:
-  Renderer(Object *obj) : object_(obj) {};
+  Renderer(Object *obj, Transform *m) : object_(obj), transform_(m) {};
   ~Renderer();
   void InitObjectModel();
   void InitOpenGL();
@@ -42,11 +42,14 @@ class Renderer {
   void SetVerticeType(VerticeType type) { vertice_type_ = type; }
   void SetEdgeThikness(int value) { edge_thikness_ = value; }
   void SetVerticeSize(int value) { vertice_size_ = value; }
+  void SetTransformMatrix(QMatrix4x4 m) { transformation_ = m; };
 
   QVector3D NormalizeColor(QColor);
+  void PrintMatrix();
 
  private:
   Object *object_;
+  Transform *transform_;
   int width_;
   int height_;
   bool projection_type_;
@@ -71,7 +74,7 @@ class Renderer {
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_, ebo_;
   QOpenGLShaderProgram shader_program_;
-  QMatrix4x4 view_, projection_, transform_;
+  QMatrix4x4 view_, projection_, transformation_;
   QVector3D camera_target_, camera_pos_, camera_up_, move_object_;
   QQuaternion rotation_;
 };

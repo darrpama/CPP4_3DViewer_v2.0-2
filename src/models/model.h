@@ -10,10 +10,9 @@ namespace s21 {
 
 class Model {
  public:
-  Model(Object *obj) 
+  Model(Object *obj, Transform *m)
     : object_(obj)
-    , render_(obj)
-    , transform_(obj)
+    , render_(obj, m)
     , parser_(obj) {}
 
 // RENDER methods
@@ -25,13 +24,9 @@ class Model {
   void ParseObjFile(std::string &);
 
 // TRANSFRORM methods
-  void ApplyTranslationX(float offset);
-  void ApplyTranslationY(float offset);
-  void ApplyTranslationZ(float offset);
-  void ApplyRotationX(float angle);
-  void ApplyRotationY(float angle);
-  void ApplyRotationZ(float angle);
-  void ApplyScale(float k);
+  void ApplyTranslation(float, float, float);
+  void ApplyRotation(float, float, float);
+  void ApplyScale(float);
 
 // PROJECTION
   void SetCentralProjection();
@@ -43,12 +38,12 @@ class Model {
   void SetLinesColor(QColor);
 
 // EDGE
-void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }
-void SetEdgeThikness(int position) { render_.SetEdgeThikness(position); }
+  void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }
+  void SetEdgeThikness(int position) { render_.SetEdgeThikness(position); }
 
 // VERTICES
-void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
-void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
+  void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
+  void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
 
  private:
   Object *object_;

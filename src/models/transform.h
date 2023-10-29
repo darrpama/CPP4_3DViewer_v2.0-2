@@ -20,10 +20,10 @@ class Transform {
   QMatrix4x4 GetTransformMatrix();
 
  private:
-  QMatrix4x4 TranslationMatrix;
-  QMatrix4x4 RotationMatrix;
-  QMatrix4x4 ScaleMatrix;
-  QMatrix4x4 TransformMatrix;
+  QMatrix4x4 TranslationMatrix_;
+  QMatrix4x4 RotationMatrix_;
+  QMatrix4x4 ScaleMatrix_;
+  QMatrix4x4 TransformMatrix_;
 };
 }  // namespace s21
 

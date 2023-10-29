@@ -43,10 +43,12 @@ MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
   edge_type_none_ = findChild<QRadioButton*>("edge_type_none");
   edge_type_solid_ = findChild<QRadioButton*>("edge_type_solid");
   edge_type_dashed_ = findChild<QRadioButton*>("edge_type_dashed");
+  vertice_type_none_ = findChild<QRadioButton*>("vertice_type_none");
 
   // set default values
   central_projection_radio_->setChecked(true);
   edge_type_none_->setChecked(true);
+  vertice_type_none_->setChecked(true);
 }
 
 MainWindow::~MainWindow() {
@@ -80,33 +82,29 @@ void MainWindow::on_uploadButton_clicked() {
 }
 
 // position X
-void MainWindow::on_position_x_valueChanged(double x) {
-  controller_.ApplyTranslationX((float) x);
+void MainWindow::on_position_x_valueChanged(double x) { ApplyTranslation(); }
+void MainWindow::on_position_y_valueChanged(double y) { ApplyTranslation(); }
+void MainWindow::on_position_z_valueChanged(double z) { ApplyTranslation(); }
+
+void MainWindow::ApplyTranslation() {
+  controller_.ApplyTranslation(
+    (float) position_x_->value(), 
+    (float) position_y_->value(), 
+    (float) position_z_->value()
+  );
   canvas_->UpdateWidget();
 }
 
-void MainWindow::on_position_y_valueChanged(double y) {
-  controller_.ApplyTranslationY((float) y);
-  canvas_->UpdateWidget();
-}
+void MainWindow::on_rotation_x_valueChanged(double x) { ApplyRotation(); }
+void MainWindow::on_rotation_y_valueChanged(double y) { ApplyRotation(); }
+void MainWindow::on_rotation_z_valueChanged(double z) { ApplyRotation(); }
 
-void MainWindow::on_position_z_valueChanged(double z) {
-  controller_.ApplyTranslationZ((float) z);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_rotation_x_valueChanged(double x) {
-  controller_.ApplyRotationX((float) x);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_rotation_y_valueChanged(double y) {
-  controller_.ApplyRotationY((float) y);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_rotation_z_valueChanged(double z) {
-  controller_.ApplyRotationZ((float) z);
+void MainWindow::ApplyRotation() {
+  controller_.ApplyRotation(
+    rotation_x_->value(),
+    rotation_y_->value(),
+    rotation_z_->value()
+  );
   canvas_->UpdateWidget();
 }
 

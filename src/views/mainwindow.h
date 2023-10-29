@@ -94,5 +94,10 @@ private:
   QRadioButton *edge_type_solid_;
   QRadioButton *edge_type_dashed_;
 
+  // Vertice types
+  QRadioButton *vertice_type_none_;
+
+  void ApplyTranslation();
+  void ApplyRotation();
 };
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

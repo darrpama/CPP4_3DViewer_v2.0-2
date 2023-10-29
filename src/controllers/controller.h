@@ -26,12 +26,8 @@ class Controller {
   void SetParallelProjection();
 
   // transform
-  void ApplyTranslationX(float);
-  void ApplyTranslationY(float);
-  void ApplyTranslationZ(float);
-  void ApplyRotationX(float);
-  void ApplyRotationY(float);
-  void ApplyRotationZ(float);
+  void ApplyTranslation(float, float, float);
+  void ApplyRotation(float, float, float);
   void ApplyScale(float);
   
   // colors

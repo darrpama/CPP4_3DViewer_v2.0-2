@@ -1,5 +1,9 @@
 #include "renderer.h"
 
+#include <iostream>
+#include <QtCore/QDebug>
+#include <QtGui/QMatrix4x4>
+
 namespace s21 {
 Renderer::~Renderer() {
   vbo_.destroy();
@@ -102,7 +106,10 @@ void Renderer::DrawLines() {
       glEnable(GL_LINE_STIPPLE);
     }
     QVector3D lines_color = NormalizeColor(lines_color_);
+    
+    shader_program_.setUniformValueArray("transformation", &transformation_, 1);
     shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
+    
     glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
     if (edge_type_ == EdgeType::SOLID) {
       glDisable(GL_LINE_STRIP);
@@ -120,7 +127,10 @@ void Renderer::DrawPoints() {
     }
     glPointSize(vertice_size_);
     QVector3D vertex_color = NormalizeColor(points_color_);
+
+    shader_program_.setUniformValueArray("transformation", &transformation_, 1);
     shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
+
     glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
     if (vertice_type_ == VerticeType::CIRCLE) {
       glDisable(GL_POINT_SMOOTH);
@@ -159,6 +169,15 @@ QVector3D Renderer::NormalizeColor(QColor color) {
     color.green() / 255.0f,
     color.blue() / 255.0f
   );
+}
+
+void Renderer::PrintMatrix() {
+  // for (int row = 0; row < 4; ++row) {
+  //   for (int column = 0; column < 4; ++column) {
+  //     std::cout << transformation_(row, column) << " ";
+  //   }
+  //   std::cout << std::endl;
+  // }
 }
 
 
