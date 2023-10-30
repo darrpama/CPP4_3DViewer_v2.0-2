@@ -61,12 +61,6 @@ void Renderer::InitObjectModel() {
   shader_program_.release();
 }
 
-void Renderer::SetViewPort(int w, int h) {
-  glViewport(0, 0, w, h);
-  width_ = w;
-  height_ = h;
-}
-
 void Renderer::PaintGL() {
   if (object_ == nullptr) return;
 
@@ -149,13 +143,20 @@ void Renderer::CalculateCamera() {
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
 }
 
+void Renderer::SetViewPort(int w, int h) {
+  glViewport(0, 0, w, h);
+  width_ = w;
+  height_ = h;
+  SetCamera();
+}
+
 void Renderer::SetCamera() {
   shader_program_.setUniformValueArray("view", &view_, 1);
   projection_.setToIdentity();
   view_.setToIdentity();
 
   if (projection_type_ == ProjectionType::CENTRAL) {
-    projection_.perspective(65.0f, (float) height_ / width_, 0.1f, 100.0f);
+    projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f);
   } else {
     projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
   }

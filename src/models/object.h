@@ -11,6 +11,7 @@
 #include <algorithm>
 using GLfloat = float;
 using GLuint = unsigned int;
+
 namespace s21
 {
 
