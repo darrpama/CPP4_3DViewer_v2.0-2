@@ -90,7 +90,7 @@ void Object::Clear() {
 }
 
 size_t Object::GetEdgeCount() {
-  CountEdges();
+  // CountEdges();
   return edge_count_;
 }
 

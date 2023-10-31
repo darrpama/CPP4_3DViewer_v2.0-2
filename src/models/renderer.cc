@@ -156,9 +156,9 @@ void Renderer::SetCamera() {
   view_.setToIdentity();
 
   if (projection_type_ == ProjectionType::CENTRAL) {
-    projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100.0f);
+    projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100000.0f);
   } else {
-    projection_.ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
+    projection_.ortho(-width_ / 100.0f, width_ / 100.0f, -height_ / 100.0f, height_ / 100.0f, 0.0001f, 1000000.0f);
   }
   
   view_.lookAt(camera_pos_, camera_target_, camera_up_);

@@ -317,7 +317,7 @@
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideLeft</enum>
@@ -382,10 +382,10 @@
                    <number>3</number>
                   </property>
                   <property name="minimum">
-                   <double>-1000.000000000000000</double>
+                   <double>-10000.000000000000000</double>
                   </property>
                   <property name="maximum">
-                   <double>1000.000000000000000</double>
+                   <double>10000.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>0.100000000000000</double>
@@ -429,7 +429,10 @@
                    <number>3</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>0.100000000000000</double>
@@ -470,7 +473,10 @@
                    <number>3</number>
                   </property>
                   <property name="minimum">
-                   <double>-99.989999999999995</double>
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>0.100000000000000</double>
@@ -684,10 +690,10 @@
                    <number>2</number>
                   </property>
                   <property name="minimum">
-                   <double>0.100000000000000</double>
+                   <double>0.010000000000000</double>
                   </property>
                   <property name="maximum">
-                   <double>10.000000000000000</double>
+                   <double>20.000000000000000</double>
                   </property>
                   <property name="singleStep">
                    <double>0.010000000000000</double>
