@@ -60,7 +60,7 @@ class Object {
   void CountEdges();
   size_t GetVertexCount() { return vertex_count_; }
   size_t GetFaceCount() { return face_count_; }
-  size_t GetEdgeCount() { return edge_count_; }
+  size_t GetEdgeCount();
 
  private:
   std::vector<std::vector<unsigned>> faces;

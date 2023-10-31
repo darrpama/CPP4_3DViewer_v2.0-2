@@ -80,15 +80,18 @@ void Object::SetVerticesInFaces(unsigned vertices_in_faces) {
   this->vertices_in_faces_ = vertices_in_faces;
 }
 
-
-void Object::Clear()
-{
+void Object::Clear() {
   faces_.clear();
   vertices_.clear();
   vertex_count_ = 0;
   face_count_ = 0;
   edge_count_ = 0;
   vertices_in_faces_ = 0;
+}
+
+size_t Object::GetEdgeCount() {
+  CountEdges();
+  return edge_count_;
 }
 
 }  // namespace s21
