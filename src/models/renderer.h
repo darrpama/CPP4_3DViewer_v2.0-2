@@ -22,7 +22,7 @@ enum ProjectionType {CENTRAL, PARALLEL};
 
 class Renderer {
  public:
-  Renderer(Object *obj, Transform *m) : object_(obj), transform_(m) {};
+  Renderer(Object*, Transform*);
   ~Renderer();
   void InitObjectModel();
   void InitOpenGL();
@@ -30,7 +30,7 @@ class Renderer {
   void SetViewPort(int, int);
 
   void SetProjectionType(ProjectionType type) { projection_type_ = type; }
-  void SetBackgroundColor(QColor color) { background_color_ = color; }
+  void SetBackgroundColor(QColor color) { bg_color_ = color; }
   void SetPointsColor(QColor color) { points_color_ = color; }
   void SetLinesColor(QColor color) { lines_color_ = color; }
   void SetEdgeType(EdgeType type) { edge_type_ = type; }
@@ -51,7 +51,7 @@ class Renderer {
   float scale_factor_;
   QVector<GLfloat> vertices_;
   QVector<GLuint> faces_;
-  QColor background_color_;
+  QColor bg_color_;
   QColor points_color_;
   QColor lines_color_;
   ProjectionType projection_type_;

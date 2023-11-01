@@ -5,9 +5,9 @@
 
 #include "../controllers/controller.h"
 #include "canvas.h"
-#include "screencastthread.h"
 
 #include <iostream>
+#include <thread>
 
 #include <QtOpenGL>
 #include <QtOpenGLWidgets>
@@ -38,7 +38,6 @@ class MainWindow : public QMainWindow
   ~MainWindow();
   void resizeEvent(QResizeEvent* event);
   QString MakeColorStyle(QColor);
-  static void MakeScreencast(QWidget*);
 
  private slots:
   // upload
@@ -128,7 +127,7 @@ private:
   void ApplyTranslation();
   void ApplyRotation();
   void MakeScreenshot(QWidget*);
-  void StartRecording(QWidget*);
+  void MakeScreencast(QWidget*);
   void SetDefaultValues();
 };
 

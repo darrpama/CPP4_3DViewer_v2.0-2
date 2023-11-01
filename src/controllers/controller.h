@@ -7,6 +7,8 @@
 #include <unordered_map>
 
 namespace s21 {
+
+// singleton
 class Controller {
 
  public:

@@ -1,6 +1,20 @@
 #include "renderer.h"
 
 namespace s21 {
+Renderer::Renderer(Object *obj, Transform *m)
+  : object_(obj)
+  , transform_(m)
+  , width_(0)
+  , height_(0)
+  , bg_color_(QColor(0, 0, 0))
+  , points_color_(QColor(0, 255, 255))
+  , lines_color_(QColor(255, 0, 0))
+  , projection_type_(ProjectionType::CENTRAL)
+  , edge_type_(EdgeType::NO_EDGE)
+  , vertice_type_(VerticeType::NO_VERTICE)
+  , edge_thikness_(1)
+  , vertice_size_(1) {}
+
 Renderer::~Renderer() {
   vbo_.destroy();
   vao_.destroy();
@@ -8,19 +22,8 @@ Renderer::~Renderer() {
 }
 
 void Renderer::InitOpenGL() {
-  if (object_ == nullptr) return;
-
-  background_color_ = QColor(0,0,0);
-  points_color_ = QColor(0,255,255);
-  lines_color_ = QColor(255,0,0);
-
-  projection_type_ = ProjectionType::CENTRAL;
-  move_object_ = camera_target_ = QVector3D(0.0f, 0.0f, 0.0f);
-  scale_factor_ = 1.0f;
-  edge_thikness_ = 1;
-  vertice_size_ = 1;
-
-  edge_type_ = EdgeType::NO_EDGE;
+  if (object_ == nullptr)
+    return;
 
   shader_program_.create();
   shader_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":models/shaders/vert.glsl");
@@ -28,7 +31,6 @@ void Renderer::InitOpenGL() {
   shader_program_.link();
 
   vao_.create();
-
   vbo_ = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
   vbo_.create();
   vbo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
@@ -36,12 +38,12 @@ void Renderer::InitOpenGL() {
   ebo_ = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
   ebo_.create();
   ebo_.setUsagePattern(QOpenGLBuffer::StaticDraw);
-
-  vao_.bind();
-  vao_.release();
 }
 
 void Renderer::InitObjectModel() {
+  if (object_ == nullptr) 
+    return;
+
   vertices_ = object_->GetFlattenedVertices();
   faces_ = object_->GetFlattenedFaces();
 
@@ -54,11 +56,9 @@ void Renderer::InitObjectModel() {
   ebo_.bind();
   ebo_.allocate(faces_.data(), sizeof(faces_[0]) * faces_.size());
   
-  shader_program_.bind();
   vao_.release();
   ebo_.release();
   vbo_.release();
-  shader_program_.release();
 }
 
 void Renderer::PaintGL() {
@@ -66,66 +66,68 @@ void Renderer::PaintGL() {
 
   InitPaint();
   CalculateCamera();
+
   shader_program_.bind();
   SetCamera();
+  
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  DrawLines();
-  DrawPoints();
+  
+  if (edge_type_ != EdgeType::NO_EDGE) {
+    DrawLines();
+  }
+  
+  if (vertice_type_ != VerticeType::NO_VERTICE) {
+    DrawPoints();
+  }
+  
   vao_.release();
   shader_program_.release();
 }
 
 void Renderer::InitPaint() {
-  glClearColor(
-    background_color_.red() / 255.0f,
-    background_color_.green() / 255.0f,
-    background_color_.blue() / 255.0f,
-    1.0f
-  );
+  glClearColor(bg_color_.redF(), bg_color_.greenF(), bg_color_.blueF(), 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::DrawLines() {
-  if (edge_type_ != EdgeType::NO_EDGE) {
-    glLineWidth(static_cast<float>(edge_thikness_));
-    if (edge_type_ == EdgeType::SOLID) {
-      glEnable(GL_LINE_STRIP);
-    }
-    if (edge_type_ == EdgeType::DASHED) {
-      glLineStipple(1, 0x00FF);
-      glEnable(GL_LINE_STIPPLE);
-    }
-    QVector3D lines_color = NormalizeColor(lines_color_);
-    
-    shader_program_.setUniformValueArray("transformation", &transformation_, 1);
-    shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
-    
-    glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
-    if (edge_type_ == EdgeType::SOLID) {
-      glDisable(GL_LINE_STRIP);
-    }
-    if (edge_type_ == EdgeType::DASHED) {
-      glDisable(GL_LINE_STIPPLE);
-    }
+  glLineWidth(static_cast<float>(edge_thikness_));
+
+  if (edge_type_ == EdgeType::SOLID) {
+    glEnable(GL_LINE_STRIP);
+  }
+  if (edge_type_ == EdgeType::DASHED) {
+    glLineStipple(1, 0x00FF);
+    glEnable(GL_LINE_STIPPLE);
+  }
+
+  QVector3D lines_color = NormalizeColor(lines_color_);
+  shader_program_.setUniformValueArray("transformation", &transformation_, 1);
+  shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
+  glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  
+  if (edge_type_ == EdgeType::SOLID) {
+    glDisable(GL_LINE_STRIP);
+  }
+  if (edge_type_ == EdgeType::DASHED) {
+    glDisable(GL_LINE_STIPPLE);
   }
 }
 
 void Renderer::DrawPoints() {
-  if (vertice_type_ != VerticeType::NO_VERTICE) {
-    if (vertice_type_ == VerticeType::CIRCLE) {
-      glEnable(GL_POINT_SMOOTH);
-    }
-    glPointSize(vertice_size_);
-    QVector3D vertex_color = NormalizeColor(points_color_);
+  if (vertice_type_ == VerticeType::CIRCLE) {
+    glEnable(GL_POINT_SMOOTH);
+  }
+  
+  glPointSize(vertice_size_);
+  
+  QVector3D vertex_color = NormalizeColor(points_color_);
+  shader_program_.setUniformValueArray("transformation", &transformation_, 1);
+  shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
+  glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
 
-    shader_program_.setUniformValueArray("transformation", &transformation_, 1);
-    shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
-
-    glDrawArrays(GL_POINTS, 0, object_->GetVertices().size());
-    if (vertice_type_ == VerticeType::CIRCLE) {
-      glDisable(GL_POINT_SMOOTH);
-    }
+  if (vertice_type_ == VerticeType::CIRCLE) {
+    glDisable(GL_POINT_SMOOTH);
   }
 }
 
@@ -166,11 +168,7 @@ void Renderer::SetCamera() {
 }
 
 QVector3D Renderer::NormalizeColor(QColor color) {
-  return QVector3D(
-    color.red() / 255.0f,
-    color.green() / 255.0f,
-    color.blue() / 255.0f
-  );
+  return QVector3D(color.redF(), color.greenF(), color.blueF());
 }
 
 }  // namespace s21

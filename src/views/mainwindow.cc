@@ -174,8 +174,7 @@ void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
 }
 
 void MainWindow::on_screencast_button_clicked() {
-  ScreencastThread* screencastThread = new ScreencastThread(this);
-  screencastThread->start();
+  MakeScreencast(canvas_);
 }
 
 void MainWindow::MakeScreenshot(QWidget* widget) {
@@ -207,7 +206,7 @@ void MainWindow::MakeScreencast(QWidget* widget) {
       folderDir.mkpath(".");
   }
 
-  QString webpPath = "/Users/myregree/Desktop/custom_affine_transformation.webp";
+  QString webpPath = "/Users/myregree/Desktop/anime.webp";
   
   QImageWriter webpWriter(webpPath);
   webpWriter.setFormat("webp");

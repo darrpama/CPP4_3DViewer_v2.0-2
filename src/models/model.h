@@ -8,6 +8,7 @@
 
 namespace s21 {
 
+// facade
 class Model {
  public:
   Model(Object *obj, Transform *m)
