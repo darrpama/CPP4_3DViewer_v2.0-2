@@ -1,19 +1,22 @@
 #include "obj_parser.h"
+#include <chrono>
+#include <iostream>
 
 namespace s21 {
 
 void OBJParser::Parse() {
+  auto start = std::chrono::high_resolution_clock::now();
+  
   std::ifstream file(file_path_);
   std::string line;
   unsigned vertices_in_faces = 0;
 
   while (std::getline(file, line)) {
-    if (line.substr(0, 2) == "v ") {
+    if (line.size() >= 2 && line[0] == 'v' && line[1] == ' ') {
       Vertex v;
       std::sscanf(line.c_str(), "v %f %f %f", &v.x, &v.y, &v.z);
       object_->AddVertex(v);
-    }
-    else if (line.substr(0, 2) == "f ") {
+    } else if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ') {
       Face f;
       std::istringstream iss(line.substr(2));  // Remove the "f " part
       std::string vertex_index_str;
@@ -37,6 +40,11 @@ void OBJParser::Parse() {
     }
   }
 
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  std::cout << "OBJParser::Parse() without triangulation Execution time: " << duration << " milliseconds" << std::endl;
+
+  auto start2 = std::chrono::high_resolution_clock::now();
   // Triangulation
   std::vector<Face> triangulated_faces;
   for (const auto& face : object_->GetFaces()) {
@@ -49,6 +57,10 @@ void OBJParser::Parse() {
     }
   }
   object_->SetFaces(triangulated_faces);
+
+  auto end2 = std::chrono::high_resolution_clock::now();
+  auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2).count();
+  std::cout << "OBJParser::Parse() only triangulation Execution time: " << duration2 << " milliseconds" << std::endl;
 }
 
 void s21::OBJParser::SetFilePath(const std::string &file_path) {

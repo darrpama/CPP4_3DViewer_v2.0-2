@@ -1,4 +1,6 @@
 #include "model.h"
+#include <chrono>
+#include <iostream>
 
 namespace s21 {
 
@@ -13,7 +15,11 @@ void Model::SetViewPort(int w, int h) {
 }
 
 void Model::PaintGL() {
+  auto start = std::chrono::high_resolution_clock::now();
   render_.PaintGL();
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  std::cout << "Renderer::PaintGL() Execution time: " << duration << " milliseconds" << std::endl;
 }
 
 // TRANSFORM methods
@@ -34,10 +40,18 @@ void Model::ApplyScale(float f) {
 
 // PARSE
 void Model::ParseObjFile(std::string &file_path) {
+  auto start = std::chrono::high_resolution_clock::now();
+  
   object_->Clear();
   parser_.SetFilePath(file_path);
   parser_.Parse();
   render_.InitObjectModel();
+  
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  // Print the execution time
+  std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds" << std::endl;
+
 }
 
 }  // namespace s21
