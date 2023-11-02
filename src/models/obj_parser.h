@@ -8,7 +8,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <chrono>
 #include <QVector>
+
 using GLfloat = float;
 using GLuint = unsigned int;
 
@@ -21,7 +23,7 @@ class OBJParser {
   void Parse();
   void SetFilePath(const std::string&);
   void SetObject(Object *);
-  std::vector<Face> TriangulateFace(const Face& face);
+  std::vector<unsigned> TriangulateFace(std::vector<unsigned>&);
 
  private:
   Object *object_;

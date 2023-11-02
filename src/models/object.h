@@ -72,6 +72,9 @@ class Object {
   size_t face_count_{};
   size_t edge_count_{};
   unsigned vertices_in_faces_{};
+  QVector<GLfloat> vertices_array;
+  QVector<GLuint> faces_array;
+
 };
 
 }
