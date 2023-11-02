@@ -41,11 +41,7 @@ class Renderer {
   Transform *transform_;
   int width_;
   int height_;
-  float start_y_;
-  float start_x_;
-  float scale_factor_;
-  QVector<GLfloat> vertices_;
-  QVector<GLuint> faces_;
+  
   QColor bg_color_;
   QColor points_color_;
   QColor lines_color_;
