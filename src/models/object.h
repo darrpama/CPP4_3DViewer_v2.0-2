@@ -54,8 +54,8 @@ class Object {
   void SetVertices(std::vector<Vertex>);
   void SetFaces(std::vector<Face>);
   void SetVerticesInFaces(unsigned);
-  void AddVertex(Vertex);
-  void AddFace(Face);
+  void AddVertex();
+  void AddFace();
   void Clear();
   void CountEdges();
   size_t GetVertexCount() { return vertex_count_; }

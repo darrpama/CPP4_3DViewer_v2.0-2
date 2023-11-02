@@ -53,13 +53,11 @@ void Object::SetFaces(std::vector<Face> faces)  {
   face_count_ = faces.size();
 }
 
-void Object::AddVertex(Vertex vertex) {
-  vertices_.push_back(vertex);
+void Object::AddVertex() {
   vertex_count_++;
 }
 
-void Object::AddFace(Face face) {
-  faces_.push_back(face);
+void Object::AddFace() {
   face_count_++;
 }
 

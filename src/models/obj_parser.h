@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <QVector>
+using GLfloat = float;
+using GLuint = unsigned int;
 
 
 namespace s21
@@ -23,6 +26,8 @@ class OBJParser {
  private:
   Object *object_;
   std::string file_path_;
+  QVector<GLfloat> vertices_array;
+  QVector<GLuint> faces_array;
 };
 
 }  // namespace s21
