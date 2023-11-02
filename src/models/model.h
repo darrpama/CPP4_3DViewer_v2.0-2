@@ -1,13 +1,13 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 
+#include "type.h"
 #include "object.h"
 #include "obj_parser.h"
 #include "transform.h"
 #include "renderer.h"
 
 namespace s21 {
-
 // facade
 class Model {
  public:
@@ -33,9 +33,7 @@ class Model {
   void SetProjectionType(ProjectionType type) { render_.SetProjectionType(type); }
 
   // COLORS
-  void SetBackgroundColor(QColor color) { render_.SetBackgroundColor(color); }
-  void SetPointsColor(QColor color) { render_.SetPointsColor(color); }
-  void SetLinesColor(QColor color) { render_.SetLinesColor(color); }
+  void SetColor(ColorType, QColor);
 
   // EDGE
   void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }

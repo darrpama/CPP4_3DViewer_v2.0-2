@@ -3,22 +3,18 @@
 Canvas::Canvas(QWidget* parent)
     : QOpenGLWidget(parent){}
 
-void Canvas::SetController(s21::Controller *controller) {
-  controller_ = controller;
-}
-
 void Canvas::initializeGL() {
   initializeOpenGLFunctions();
   glEnable(GL_DEPTH_TEST);
-  controller_->InitOpenGL();
+  s21::Controller::GetInstance().InitOpenGL();
 }
 
 void Canvas::paintGL() {
-  controller_->PaintGL();
+  s21::Controller::GetInstance().PaintGL();
 }
 
 void Canvas::resizeGL(int w, int h) {
-  controller_->SetViewPort(w, h);
+  s21::Controller::GetInstance().SetViewPort(w, h);
 }
 
 void Canvas::UpdateWidget() {

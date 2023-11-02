@@ -40,7 +40,7 @@
        <number>10</number>
       </property>
       <item>
-       <widget class="QPushButton" name="uploadButton">
+       <widget class="QPushButton" name="upload_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>

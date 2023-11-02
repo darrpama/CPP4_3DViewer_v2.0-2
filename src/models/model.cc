@@ -15,11 +15,7 @@ void Model::SetViewPort(int w, int h) {
 }
 
 void Model::PaintGL() {
-  auto start = std::chrono::high_resolution_clock::now();
   render_.PaintGL();
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::cout << "Renderer::PaintGL() Execution time: " << duration << " milliseconds" << std::endl;
 }
 
 // TRANSFORM methods
@@ -36,6 +32,12 @@ void Model::ApplyRotation(float x, float y, float z) {
 void Model::ApplyScale(float f) {
   transform_.UpdateScaleMatrix(f);
   render_.SetTransformMatrix(transform_.GetTransformMatrix());
+}
+
+void Model::SetColor(ColorType type, QColor color) {
+  if (type == ColorType::BG_COLOR) render_.SetBackgroundColor(color);
+  if (type == ColorType::VERTICE_COLOR) render_.SetPointsColor(color);
+  if (type == ColorType::EDGE_COLOR) render_.SetLinesColor(color);
 }
 
 // PARSE

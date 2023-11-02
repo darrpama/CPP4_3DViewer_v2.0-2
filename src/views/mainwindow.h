@@ -34,19 +34,17 @@ class MainWindow : public QMainWindow
   Q_OBJECT
 
  public:
-  MainWindow(s21::Controller &controller, QWidget *parent = nullptr);
+  MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   void resizeEvent(QResizeEvent* event);
   QString MakeColorStyle(QColor);
 
  private slots:
   // upload
-  void on_uploadButton_clicked();
-  
+  void on_upload_button_clicked();
   // projection
   void on_central_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::CENTRAL, checked); }
   void on_parallel_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::PARALLEL, checked); }
-
   // transform
   void on_position_x_valueChanged(double x) { ApplyTranslation(); }
   void on_position_y_valueChanged(double y) { ApplyTranslation(); }
@@ -55,39 +53,25 @@ class MainWindow : public QMainWindow
   void on_rotation_y_valueChanged(double y) { ApplyRotation(); }
   void on_rotation_z_valueChanged(double z) { ApplyRotation(); }
   void on_scale_control_valueChanged(double);
-  
   // colors
   void on_background_color_clicked();
   void on_points_color_clicked();
   void on_lines_color_clicked();
-  
-  // edge type
-
+  // edge
   void on_edge_type_none_clicked() {SetEdgeType(s21::EdgeType::NO_EDGE); }
   void on_edge_type_solid_clicked() {SetEdgeType(s21::EdgeType::SOLID); }
   void on_edge_type_dashed_clicked() {SetEdgeType(s21::EdgeType::DASHED); }
-
-  void SetEdgeType(s21::EdgeType);
-
-  // edge thikness
   void on_edge_thikness_sliderMoved(int);
-  
-  // vertice types
+  // vertices
   void on_vertice_type_none_clicked() { SetVerticeType(s21::VerticeType::NO_VERTICE); }
   void on_vertice_type_circle_clicked() { SetVerticeType(s21::VerticeType::CIRCLE); }
   void on_vertice_type_square_clicked() { SetVerticeType(s21::VerticeType::SQUARE); }
-  
-  void SetVerticeType(s21::VerticeType);
-  void SetProjectionType(s21::ProjectionType, bool);
-
-  // vertice size
   void on_vertice_size_sliderMoved(int);
-  
+  // screensave
   void on_screenshot_button_clicked() { MakeScreenshot(canvas_); }
   void on_screencast_button_clicked();
 
 private:
-  s21::Controller controller_;
   Ui::MainWindow *ui_;
   Canvas *canvas_;
   QLabel *filepath_label_;
@@ -106,7 +90,7 @@ private:
   QDoubleSpinBox *scale_z_;
   QRadioButton *central_projection_radio_;
   QRadioButton *parallel_projection_radio_;
-  QPushButton *background_color_button_;
+  QPushButton *bg_color_button_;
   QPushButton *points_color_button_;
   QPushButton *lines_color_button_;
 
@@ -129,6 +113,11 @@ private:
   void MakeScreenshot(QWidget*);
   void MakeScreencast(QWidget*);
   void SetDefaultValues();
+  void SetProjectionType(s21::ProjectionType, bool);
+  void SetColor(QWidget*, s21::ColorType);
+  void SetEdgeType(s21::EdgeType);
+  void SetVerticeType(s21::VerticeType);
+  void SetObjectInfo();
 };
 
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

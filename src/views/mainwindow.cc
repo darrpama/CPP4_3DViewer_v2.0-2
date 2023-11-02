@@ -2,73 +2,25 @@
 #include "./ui_mainwindow.h"
 
 
-MainWindow::MainWindow(s21::Controller &controller, QWidget *parent)
+MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui_(new Ui::MainWindow)
-  , controller_(controller)
 {
   ui_->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
-  canvas_->SetController(&controller_);
-
-  // upload ui
-  upload_button_ = findChild<QPushButton*>("uploadButton");
-  filepath_label_ = findChild<QLabel*>("filepath_label");
-
-  // color buttons
-  background_color_button_ = findChild<QPushButton*>("background_color");
-  points_color_button_ = findChild<QPushButton*>("points_color");
-  lines_color_button_ = findChild<QPushButton*>("lines_color");
-
-  // projection
-  central_projection_radio_ = findChild<QRadioButton*>("central_projection_radio");
-  parallel_projection_radio_ = findChild<QRadioButton*>("parallel_projection_radio");
-  
-  // position spins
-  position_x_ = findChild<QDoubleSpinBox*>("position_x");
-  position_y_ = findChild<QDoubleSpinBox*>("position_y");
-  position_z_ = findChild<QDoubleSpinBox*>("position_z");
-
-  // rotation spins
-  rotation_x_ = findChild<QDoubleSpinBox*>("rotation_x");
-  rotation_y_ = findChild<QDoubleSpinBox*>("rotation_y");
-  rotation_z_ = findChild<QDoubleSpinBox*>("rotation_z");
-
-  // scale spins
-  scale_x_ = findChild<QDoubleSpinBox*>("scale_x");
-  scale_y_ = findChild<QDoubleSpinBox*>("scale_y");
-  scale_z_ = findChild<QDoubleSpinBox*>("scale_z");
-
-  // Edge types
-  edge_type_none_ = findChild<QRadioButton*>("edge_type_none");
-  edge_type_solid_ = findChild<QRadioButton*>("edge_type_solid");
-  edge_type_dashed_ = findChild<QRadioButton*>("edge_type_dashed");
-
-  // Vertice types
-  vertice_type_none_ = findChild<QRadioButton*>("vertice_type_none");
-  vertice_type_circle_ = findChild<QRadioButton*>("vertice_type_circle");
-  vertice_type_square_ = findChild<QRadioButton*>("vertice_type_square");
-
-  // Slider types
-  vertice_size_ = findChild<QSlider*>("vertice_size");
-  edge_thickness_ = findChild<QSlider*>("edge_thickness");
-
-  vertex_count_label_ = findChild<QLabel*>("vertex_count_label");
-  face_count_label_ = findChild<QLabel*>("face_count_label");
-  edge_count_label_ = findChild<QLabel*>("edge_count_label");
 
   // Set default values
-  central_projection_radio_->setChecked(true);
-  edge_type_solid_->setChecked(true);
-  vertice_type_circle_->setChecked(true);
+  ui_->central_projection_radio->setChecked(true);
+  ui_->edge_type_solid->setChecked(true);
+  ui_->vertice_type_circle->setChecked(true);
 }
 
 // TODO: remove hardcoded values
 void MainWindow::SetDefaultValues() {
-  controller_.SetEdgeType(s21::EdgeType::SOLID);
-  controller_.SetEdgeThikness(10);
-  controller_.SetVerticeType(s21::VerticeType::CIRCLE);
-  controller_.SetVerticeSize(3); 
+  s21::Controller::GetInstance().SetEdgeType(s21::EdgeType::SOLID);
+  s21::Controller::GetInstance().SetEdgeThikness(10);
+  s21::Controller::GetInstance().SetVerticeType(s21::VerticeType::CIRCLE);
+  s21::Controller::GetInstance().SetVerticeSize(3); 
   canvas_->UpdateWidget();
 }
 
@@ -81,63 +33,80 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QSize newSize = event->size();
 }
 
-void MainWindow::on_uploadButton_clicked() {
+void MainWindow::on_upload_button_clicked() {
   QString file_path = QFileDialog::getOpenFileName(
     this, tr("Select File"), "", tr("All Files (*.*)")
   );
   if (!file_path.isEmpty()) {
     std::string file = file_path.toStdString();
-    filepath_label_->setText(file_path);
-    controller_.ParseObjFile(file);
-    vertex_count_label_->setText(QString::number(controller_.GetVertexCount()));
-    face_count_label_->setText(QString::number(controller_.GetFaceCount()));
-    edge_count_label_->setText(QString::number(controller_.GetEdgeCount()));
+    ui_->filepath_label->setText(file_path);
+    s21::Controller::GetInstance().ParseObjFile(file);
+    SetObjectInfo();
     SetDefaultValues();
   }
 }
 
+void MainWindow::on_scale_control_valueChanged(double x) {
+  s21::Controller::GetInstance().ApplyScale((float) x);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_background_color_clicked() {
+  SetColor(ui_->background_color, s21::ColorType::BG_COLOR);
+}
+
+void MainWindow::on_points_color_clicked() {
+  SetColor(ui_->points_color, s21::ColorType::VERTICE_COLOR);
+}
+
+void MainWindow::on_lines_color_clicked() {
+  SetColor(ui_->lines_color, s21::ColorType::EDGE_COLOR);
+}
+
+void MainWindow::on_edge_thikness_sliderMoved(int position) {
+  s21::Controller::GetInstance().SetEdgeThikness(position);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_vertice_size_sliderMoved(int position) {
+  s21::Controller::GetInstance().SetVerticeSize(position);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_screencast_button_clicked() {
+  MakeScreencast(canvas_);
+}
+
+
+void MainWindow::SetObjectInfo() {
+  ui_->vertex_count_label->setText(QString::number(s21::Controller::GetInstance().GetVertexCount()));
+  ui_->face_count_label->setText(QString::number(s21::Controller::GetInstance().GetFaceCount()));
+  ui_->edge_count_label->setText(QString::number(s21::Controller::GetInstance().GetEdgeCount()));
+}
+
 // position X
 void MainWindow::ApplyTranslation() {
-  controller_.ApplyTranslation(
-    position_x_->value(), 
-    position_y_->value(), 
-    position_z_->value()
+  s21::Controller::GetInstance().ApplyTranslation(
+    ui_->position_x->value(), 
+    ui_->position_y->value(), 
+    ui_->position_z->value()
   );
   canvas_->UpdateWidget();
 }
 
 void MainWindow::ApplyRotation() {
-  controller_.ApplyRotation(
-    rotation_x_->value(),
-    rotation_y_->value(),
-    rotation_z_->value()
+  s21::Controller::GetInstance().ApplyRotation(
+    ui_->rotation_x->value(),
+    ui_->rotation_y->value(),
+    ui_->rotation_z->value()
   );
   canvas_->UpdateWidget();
 }
 
-void MainWindow::on_scale_control_valueChanged(double x) {
-  controller_.ApplyScale((float) x);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_background_color_clicked() {
+void MainWindow::SetColor(QWidget *widget, s21::ColorType type) {
   QColor color = QColorDialog::getColor();
-  controller_.SetBackgroundColor(color);
-  background_color_button_->setStyleSheet(MakeColorStyle(color));
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_points_color_clicked() {
-  QColor color = QColorDialog::getColor();
-  controller_.SetPointsColor(color);
-  points_color_button_->setStyleSheet(MakeColorStyle(color));
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_lines_color_clicked() {
-  QColor color = QColorDialog::getColor();
-  controller_.SetLinesColor(color);
-  lines_color_button_->setStyleSheet(MakeColorStyle(color));
+  s21::Controller::GetInstance().SetColor(type, color);
+  widget->setStyleSheet(MakeColorStyle(color));
   canvas_->UpdateWidget();
 }
 
@@ -148,33 +117,19 @@ QString MainWindow::MakeColorStyle(QColor color) {
     QString::number(color.blue()) + ");";
 }
 
-void MainWindow::on_edge_thikness_sliderMoved(int position) {
-  controller_.SetEdgeThikness(position);
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::on_vertice_size_sliderMoved(int position) {
-  controller_.SetVerticeSize(position);
-  canvas_->UpdateWidget();
-}
-
 void MainWindow::SetVerticeType(s21::VerticeType type) {
-  controller_.SetVerticeType(type);
+  s21::Controller::GetInstance().SetVerticeType(type);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::SetEdgeType(s21::EdgeType type) {
-  controller_.SetEdgeType(type);
+  s21::Controller::GetInstance().SetEdgeType(type);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
-  if (checked) controller_.SetProjectionType(type);
+  if (checked) s21::Controller::GetInstance().SetProjectionType(type);
   canvas_->UpdateWidget();
-}
-
-void MainWindow::on_screencast_button_clicked() {
-  MakeScreencast(canvas_);
 }
 
 void MainWindow::MakeScreenshot(QWidget* widget) {

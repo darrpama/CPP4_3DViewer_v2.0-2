@@ -10,11 +10,18 @@ namespace s21 {
 
 // singleton
 class Controller {
+ private:
+  Controller() : model_() {};
+  Controller(const Controller&);
+  Controller& operator=(const Controller&) = delete;
 
  public:
-  explicit Controller() : model_() {};
-  explicit Controller(Model *model) : model_(model) {};
+  static Controller& GetInstance() { 
+    static Controller instance;
+    return instance;
+  }
 
+  void SetModel(Model *model) { model_ = model; }
   // render
   void InitOpenGL();
   void SetViewPort(int, int);
@@ -32,9 +39,7 @@ class Controller {
   void ApplyScale(float);
   
   // colors
-  void SetBackgroundColor(QColor);
-  void SetPointsColor(QColor);
-  void SetLinesColor(QColor);
+  void SetColor(ColorType, QColor);
 
   // edge
   void SetEdgeType(EdgeType);

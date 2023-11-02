@@ -21,16 +21,13 @@ class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT
  public:
   explicit Canvas(QWidget *);
-  void SetController(s21::Controller *);
   void UpdateWidget();
 
  protected:
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int, int) override;
- 
- private:
-  s21::Controller *controller_;
+
 };
 
 #endif // GRAPHWIDGET_H

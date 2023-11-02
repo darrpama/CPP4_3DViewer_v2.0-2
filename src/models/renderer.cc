@@ -9,9 +9,9 @@ Renderer::Renderer(Object *obj, Transform *m)
   , bg_color_(QColor(0, 0, 0))
   , points_color_(QColor(0, 255, 255))
   , lines_color_(QColor(255, 0, 0))
-  , projection_type_(ProjectionType::CENTRAL)
-  , edge_type_(EdgeType::NO_EDGE)
-  , vertice_type_(VerticeType::NO_VERTICE)
+  , projection_type_(s21::ProjectionType::CENTRAL)
+  , edge_type_(s21::EdgeType::NO_EDGE)
+  , vertice_type_(s21::VerticeType::NO_VERTICE)
   , edge_thikness_(1)
   , vertice_size_(1) {}
 
@@ -132,15 +132,12 @@ void Renderer::DrawPoints() {
 }
 
 void Renderer::CalculateCamera() {
-  float xx = x_rotation_ * M_PI / 180;
-  float yy = y_rotation_ * M_PI / 180;
+  float xx = 1 * M_PI / 180;
+  float yy = 1 * M_PI / 180;
   float r = 3.0f * cos(yy);
   float xpos = camera_target_.x() + r * sin(xx);
   float ypos = camera_target_.y() + 3.0f * sin(yy);
   float zpos = camera_target_.z() + r * cos(xx);
-  // float xpos = camera_target_.x() + 0;
-  // float ypos = camera_target_.y() + 0;
-  // float zpos = camera_target_.z() + 2;
   camera_pos_ = QVector3D(xpos, ypos, zpos) + camera_target_;
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
 }
