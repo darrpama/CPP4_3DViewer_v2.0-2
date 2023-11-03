@@ -62,6 +62,9 @@ class Renderer {
   QVector3D camera_up_;
   QVector3D move_object_;
   QQuaternion rotation_;
+  
+  QVector<GLfloat> vertices_; 
+  QVector<GLuint> faces_;
 
   QVector3D NormalizeColor(QColor);
   void CalculateCamera();
