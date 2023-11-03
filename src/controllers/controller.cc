@@ -29,7 +29,7 @@ void Controller::ApplyScale(float x) {
 }
 
 // PARSE
-void Controller::ParseObjFile(std::string &file_path) {
+void Controller::ParseObjFile(QString &file_path) {
   model_->ParseObjFile(file_path);
 }
 

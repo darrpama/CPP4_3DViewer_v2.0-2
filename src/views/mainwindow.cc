@@ -38,9 +38,8 @@ void MainWindow::on_upload_button_clicked() {
     this, tr("Select File"), "", tr("All Files (*.*)")
   );
   if (!file_path.isEmpty()) {
-    std::string file = file_path.toStdString();
     ui_->filepath_label->setText(file_path);
-    s21::Controller::GetInstance().ParseObjFile(file);
+    s21::Controller::GetInstance().ParseObjFile(file_path);
     SetObjectInfo();
     SetDefaultValues();
   }

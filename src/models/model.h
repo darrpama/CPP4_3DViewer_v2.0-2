@@ -22,7 +22,7 @@ class Model {
   void PaintGL();
 
   // PARSER methods
-  void ParseObjFile(std::string &);
+  void ParseObjFile(QString&);
 
   // TRANSFRORM methods
   void ApplyTranslation(float, float, float);

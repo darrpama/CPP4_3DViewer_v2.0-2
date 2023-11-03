@@ -41,7 +41,7 @@ void Model::SetColor(ColorType type, QColor color) {
 }
 
 // PARSE
-void Model::ParseObjFile(std::string &file_path) {
+void Model::ParseObjFile(QString &file_path) {
   auto start = std::chrono::high_resolution_clock::now();
   
   object_->Clear();

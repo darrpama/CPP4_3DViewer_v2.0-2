@@ -28,7 +28,7 @@ class Controller {
   void PaintGL();
 
   // parser
-  void ParseObjFile(std::string &);
+  void ParseObjFile(QString &);
 
   // projection
   void SetProjectionType(ProjectionType);

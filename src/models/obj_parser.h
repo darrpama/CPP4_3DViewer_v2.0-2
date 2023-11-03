@@ -9,6 +9,9 @@
 #include <vector>
 #include <sstream>
 
+#include <QFile>
+#include <QString>
+
 
 namespace s21
 {
@@ -16,13 +19,14 @@ class OBJParser {
  public:
   OBJParser(Object *obj) : object_(obj) {};
   void Parse();
-  void SetFilePath(const std::string&);
+  void SetFilePath(const QString&);
   void SetObject(Object *);
-  std::vector<Face> TriangulateFace(const Face& face);
 
  private:
   Object *object_;
   std::string file_path_;
+  void TriangulateFaces();
+  std::vector<Face> TriangulateFace(const Face& face);
 };
 
 }  // namespace s21

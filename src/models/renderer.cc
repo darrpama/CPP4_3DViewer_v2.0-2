@@ -138,9 +138,6 @@ void Renderer::CalculateCamera() {
   float xpos = camera_target_.x() + r * sin(xx);
   float ypos = camera_target_.y() + 3.0f * sin(yy);
   float zpos = camera_target_.z() + r * cos(xx);
-  // float xpos = camera_target_.x() + 0;
-  // float ypos = camera_target_.y() + 0;
-  // float zpos = camera_target_.z() + 2;
   camera_pos_ = QVector3D(xpos, ypos, zpos) + camera_target_;
   camera_up_ = QVector3D(-sin(xx) * sin(yy), cos(yy), -cos(xx) * sin(yy));
 }
