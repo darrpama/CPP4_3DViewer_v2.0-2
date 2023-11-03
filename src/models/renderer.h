@@ -5,6 +5,7 @@
 
 #include "object.h"
 #include "transform.h"
+#include "type.h"
 
 #include <QtOpenGLWidgets/qopenglwidget.h>
 #include <QOpenGLFunctions>
@@ -16,10 +17,6 @@
 
 namespace s21 {
 
-enum EdgeType {NO_EDGE, SOLID, DASHED};
-enum VerticeType {NO_VERTICE, CIRCLE, SQUARE};
-enum ProjectionType {CENTRAL, PARALLEL};
-
 class Renderer {
  public:
   Renderer(Object*, Transform*);
@@ -29,7 +26,7 @@ class Renderer {
   void PaintGL();
   void SetViewPort(int, int);
 
-  void SetProjectionType(ProjectionType type) { projection_type_ = type; }
+  void SetProjectionType(s21::ProjectionType type) { projection_type_ = type; }
   void SetBackgroundColor(QColor color) { bg_color_ = color; }
   void SetPointsColor(QColor color) { points_color_ = color; }
   void SetLinesColor(QColor color) { lines_color_ = color; }
@@ -44,13 +41,7 @@ class Renderer {
   Transform *transform_;
   int width_;
   int height_;
-  float x_rotation_;
-  float y_rotation_;
-  float start_y_;
-  float start_x_;
-  float scale_factor_;
-  QVector<GLfloat> vertices_;
-  QVector<GLuint> faces_;
+  
   QColor bg_color_;
   QColor points_color_;
   QColor lines_color_;

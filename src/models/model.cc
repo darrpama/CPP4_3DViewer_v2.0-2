@@ -34,6 +34,12 @@ void Model::ApplyScale(float f) {
   render_.SetTransformMatrix(transform_.GetTransformMatrix());
 }
 
+void Model::SetColor(ColorType type, QColor color) {
+  if (type == ColorType::BG_COLOR) render_.SetBackgroundColor(color);
+  if (type == ColorType::VERTICE_COLOR) render_.SetPointsColor(color);
+  if (type == ColorType::EDGE_COLOR) render_.SetLinesColor(color);
+}
+
 // PARSE
 void Model::ParseObjFile(std::string &file_path) {
   auto start = std::chrono::high_resolution_clock::now();
