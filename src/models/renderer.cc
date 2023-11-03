@@ -44,17 +44,17 @@ void Renderer::InitObjectModel() {
   if (object_ == nullptr) 
     return;
 
-  vertices_ = object_->GetFlattenedVertices();
-  faces_ = object_->GetFlattenedFaces();
+  QVector<GLfloat> vertices = object_->GetFlattenedVertices();
+  QVector<GLuint> faces = object_->GetFlattenedFaces();
 
   vao_.bind();
   vbo_.bind();
-  vbo_.allocate(vertices_.data(), object_->GetVertexCount() * 3 * sizeof(GLfloat));
+  vbo_.allocate(vertices.data(), object_->GetVertexCount() * 3 * sizeof(GLfloat));
   shader_program_.setAttributeBuffer("aPos", GL_FLOAT, 0, 3, 3 * sizeof(GLfloat));
   shader_program_.enableAttributeArray("aPos");
 
   ebo_.bind();
-  ebo_.allocate(faces_.data(), sizeof(faces_[0]) * faces_.size());
+  ebo_.allocate(faces.data(), sizeof(faces[0]) * faces.size());
   
   vao_.release();
   ebo_.release();
@@ -104,7 +104,7 @@ void Renderer::DrawLines() {
   QVector3D lines_color = NormalizeColor(lines_color_);
   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
   shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
-  glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  glDrawElements(GL_TRIANGLES, object_->GetFlattenedFaces().size(), GL_UNSIGNED_INT, nullptr);
   
   if (edge_type_ == EdgeType::SOLID) {
     glDisable(GL_LINE_STRIP);
