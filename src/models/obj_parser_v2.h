@@ -8,6 +8,11 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <chrono>
+#include <QVector>
+
+using GLfloat = float;
+using GLuint = unsigned int;
 
 
 namespace s21
@@ -18,11 +23,12 @@ class OBJParser {
   void Parse();
   void SetFilePath(const std::string&);
   void SetObject(Object *);
-  std::vector<Face> TriangulateFace(const Face& face);
 
  private:
   Object *object_;
   std::string file_path_;
+
+  QVector<GLuint> TriangulateFace(const QVector<GLuint>&);
 };
 
 }  // namespace s21

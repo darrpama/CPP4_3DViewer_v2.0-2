@@ -15,15 +15,6 @@ using GLuint = unsigned int;
 namespace s21
 {
 
-enum coordinate {X, Y, Z};
-struct Vertex {
-  float x{}, y{}, z{};
-};
-
-struct Face {
-  std::vector<unsigned int> vertex_indices{};
-};
-
 struct VectorHash {
   template <typename T>
   std::size_t operator()(const std::vector<T>& vec) const {
@@ -45,33 +36,25 @@ struct VectorEqual {
 class Object {
  public:
   Object();
-  Object(std::vector<Vertex>, std::vector<Face>);
+  // Object(std::vector<Vertex>, std::vector<Face>);
 
-  std::vector<Vertex> GetVertices();
-  std::vector<Face> GetFaces();
-  QVector<GLfloat> GetFlattenedVertices();
-  QVector<GLuint> GetFlattenedFaces();
-  void SetVertices(std::vector<Vertex>);
-  void SetFaces(std::vector<Face>);
-  void SetVerticesInFaces(unsigned);
-  void AddVertex(Vertex);
-  void AddFace(Face);
+  void AddVertex(float, float, float);
+  void AddFace(QVector<GLuint>);
   void Clear();
-  void CountEdges();
+  // void CountEdges();
   size_t GetVertexCount() { return vertex_count_; }
   size_t GetFaceCount() { return face_count_; }
-  size_t GetEdgeCount();
+  size_t GetEdgeCount() { return 0; }  // TODO: implement
+  QVector<GLfloat> GetFlattenedVertices();
+  QVector<GLuint> GetFlattenedFaces();
 
  private:
-  std::vector<std::vector<unsigned>> faces;
-  std::vector<Vertex> vertices_;
-  std::vector<Face> faces_;
-  float *vertices_array_;
-  unsigned *faces_array_;
   size_t vertex_count_{};
   size_t face_count_{};
   size_t edge_count_{};
-  unsigned vertices_in_faces_{};
+  QVector<GLfloat> vertices_array_;
+  QVector<GLuint> faces_array_;
+
 };
 
 }

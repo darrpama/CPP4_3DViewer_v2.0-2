@@ -29,7 +29,14 @@ QVector<GLfloat> Object::GetFlattenedVertices() {
 }
 
 QVector<GLuint> Object::GetFlattenedFaces() {
-  return faces_array_;
+  QVector<GLuint> int_array;
+  int_array.reserve(faces_.size() * 3);
+  for (const auto& face : faces_) {
+    for (const auto& index : face.vertex_indices) {
+      int_array.push_back(index-1);
+    }
+  }
+  return int_array;
 }
 
 std::vector<Face> Object::GetFaces() {
@@ -46,11 +53,13 @@ void Object::SetFaces(std::vector<Face> faces)  {
   face_count_ = faces.size();
 }
 
-void Object::AddVertex() {
+void Object::AddVertex(Vertex vertex) {
+  vertices_.push_back(vertex);
   vertex_count_++;
 }
 
-void Object::AddFace() {
+void Object::AddFace(Face face) {
+  faces_.push_back(face);
   face_count_++;
 }
 
