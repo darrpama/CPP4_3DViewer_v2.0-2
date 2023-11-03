@@ -22,7 +22,7 @@ namespace s21 {
         std::istringstream iss(line.substr(2));
         std::string vertex_index_str;
         unsigned vertice_in_face = 0;
-        std::vector<unsigned> face_indices;
+        QVector<GLuint> face_indices;
         while (iss >> vertex_index_str) {
           vertices_in_faces++;
           vertice_in_face++;
@@ -38,29 +38,13 @@ namespace s21 {
         if (vertice_in_face > 3) {
           TriangulateFace(face_indices);
         }
-        faces_array.insert(faces_array.end(), face_indices.begin(), face_indices.end());
+        faces_array.append(face_indices);
         object_->SetVerticesInFaces(vertices_in_faces);
       }
     }
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     std::cout << "OBJParser::Parse() without triangulation Execution time: " << duration << " milliseconds" << std::endl;
-
-    auto start2 = std::chrono::high_resolution_clock::now();
-    std::vector<Face> triangulated_faces;
-    for (const auto& face : object_->GetFaces()) {
-      if (face.vertex_indices.size() > 3) {
-        std::vector<Face> triangles = TriangulateFace(face);
-        triangulated_faces.insert(triangulated_faces.end(), triangles.begin(), triangles.end());
-      }
-      else {
-        triangulated_faces.push_back(face);
-      }
-    }
-    object_->SetFaces(triangulated_faces);
-    auto end2 = std::chrono::high_resolution_clock::now();
-    auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2).count();
-    std::cout << "OBJParser::Parse() only triangulation Execution time: " << duration2 << " milliseconds" << std::endl;
   }
 
   void OBJParser::SetFilePath(const std::string& file_path) {
