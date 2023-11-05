@@ -4,55 +4,6 @@
 
 namespace s21 {
 
-void OBJParser::Parse() {
-  auto start = std::chrono::high_resolution_clock::now();
-
-  std::ifstream file(file_path_);
-  if (!file.is_open()) {
-    std::cerr << "Failed to open file: " << file_path_ << std::endl;
-    return;
-  }
-
-  // std::vector<Face> faces;
-  std::string line;
-  unsigned vertices_in_faces = 0;
-  while (std::getline(file, line)) {
-    if (line.size() >= 2 && line[0] == 'v' && line[1] == ' ') {
-      float x, y, z;
-      std::sscanf(line.c_str(), "v %f %f %f", &x, &y, &z);
-      object_->PushBack(x, y, z);
-    } 
-    // else if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ') {
-    //   Face f;
-    //   std::istringstream iss(line.substr(2));  // Remove the "f " part
-    //   std::string vertex_index_str;
-
-    //   while (iss >> vertex_index_str) {
-    //     std::istringstream vertex_iss(vertex_index_str);
-    //     std::string vertex_index;
-    //     std::getline(vertex_iss, vertex_index, '/');  // Extract the vertex index
-
-    //     int index = std::stoi(vertex_index);
-    //     if (index < 0) {
-    //       index = object_->GetVertexCount() + index + 1;
-    //     }
-
-    //     f.vertex_indices.push_back(static_cast<unsigned>(index));
-    //     vertices_in_faces++;
-    //   }
-    //   faces.push_back(f);
-    // }
-  }
-
-  // object_->SetFaces(faces);
-  // object_->SetVerticesInFaces(vertices_in_faces);
-
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::cout << "OBJParser::Parse() without triangulation Execution time: " << duration << " milliseconds" << std::endl;
-  TriangulateFaces();
-}
-
 void s21::OBJParser::SetFilePath(const QString &file_path) {
   file_path_ = file_path.toStdString();
 }
@@ -61,48 +12,76 @@ void OBJParser::SetObject(Object *object) {
   object_ = object;
 }
 
-void OBJParser::TriangulateFaces() {
-  auto start = std::chrono::high_resolution_clock::now();
-  
-  const std::vector<Face>& original_faces = object_->GetFaces();
-  std::vector<Face> triangulated_faces;
-  triangulated_faces.reserve(original_faces.size());
+void OBJParser::Parse() {
+  ParseVertices();
+  // ParseFaces();
+}
 
-  for (const auto& face : original_faces) {
-    if (face.vertex_indices.size() > 3) {
-      std::vector<Face> triangles = TriangulateFace(face);
-      triangulated_faces.insert(triangulated_faces.end(), triangles.begin(), triangles.end());
-    } else {
-      triangulated_faces.push_back(face);
-    }
+void OBJParser::ParseVertices() {
+  auto start = std::chrono::high_resolution_clock::now();
+
+  std::ifstream file(file_path_);
+  if (!file.is_open()) {
+    std::cerr << "Failed to open file: " << file_path_ << std::endl;
+    return;
   }
 
-  object_->SetFaces(triangulated_faces);
+  // Read the entire file into a string
+  std::stringstream buffer;
+  buffer << file.rdbuf();
+  std::string file_content = buffer.str();
+  size_t pos = 0;
 
+  while (pos < file_content.size()) {
+    size_t line_end = file_content.find('\n', pos);
+    std::string line = file_content.substr(pos, line_end - pos);
+
+    if (line.size() >= 2 && std::strncmp(line.c_str(), "v ", 2) == 0) {
+      float x, y, z;
+      char* end;
+      x = std::strtof(line.c_str() + 2, &end);
+      y = std::strtof(end, &end);
+      z = std::strtof(end, nullptr);
+      object_->PushBackVertice(x, y, z);
+    }
+    if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ') {
+      QVector<GLuint> face_vertices;
+      std::istringstream iss(line.substr(2));  // Remove the "f " part
+      std::string face_element;
+
+      while (iss >> face_element) {
+        std::istringstream element_stream(face_element);
+        std::string vertex_index_str;
+        std::getline(element_stream, vertex_index_str, '/');  // Extract the vertex index
+        int vertex_index = std::stoi(vertex_index_str);
+        if (vertex_index < 0) {
+          vertex_index = object_->GetVertexCount() + vertex_index + 1;
+        }
+        face_vertices.push_back(vertex_index - 1);
+      }
+
+      // Triangulate
+      if (face_vertices.size() > 3) {
+        QVector<GLuint> triangulated_vertices;
+        for (size_t i = 1; i < face_vertices.size() - 1; ++i) {
+          triangulated_vertices.push_back(face_vertices[0]);
+          triangulated_vertices.push_back(face_vertices[i]);
+          triangulated_vertices.push_back(face_vertices[i + 1]);
+        }
+        object_->AppendFace(triangulated_vertices);
+      } else {
+        object_->AppendFace(face_vertices);
+      }
+    }
+    pos = line_end + 1;
+  }
+
+  file.close();
   auto end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::cout << "OBJParser::TriangulateFaces() Execution time: " << duration << " milliseconds" << std::endl;
+  std::cout << "OBJParser::Parse vertices exec time: " << duration << " milliseconds" << std::endl;
 }
 
-std::vector<Face> OBJParser::TriangulateFace(const Face& face) {
-  std::vector<Face> triangles;
 
-  unsigned first_vertex = face.vertex_indices[0];
-  for (unsigned int i = 1; i < face.vertex_indices.size() - 1; ++i) {
-    Face triangle;
-    triangle.vertex_indices.push_back(first_vertex);
-    triangle.vertex_indices.push_back(face.vertex_indices[i]);
-    triangle.vertex_indices.push_back(face.vertex_indices[i + 1]);
-    triangles.push_back(triangle);
-  }
-  return triangles;
-}
-
-void OBJParser::printQVector(const QVector<GLfloat>& vec) {
-    for (const auto& element : vec) {
-        std::cout << element << " ";
-    }
-    std::cout << std::endl;
-}
 
 }  // namespace s21

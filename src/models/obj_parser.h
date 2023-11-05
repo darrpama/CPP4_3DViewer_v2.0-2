@@ -26,9 +26,8 @@ class OBJParser {
   Object *object_;
   std::string file_path_;
 
-  void TriangulateFaces();
-  std::vector<Face> TriangulateFace(const Face& face);
-  void printQVector(const QVector<GLfloat>&);
+  void ParseVertices();
+  void ParseFaces();
 };
 
 }  // namespace s21

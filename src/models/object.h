@@ -45,37 +45,25 @@ struct VectorEqual {
 class Object {
  public:
   Object();
-  Object(std::vector<Vertex>, std::vector<Face>);
-
-  std::vector<Vertex> GetVertices();
-  std::vector<Face> GetFaces();
   QVector<GLfloat> GetFlattenedVertices();
   QVector<GLuint> GetFlattenedFaces();
 
-  void SetFaces(std::vector<Face>);
-  void SetVerticesInFaces(unsigned);
-  void AddVertex(Vertex);
-  void AddFace(Face);
   void Clear();
   void CountEdges();
   size_t GetVertexCount() { return vertex_count_; }
   size_t GetFaceCount() { return face_count_; }
   size_t GetEdgeCount();
 
-  void Reserve(size_t);
-  void PushBack(float, float, float);
+  void PushBackVertice(float, float, float);
+  void AppendFace(QVector<GLuint> face);
 
  private:
-  std::vector<std::vector<unsigned>> faces;
-  std::vector<Vertex> vertices_;
-  QVector<GLfloat> flattened_vertices_array_;
-  std::vector<Face> faces_;
-  float *vertices_array_;
-  unsigned *faces_array_;
+  QVector<GLfloat> vertices_array_;
+  QVector<GLuint> faces_array_;
+
   size_t vertex_count_{};
   size_t face_count_{};
   size_t edge_count_{};
-  unsigned vertices_in_faces_{};
 };
 
 }

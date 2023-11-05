@@ -54,7 +54,7 @@ void Renderer::InitObjectModel() {
   shader_program_.enableAttributeArray("aPos");
 
   ebo_.bind();
-  ebo_.allocate(faces_.data(), sizeof(faces_[0]) * faces_.size());
+  ebo_.allocate(faces_.data(), sizeof(GLuint) * faces_.size());
   
   vao_.release();
   ebo_.release();
@@ -73,9 +73,9 @@ void Renderer::PaintGL() {
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   
-  // if (edge_type_ != EdgeType::NO_EDGE) {
-  //   DrawLines();
-  // }
+  if (edge_type_ != EdgeType::NO_EDGE) {
+    DrawLines();
+  }
   
   if (vertice_type_ != VerticeType::NO_VERTICE) {
     DrawPoints();
@@ -90,29 +90,29 @@ void Renderer::InitPaint() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-// void Renderer::DrawLines() {
-//   glLineWidth(static_cast<float>(edge_thikness_));
+void Renderer::DrawLines() {
+  glLineWidth(static_cast<float>(edge_thikness_));
 
-//   if (edge_type_ == EdgeType::SOLID) {
-//     glEnable(GL_LINE_STRIP);
-//   }
-//   if (edge_type_ == EdgeType::DASHED) {
-//     glLineStipple(1, 0x00FF);
-//     glEnable(GL_LINE_STIPPLE);
-//   }
+  if (edge_type_ == EdgeType::SOLID) {
+    glEnable(GL_LINE_STRIP);
+  }
+  if (edge_type_ == EdgeType::DASHED) {
+    glLineStipple(1, 0x00FF);
+    glEnable(GL_LINE_STIPPLE);
+  }
 
-//   QVector3D lines_color = NormalizeColor(lines_color_);
-//   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
-//   shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
-//   glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  QVector3D lines_color = NormalizeColor(lines_color_);
+  shader_program_.setUniformValueArray("transformation", &transformation_, 1);
+  shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
+  glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
   
-//   if (edge_type_ == EdgeType::SOLID) {
-//     glDisable(GL_LINE_STRIP);
-//   }
-//   if (edge_type_ == EdgeType::DASHED) {
-//     glDisable(GL_LINE_STIPPLE);
-//   }
-// }
+  if (edge_type_ == EdgeType::SOLID) {
+    glDisable(GL_LINE_STRIP);
+  }
+  if (edge_type_ == EdgeType::DASHED) {
+    glDisable(GL_LINE_STIPPLE);
+  }
+}
 
 void Renderer::DrawPoints() {
   if (vertice_type_ == VerticeType::CIRCLE) {

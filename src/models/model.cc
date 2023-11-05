@@ -48,7 +48,7 @@ void Model::ParseObjFile(QString &file_path) {
   parser_.SetFilePath(file_path);
   parser_.Parse();
   render_.InitObjectModel();
-  
+
   auto end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
   // Print the execution time
