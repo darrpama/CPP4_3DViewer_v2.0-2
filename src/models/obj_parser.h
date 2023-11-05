@@ -19,7 +19,6 @@ class OBJParser {
  public:
   OBJParser(Object *obj) : object_(obj) {};
   void Parse();
-  size_t CountVertices();
   void SetFilePath(const QString&);
   void SetObject(Object *);
 

@@ -4,20 +4,6 @@
 
 namespace s21 {
 
-size_t OBJParser::CountVertices() {
-  std::ifstream file(file_path_); 
-  std::string line;
-  size_t vertices_count = 0;
-
-  while (std::getline(file, line)) {
-    if (line.size() >= 2 && line[0] == 'v' && line[1] == ' ') {
-      vertices_count++;
-    }
-  }
-
-  return vertices_count;
-}
-
 void OBJParser::Parse() {
   auto start = std::chrono::high_resolution_clock::now();
 
@@ -26,19 +12,12 @@ void OBJParser::Parse() {
     std::cerr << "Failed to open file: " << file_path_ << std::endl;
     return;
   }
-  
-  std::string line;
-  // std::vector<Vertex> vertices;
-  size_t count = CountVertices();
-  object_->Reserve(count);
 
-  std::vector<Face> faces;
+  // std::vector<Face> faces;
+  std::string line;
   unsigned vertices_in_faces = 0;
   while (std::getline(file, line)) {
     if (line.size() >= 2 && line[0] == 'v' && line[1] == ' ') {
-      // Vertex v;
-      // std::sscanf(line.c_str(), "v %f %f %f", &v.x, &v.y, &v.z);
-      // vertices.emplace_back(v);
       float x, y, z;
       std::sscanf(line.c_str(), "v %f %f %f", &x, &y, &z);
       object_->PushBack(x, y, z);
