@@ -51,7 +51,7 @@ class Object {
   std::vector<Face> GetFaces();
   QVector<GLfloat> GetFlattenedVertices();
   QVector<GLuint> GetFlattenedFaces();
-  void SetVertices(std::vector<Vertex>);
+
   void SetFaces(std::vector<Face>);
   void SetVerticesInFaces(unsigned);
   void AddVertex(Vertex);
@@ -62,9 +62,13 @@ class Object {
   size_t GetFaceCount() { return face_count_; }
   size_t GetEdgeCount();
 
+  void Reserve(size_t);
+  void PushBack(float, float, float);
+
  private:
   std::vector<std::vector<unsigned>> faces;
   std::vector<Vertex> vertices_;
+  QVector<GLfloat> flattened_vertices_array_;
   std::vector<Face> faces_;
   float *vertices_array_;
   unsigned *faces_array_;

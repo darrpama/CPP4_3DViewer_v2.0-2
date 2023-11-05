@@ -19,14 +19,17 @@ class OBJParser {
  public:
   OBJParser(Object *obj) : object_(obj) {};
   void Parse();
+  size_t CountVertices();
   void SetFilePath(const QString&);
   void SetObject(Object *);
 
  private:
   Object *object_;
   std::string file_path_;
+
   void TriangulateFaces();
   std::vector<Face> TriangulateFace(const Face& face);
+  void printQVector(const QVector<GLfloat>&);
 };
 
 }  // namespace s21

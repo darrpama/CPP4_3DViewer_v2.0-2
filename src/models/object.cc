@@ -18,14 +18,15 @@ std::vector<Vertex> Object::GetVertices() {
 }
 
 QVector<GLfloat> Object::GetFlattenedVertices() {
-  QVector<GLfloat> float_array;
-  float_array.reserve(vertices_.size() * 3);
-  for (const auto& vertex : vertices_) {
-    float_array.push_back(vertex.x);
-    float_array.push_back(vertex.y);
-    float_array.push_back(vertex.z);
-  }
-  return float_array;
+  // QVector<GLfloat> float_array;
+  // float_array.reserve(vertices_.size() * 3);
+  // for (const auto& vertex : vertices_) {
+  //   float_array.push_back(vertex.x);
+  //   float_array.push_back(vertex.y);
+  //   float_array.push_back(vertex.z);
+  // }
+  // return float_array;
+  return flattened_vertices_array_;
 }
 
 QVector<GLuint> Object::GetFlattenedFaces() {
@@ -43,14 +44,20 @@ std::vector<Face> Object::GetFaces() {
   return faces_;
 }
 
-void Object::SetVertices(std::vector<Vertex> vertices)  {
-  vertices_ = vertices;
-  vertex_count_ = vertices.size();
-}
-
 void Object::SetFaces(std::vector<Face> faces)  {
   faces_ = faces;
   face_count_ = faces.size();
+}
+
+void Object::PushBack(float x, float y, float z) {
+  flattened_vertices_array_.push_back(x);
+  flattened_vertices_array_.push_back(y);
+  flattened_vertices_array_.push_back(z);
+  vertex_count_++;
+}
+
+void Object::Reserve(size_t size) {
+  flattened_vertices_array_.reserve(size);
 }
 
 void Object::AddVertex(Vertex vertex) {
