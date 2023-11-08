@@ -9,6 +9,7 @@
 #include <forward_list>
 #include <unordered_set>
 #include <algorithm>
+
 using GLfloat = float;
 using GLuint = unsigned int;
 

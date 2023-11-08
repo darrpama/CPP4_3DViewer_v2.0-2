@@ -25,9 +25,12 @@ class OBJParser {
  private:
   Object *object_;
   std::string file_path_;
+  QVector<GLuint> face_vertices_;
+  std::string face_element_;
+  QVector<GLuint> triangulated_vertices_;
 
-  void ParseVertices();
-  void ParseFaces();
+  void ParseVertices(std::string &);
+  void ParseFaces(std::string &);
 };
 
 }  // namespace s21
