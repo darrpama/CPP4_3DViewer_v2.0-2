@@ -24,10 +24,10 @@ class OBJParser {
 
  private:
   Object *object_;
-  std::string file_path_;
   QVector<GLuint> face_vertices_;
-  std::string face_element_;
   QVector<GLuint> triangulated_vertices_;
+  std::string face_element_;
+  std::string file_path_;
 
   void ParseVertices(std::string &);
   void ParseFaces(std::string &);

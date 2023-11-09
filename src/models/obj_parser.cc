@@ -27,6 +27,8 @@ void OBJParser::Parse() {
   std::string file_content = buffer.str();
   size_t pos = 0;
 
+  object_->ReserveMemory(file_content.size());
+
   while (pos < file_content.size()) {
     size_t line_end = file_content.find('\n', pos);
     std::string line = file_content.substr(pos, line_end - pos);
@@ -70,7 +72,8 @@ void OBJParser::ParseFaces(std::string &line) {
       face_vertices_.push_back(std::move(vertex_index - 1)); 
     }
     // Triangulate
-    if (face_vertices_.size() > 3) {
+    size_t face_vertices_size = face_vertices_.size();
+    if (face_vertices_size > 3) {
       triangulated_vertices_.clear();
       triangulated_vertices_.reserve((face_vertices_.size() - 2) * 3);
       for (size_t i = 1; i < face_vertices_.size() - 1; ++i) {
@@ -78,8 +81,13 @@ void OBJParser::ParseFaces(std::string &line) {
         triangulated_vertices_.push_back(face_vertices_[i]);
         triangulated_vertices_.push_back(face_vertices_[i + 1]);
       }
+      object_->SetRenderType(RenderType::TRIANGLE_RENDER);
       object_->AppendFace(triangulated_vertices_);
+    } else if (face_vertices_size < 3) {
+      object_->SetRenderType(RenderType::LINE_RENDER);
+      object_->AppendFace(face_vertices_);
     } else {
+      object_->SetRenderType(RenderType::TRIANGLE_RENDER);
       object_->AppendFace(face_vertices_);
     }
   }

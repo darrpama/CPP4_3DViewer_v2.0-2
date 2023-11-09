@@ -17,6 +17,9 @@ namespace s21
 {
 
 enum coordinate {X, Y, Z};
+
+enum RenderType {TRIANGLE_RENDER, LINE_RENDER};
+
 struct Vertex {
   float x{}, y{}, z{};
 };
@@ -57,10 +60,14 @@ class Object {
 
   void PushBackVertice(float, float, float);
   void AppendFace(QVector<GLuint> face);
+  void ReserveMemory(size_t);
+  void SetRenderType(RenderType);
+  RenderType GetRenderType();
 
  private:
   QVector<GLfloat> vertices_array_;
   QVector<GLuint> faces_array_;
+  RenderType render_type_;
 
   size_t vertex_count_{};
   size_t face_count_{};

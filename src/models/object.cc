@@ -43,6 +43,18 @@ void Object::CountEdges() {
   edge_count_ = 0;
 }
 
+void Object::ReserveMemory(size_t size) {
+  vertices_array_.reserve(size);
+  faces_array_.reserve(size);
+}
+
+void Object::SetRenderType(RenderType type) {
+  render_type_ = type;
+}
+RenderType Object::GetRenderType() {
+  return render_type_;
+}
+
 void Object::Clear() {
   vertices_array_.clear();
   faces_array_.clear();

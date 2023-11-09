@@ -104,7 +104,11 @@ void Renderer::DrawLines() {
   QVector3D lines_color = NormalizeColor(lines_color_);
   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
   shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
-  glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  if (object_->GetRenderType() == RenderType::TRIANGLE_RENDER) {
+    glDrawElements(GL_TRIANGLES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  } else {
+    glDrawElements(GL_LINES, faces_.size(), GL_UNSIGNED_INT, nullptr);
+  }
   
   if (edge_type_ == EdgeType::SOLID) {
     glDisable(GL_LINE_STRIP);
