@@ -11,10 +11,11 @@ namespace s21 {
 // facade
 class Model {
  public:
-  Model(Object *obj, Transform *m)
-    : object_(obj)
-    , render_(obj, m)
-    , parser_(obj) {}
+  Model(Object *o, OBJParser *p, Transform *t, Renderer *r)
+    : object_(o)
+    , parser_(p) 
+    , transform_(t)
+    , render_(r) {}
 
   // RENDER methods
   void InitOpenGL();
@@ -30,29 +31,29 @@ class Model {
   void ApplyScale(float);
 
   // PROJECTION
-  void SetProjectionType(ProjectionType type) { render_.SetProjectionType(type); }
+  void inline SetProjectionType(ProjectionType type) { render_->SetProjectionType(type); }
 
   // COLORS
   void SetColor(ColorType, QColor);
 
   // EDGE
-  void SetEdgeType(EdgeType type) { render_.SetEdgeType(type); }
-  void SetEdgeThikness(int position) { render_.SetEdgeThikness(position); }
+  void inline SetEdgeType(EdgeType type) { render_->SetEdgeType(type); }
+  void inline SetEdgeThikness(int position) { render_->SetEdgeThikness(position); }
 
   // VERTICES
-  void SetVerticeType(VerticeType type) { render_.SetVerticeType(type); }
-  void SetVerticeSize(int size) { render_.SetVerticeSize(size); }
+  void inline SetVerticeType(VerticeType type) { render_->SetVerticeType(type); }
+  void inline SetVerticeSize(int size) { render_->SetVerticeSize(size); }
 
   // MODEL PARAMETERS
-  size_t GetVertexCount() { return object_->GetVertexCount(); }
-  size_t GetFaceCount() { return object_->GetFaceCount(); }
-  size_t GetEdgeCount() { return object_->GetEdgeCount(); }
+  size_t inline GetVertexCount() { return object_->GetVertexCount(); }
+  size_t inline GetFaceCount() { return object_->GetFaceCount(); }
+  size_t inline GetEdgeCount() { return object_->GetEdgeCount(); }
 
  private:
+  Renderer *render_;
+  Transform *transform_;
+  OBJParser *parser_;
   Object *object_;
-  Renderer render_;
-  Transform transform_;
-  OBJParser parser_;
 };
 
 }  // namespace s21

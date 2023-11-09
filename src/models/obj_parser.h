@@ -24,8 +24,6 @@ class OBJParser {
 
  private:
   Object *object_;
-  QVector<GLuint> face_vertices_;
-  QVector<GLuint> triangulated_vertices_;
   std::string face_element_;
   std::string file_path_;
 

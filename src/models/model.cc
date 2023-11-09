@@ -7,37 +7,37 @@ namespace s21 {
 // RENDER methods
 void Model::InitOpenGL() {
   object_->Clear();
-  render_.InitOpenGL();
+  render_->InitOpenGL();
 }
 
 void Model::SetViewPort(int w, int h) {
-  render_.SetViewPort(w, h);
+  render_->SetViewPort(w, h);
 }
 
 void Model::PaintGL() {
-  render_.PaintGL();
+  render_->PaintGL();
 }
 
 // TRANSFORM methods
 void Model::ApplyTranslation(float x, float y, float z) {
-  transform_.UpdateTranslationMatrix(x, y, z);
-  render_.SetTransformMatrix(transform_.GetTransformMatrix());
+  transform_->UpdateTranslationMatrix(x, y, z);
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::ApplyRotation(float x, float y, float z) {
-  transform_.UpdateRotatitionMatrix(x, y, z);
-  render_.SetTransformMatrix(transform_.GetTransformMatrix());
+  transform_->UpdateRotatitionMatrix(x, y, z);
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::ApplyScale(float f) {
-  transform_.UpdateScaleMatrix(f);
-  render_.SetTransformMatrix(transform_.GetTransformMatrix());
+  transform_->UpdateScaleMatrix(f);
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::SetColor(ColorType type, QColor color) {
-  if (type == ColorType::BG_COLOR) render_.SetBackgroundColor(color);
-  if (type == ColorType::VERTICE_COLOR) render_.SetPointsColor(color);
-  if (type == ColorType::EDGE_COLOR) render_.SetLinesColor(color);
+  if (type == ColorType::BG_COLOR) render_->SetBackgroundColor(color);
+  if (type == ColorType::VERTICE_COLOR) render_->SetPointsColor(color);
+  if (type == ColorType::EDGE_COLOR) render_->SetLinesColor(color);
 }
 
 // PARSE
@@ -45,9 +45,9 @@ void Model::ParseObjFile(QString &file_path) {
   auto start = std::chrono::high_resolution_clock::now();
   
   object_->Clear();
-  parser_.SetFilePath(file_path);
-  parser_.Parse();
-  render_.InitObjectModel();
+  parser_->SetFilePath(file_path);
+  parser_->Parse();
+  render_->InitObjectModel();
 
   auto end = std::chrono::high_resolution_clock::now();
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();

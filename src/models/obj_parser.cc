@@ -26,10 +26,9 @@ void OBJParser::Parse() {
   buffer << file.rdbuf();
   std::string file_content = buffer.str();
   size_t pos = 0;
+  size_t file_content_size = file_content.size();
 
-  object_->ReserveMemory(file_content.size());
-
-  while (pos < file_content.size()) {
+  while (pos < file_content_size) {
     size_t line_end = file_content.find('\n', pos);
     std::string line = file_content.substr(pos, line_end - pos);
 
@@ -58,7 +57,7 @@ void OBJParser::ParseVertices(std::string &line) {
 
 void OBJParser::ParseFaces(std::string &line) {
   if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ') {
-    face_vertices_.clear();
+    object_->ClearFaceBuffer();
     std::istringstream iss(line.data() + 2);  // Remove the "f " part
     face_element_.clear();
     while (iss >> face_element_) {
@@ -69,26 +68,26 @@ void OBJParser::ParseFaces(std::string &line) {
       if (vertex_index < 0) {
         vertex_index = object_->GetVertexCount() + vertex_index + 1;
       }
-      face_vertices_.push_back(std::move(vertex_index - 1)); 
+      object_->PushToFaceBuffer(std::move(vertex_index - 1)); 
     }
     // Triangulate
-    size_t face_vertices_size = face_vertices_.size();
+    size_t face_vertices_size = object_->GetFaceBufferSize();
     if (face_vertices_size > 3) {
-      triangulated_vertices_.clear();
-      triangulated_vertices_.reserve((face_vertices_.size() - 2) * 3);
-      for (size_t i = 1; i < face_vertices_.size() - 1; ++i) {
-        triangulated_vertices_.push_back(face_vertices_[0]);
-        triangulated_vertices_.push_back(face_vertices_[i]);
-        triangulated_vertices_.push_back(face_vertices_[i + 1]);
+      object_->ClearTriangleBuffer();
+      object_->ReserveTriangleBuffer();
+      for (size_t i = 1; i < face_vertices_size - 1; ++i) {
+        object_->PushToTriangleBuffer(object_->GetFaceBufferAt(0));
+        object_->PushToTriangleBuffer(object_->GetFaceBufferAt(i));
+        object_->PushToTriangleBuffer(object_->GetFaceBufferAt(i + 1));
       }
       object_->SetRenderType(RenderType::TRIANGLE_RENDER);
-      object_->AppendFace(triangulated_vertices_);
+      object_->AppendTriangulatedFace();
     } else if (face_vertices_size < 3) {
       object_->SetRenderType(RenderType::LINE_RENDER);
-      object_->AppendFace(face_vertices_);
+      object_->AppendFace();
     } else {
       object_->SetRenderType(RenderType::TRIANGLE_RENDER);
-      object_->AppendFace(face_vertices_);
+      object_->AppendFace();
     }
   }
 }

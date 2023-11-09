@@ -2,30 +2,54 @@
 
 namespace s21 {
 
-Object::Object()
-    : vertices_array_(),
-      faces_array_(),
-      vertex_count_(0), 
-      face_count_(0),
-      edge_count_(0) {}
-
 QVector<GLfloat> Object::GetFlattenedVertices() {
-  return vertices_array_;
+  return *vertices_array_;
 }
 
 QVector<GLuint> Object::GetFlattenedFaces() {
-  return faces_array_;
+  return *faces_array_;
 }
 
 void Object::PushBackVertice(float x, float y, float z) {
-  vertices_array_.push_back(x);
-  vertices_array_.push_back(y);
-  vertices_array_.push_back(z);
+  vertices_array_->push_back(x);
+  vertices_array_->push_back(y);
+  vertices_array_->push_back(z);
   vertex_count_++;
 }
 
-void Object::AppendFace(QVector<GLuint> face) {
-  faces_array_.append(face);
+void Object::PushToFaceBuffer(GLuint v) {
+  face_buffer_->push_back(v);
+}
+GLuint Object::GetFaceBufferAt(size_t i) {
+  return face_buffer_->at(i);
+}
+size_t Object::GetFaceBufferSize() {
+  return face_buffer_->size();
+}
+void Object::ClearFaceBuffer() {
+  face_buffer_->clear();
+}
+
+void Object::PushToTriangleBuffer(GLuint v) {
+  triangle_buffer_->push_back(v);
+}
+size_t Object::GetTriangleBufferSize() {
+  return triangle_buffer_->size();
+}
+void Object::ClearTriangleBuffer() {
+  triangle_buffer_->clear();
+}
+void Object::ReserveTriangleBuffer() {
+  triangle_buffer_->reserve((GetFaceBufferSize() - 2) * 3);
+}
+
+void Object::AppendFace() {
+  faces_array_->append(*face_buffer_);
+  face_count_++;
+}
+
+void Object::AppendTriangulatedFace() {
+  faces_array_->append(*triangle_buffer_);
   face_count_++;
 }
 
@@ -43,11 +67,6 @@ void Object::CountEdges() {
   edge_count_ = 0;
 }
 
-void Object::ReserveMemory(size_t size) {
-  vertices_array_.reserve(size);
-  faces_array_.reserve(size);
-}
-
 void Object::SetRenderType(RenderType type) {
   render_type_ = type;
 }
@@ -56,8 +75,8 @@ RenderType Object::GetRenderType() {
 }
 
 void Object::Clear() {
-  vertices_array_.clear();
-  faces_array_.clear();
+  vertices_array_->clear();
+  faces_array_->clear();
   vertex_count_ = 0;
   face_count_ = 0;
   edge_count_ = 0;

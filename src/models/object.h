@@ -21,11 +21,9 @@ enum coordinate {X, Y, Z};
 enum RenderType {TRIANGLE_RENDER, LINE_RENDER};
 
 struct Vertex {
-  float x{}, y{}, z{};
-};
-
-struct Face {
-  std::vector<unsigned int> vertex_indices{};
+  float x;
+  float y;
+  float z;
 };
 
 struct VectorHash {
@@ -48,7 +46,15 @@ struct VectorEqual {
 
 class Object {
  public:
-  Object();
+  Object(
+    QVector<GLfloat> *v_array, 
+    QVector<GLuint> *f_array, 
+    QVector<GLuint> *f_buffer, 
+    QVector<GLuint> *t_buffer)
+      : vertices_array_(v_array)
+      , faces_array_(f_array)
+      , face_buffer_(f_buffer)
+      , triangle_buffer_(t_buffer) {}
   QVector<GLfloat> GetFlattenedVertices();
   QVector<GLuint> GetFlattenedFaces();
 
@@ -59,14 +65,27 @@ class Object {
   size_t GetEdgeCount();
 
   void PushBackVertice(float, float, float);
-  void AppendFace(QVector<GLuint> face);
-  void ReserveMemory(size_t);
+  void AppendFace();
+  void AppendTriangulatedFace();
   void SetRenderType(RenderType);
   RenderType GetRenderType();
 
+  void ClearFaceBuffer();
+  GLuint GetFaceBufferAt(size_t i);
+  void PushToFaceBuffer(GLuint);
+  size_t GetFaceBufferSize();
+
+  void ClearTriangleBuffer();
+  QVector<GLuint>* GetTriangleBuffer();
+  void PushToTriangleBuffer(GLuint);
+  size_t GetTriangleBufferSize();
+  void ReserveTriangleBuffer();
+
  private:
-  QVector<GLfloat> vertices_array_;
-  QVector<GLuint> faces_array_;
+  QVector<GLfloat> *vertices_array_;
+  QVector<GLuint> *faces_array_;
+  QVector<GLuint> *face_buffer_;
+  QVector<GLuint> *triangle_buffer_;
   RenderType render_type_;
 
   size_t vertex_count_{};
