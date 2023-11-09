@@ -46,11 +46,10 @@ void OBJParser::Parse() {
 
 void OBJParser::ParseVertices(std::string &line) {
   if (line.size() >= 2 && std::strncmp(line.c_str(), "v ", 2) == 0) {
-    float x, y, z;
     char* end;
-    x = std::strtof(line.c_str() + 2, &end);
-    y = std::strtof(end, &end);
-    z = std::strtof(end, nullptr);
+    float x = std::strtof(line.c_str() + 2, &end);
+    float y = std::strtof(end, &end);
+    float z = std::strtof(end, nullptr);
     object_->PushBackVertice(x, y, z);
   }
 }
@@ -70,9 +69,11 @@ void OBJParser::ParseFaces(std::string &line) {
       }
       object_->PushToFaceBuffer(std::move(vertex_index - 1)); 
     }
-    // Triangulate
+
     size_t face_vertices_size = object_->GetFaceBufferSize();
+    
     if (face_vertices_size > 3) {
+      // Triangulate
       object_->ClearTriangleBuffer();
       object_->ReserveTriangleBuffer();
       for (size_t i = 1; i < face_vertices_size - 1; ++i) {
