@@ -45,8 +45,21 @@ void MainWindow::on_upload_button_clicked() {
   }
 }
 
-void MainWindow::on_normalize_object_button_clicked()
-{
+void MainWindow::on_reset_transform_button_clicked() {
+  s21::Controller::GetInstance().ApplyTranslation(0.0f, 0.0f, 0.0f);
+  s21::Controller::GetInstance().ApplyScale(1.0f);
+  s21::Controller::GetInstance().ApplyRotation(0.0f, 0.0f, 0.0f);
+  ui_->position_x->setValue(0.0f);
+  ui_->position_y->setValue(0.0f);
+  ui_->position_z->setValue(0.0f);
+  ui_->rotation_x->setValue(0.0f);
+  ui_->rotation_y->setValue(0.0f);
+  ui_->rotation_z->setValue(0.0f);
+  ui_->scale_control->setValue(1.0f);
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_normalize_object_button_clicked() {
   s21::Controller::GetInstance().NormalizeObject();
   canvas_->UpdateWidget();
 }
