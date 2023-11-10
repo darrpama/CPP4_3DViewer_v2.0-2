@@ -42,6 +42,7 @@ class MainWindow : public QMainWindow
  private slots:
   // upload
   void on_upload_button_clicked();
+  void on_normalize_object_button_clicked();
   // projection
   void on_central_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::CENTRAL, checked); }
   void on_parallel_projection_radio_toggled(bool checked) {SetProjectionType(s21::ProjectionType::PARALLEL, checked); }

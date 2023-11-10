@@ -26,6 +26,7 @@ class Model {
   void ParseObjFile(QString&);
 
   // TRANSFRORM methods
+  void NormalizeObject();
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float, float);
   void ApplyScale(float);

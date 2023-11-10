@@ -10,6 +10,29 @@ QVector<GLuint> Object::GetFlattenedFaces() {
   return *faces_array_;
 }
 
+void Object::Normalize() {
+  
+  GLfloat max_value = *std::max_element(
+    vertices_array_->constBegin(), 
+    vertices_array_->constEnd()
+  );
+
+  GLfloat min_value = *std::min_element(
+    vertices_array_->constBegin(), 
+    vertices_array_->constEnd()
+  );
+
+  std::cout << "max vertice value: " << max_value << std::endl;
+  std::cout << "min vertice value: " << min_value << std::endl;
+  GLfloat normalize_coef = (abs(min_value) > abs(max_value)) ? min_value : max_value;
+
+  std::cout << "divide coefficient: " <<  normalize_coef << std::endl;
+
+  for (int i = 0; i < vertices_array_->size(); ++i) {
+    (*vertices_array_)[i] /= normalize_coef;
+  }
+}
+
 void Object::PushBackVertice(float x, float y, float z) {
   vertices_array_->push_back(x);
   vertices_array_->push_back(y);

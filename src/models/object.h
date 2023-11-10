@@ -81,6 +81,8 @@ class Object {
   size_t GetTriangleBufferSize();
   void ReserveTriangleBuffer();
 
+  void Normalize();
+
  private:
   QVector<GLfloat> *vertices_array_;
   QVector<GLuint> *faces_array_;

@@ -19,6 +19,11 @@ void Model::PaintGL() {
 }
 
 // TRANSFORM methods
+void Model::NormalizeObject() {
+  object_->Normalize();
+  render_->InitObjectModel();
+}
+
 void Model::ApplyTranslation(float x, float y, float z) {
   transform_->UpdateTranslationMatrix(x, y, z);
   render_->SetTransformMatrix(transform_->GetTransformMatrix());

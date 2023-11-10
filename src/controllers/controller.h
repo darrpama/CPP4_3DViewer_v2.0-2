@@ -34,6 +34,7 @@ class Controller {
   void SetProjectionType(ProjectionType);
 
   // transform
+  void NormalizeObject();
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float, float);
   void ApplyScale(float);

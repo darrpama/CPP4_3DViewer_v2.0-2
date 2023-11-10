@@ -16,6 +16,10 @@ void Controller::PaintGL() {
 }
 
 // TRANSFORM
+void Controller::NormalizeObject() {
+  model_->NormalizeObject();
+}
+
 void Controller::ApplyTranslation(float x, float y, float z) {
   model_->ApplyTranslation(x, y, z);
 }

@@ -45,6 +45,12 @@ void MainWindow::on_upload_button_clicked() {
   }
 }
 
+void MainWindow::on_normalize_object_button_clicked()
+{
+  s21::Controller::GetInstance().NormalizeObject();
+  canvas_->UpdateWidget();
+}
+
 void MainWindow::on_scale_control_valueChanged(double x) {
   s21::Controller::GetInstance().ApplyScale((float) x);
   canvas_->UpdateWidget();
@@ -203,4 +209,3 @@ void MainWindow::MakeScreencast(QWidget* widget) {
   std::cout << "[ End record ]" << std::endl;
   webpWriter.device()->close();
 }
-
