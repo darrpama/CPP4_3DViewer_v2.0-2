@@ -42,17 +42,21 @@ class Model {
   const QColor &GetColor(const ColorType &);
 
   // EDGE
-  void inline SetEdgeType(EdgeType type) { render_->SetEdgeType(type); }
-  void inline SetEdgeThikness(int position) { render_->SetEdgeThikness(position); }
+  void SetEdgeType(EdgeType type) { settings_->SetEdgeType(type); }
+  const EdgeType &GetEdgeType() { return settings_->GetEdgeType(); }
+  void SetEdgeThickness(int val) { settings_->SetEdgeThickness(val); }
+  int GetEdgeThickness() { return settings_->GetEdgeThickness(); }
 
   // VERTICES
-  void inline SetVerticeType(VerticeType type) { render_->SetVerticeType(type); }
-  void inline SetVerticeSize(int size) { render_->SetVerticeSize(size); }
+  void SetVerticeType(VerticeType type) { settings_->SetVerticeType(type); }
+  const VerticeType &GetVerticeType() { return settings_->GetVerticeType(); }
+  void SetVerticeSize(int size) { settings_->SetVerticeSize(size); }
+  int GetVerticeSize() { return settings_->GetVerticeSize(); }
 
   // MODEL PARAMETERS
-  size_t inline GetVertexCount() { return object_->GetVertexCount(); }
-  size_t inline GetFaceCount() { return object_->GetFaceCount(); }
-  size_t inline GetEdgeCount() { return object_->GetEdgeCount(); }
+  size_t GetVertexCount() { return object_->GetVertexCount(); }
+  size_t GetFaceCount() { return object_->GetFaceCount(); }
+  size_t GetEdgeCount() { return object_->GetEdgeCount(); }
 
  private:
   Renderer *render_;

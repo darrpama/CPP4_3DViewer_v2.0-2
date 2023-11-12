@@ -8,18 +8,25 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui_->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
+  InitValues();
 }
 
-void MainWindow::SetValues() {
-  // Set default values
-  
-  ui_->central_projection_radio->setChecked(true);
-  ui_->parallel_projection_radio->setChecked(true);
 
+void MainWindow::InitProjectionType() {
+  switch (s21::Controller::GetInstance().GetProjectionType()) {
+    case s21::ProjectionType::CENTRAL:
+      ui_->central_projection_radio->setChecked(true);
+      break;
+    case s21::ProjectionType::PARALLEL:
+      ui_->parallel_projection_radio->setChecked(true);
+      break; 
+    default:
+      ui_->central_projection_radio->setChecked(true);
+      break;
+  };
+}
 
-  ui_->edge_type_solid->setChecked(true);
-  ui_->vertice_type_circle->setChecked(true);
-
+void MainWindow::InitColors() {
   ui_->background_color->setStyleSheet(MakeColorStyle(
     s21::Controller::GetInstance().GetColor(s21::ColorType::BG_COLOR)
   ));
@@ -30,12 +37,56 @@ void MainWindow::SetValues() {
     s21::Controller::GetInstance().GetColor(s21::ColorType::EDGE_COLOR)
   ));
 }
-// TODO: remove hardcoded values
-void MainWindow::SetDefaultValues() {
-  s21::Controller::GetInstance().SetEdgeType(s21::EdgeType::SOLID);
-  s21::Controller::GetInstance().SetEdgeThikness(10);
-  s21::Controller::GetInstance().SetVerticeType(s21::VerticeType::CIRCLE);
-  s21::Controller::GetInstance().SetVerticeSize(3); 
+
+void MainWindow::InitEdgeType() {
+  switch (s21::Controller::GetInstance().GetEdgeType()) {
+    case s21::EdgeType::DASHED:
+      ui_->edge_type_dashed->setChecked(true);
+      break;
+    case s21::EdgeType::SOLID:
+      ui_->edge_type_solid->setChecked(true);
+      break;
+    case s21::EdgeType::NO_EDGE:
+      ui_->edge_type_none->setChecked(true);
+      break;
+    default:
+      ui_->edge_type_solid->setChecked(true);
+      break;
+  }
+}
+
+void MainWindow::InitVerticeType() {
+  switch (s21::Controller::GetInstance().GetVerticeType()) {
+    case s21::VerticeType::CIRCLE:
+      ui_->vertice_type_circle->setChecked(true);
+      break;
+    case s21::VerticeType::NO_VERTICE:
+      ui_->vertice_type_none->setChecked(true);
+      break;
+    case s21::VerticeType::SQUARE:
+      ui_->vertice_type_square->setChecked(true);
+      break;
+    default:
+      ui_->vertice_type_square->setChecked(true);
+      break;
+  }
+}
+
+void MainWindow::InitEdgeThickness() {
+  ui_->edge_thikness->setValue(s21::Controller::GetInstance().GetEdgeThickness());
+}
+
+void MainWindow::InitVerticeSize() {
+  ui_->vertice_size->setValue(s21::Controller::GetInstance().GetVerticeSize());
+}
+
+void MainWindow::InitValues() {
+  InitProjectionType();
+  InitColors();
+  InitEdgeType();
+  InitVerticeType();
+  InitEdgeThickness();
+  InitVerticeSize();
   canvas_->UpdateWidget();
 }
 
@@ -56,7 +107,7 @@ void MainWindow::on_upload_button_clicked() {
     ui_->filepath_label->setText(file_path);
     s21::Controller::GetInstance().ParseObjFile(file_path);
     SetObjectInfo();
-    SetDefaultValues();
+    InitValues();
   }
 }
 
@@ -97,7 +148,7 @@ void MainWindow::on_lines_color_clicked() {
 }
 
 void MainWindow::on_edge_thikness_sliderMoved(int position) {
-  s21::Controller::GetInstance().SetEdgeThikness(position);
+  s21::Controller::GetInstance().SetEdgeThickness(position);
   canvas_->UpdateWidget();
 }
 

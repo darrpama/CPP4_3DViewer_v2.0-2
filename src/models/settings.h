@@ -13,21 +13,40 @@ class Settings {
     : projection_type_(ProjectionType::CENTRAL)
     , bg_color_(QColor(20,20,20))
     , points_color_(QColor(0, 255, 255))
-    , lines_color_(QColor(255, 0, 0)) {}
+    , lines_color_(QColor(255, 0, 0))
+    , edge_type_(EdgeType::SOLID)
+    , vertice_type_(VerticeType::SQUARE)
+    , edge_thickness_(1)
+    , vertice_size_(1)
+    {}
 
+  void SetColor(ColorType, const QColor &);
   const QColor &GetColor(const ColorType &);
+  
   void SetProjectionType(const ProjectionType &type) { projection_type_ = type; }
   const ProjectionType &GetProjectionType() { return projection_type_; }
+  
+  void SetEdgeType(const EdgeType &type) { edge_type_ = type; }
+  const EdgeType &GetEdgeType() { return edge_type_; }
 
-  void SetBackgroundColor(QColor color) { bg_color_ = color; }
-  void SetPointsColor(QColor color) { points_color_ = color; }
-  void SetLinesColor(QColor color) { lines_color_ = color; }
+  void SetVerticeType(const VerticeType &type) { vertice_type_ = type; }
+  const VerticeType & GetVerticeType() { return vertice_type_; }
+
+  void SetEdgeThickness(int val) { edge_thickness_ = val; }
+  int GetEdgeThickness() { return edge_thickness_; }
+
+  void SetVerticeSize(int val) { vertice_size_ = val; }
+  int GetVerticeSize() {return vertice_size_; }
 
  private:
   ProjectionType projection_type_;
   QColor bg_color_;
   QColor points_color_;
   QColor lines_color_;
+  EdgeType edge_type_;
+  VerticeType vertice_type_;
+  int edge_thickness_;
+  int vertice_size_;
 };
 
 }  // namespace s21

@@ -45,12 +45,16 @@ class Controller {
   const QColor &GetColor(const ColorType &);
   
   // edges
+  const EdgeType &GetEdgeType();
   void SetEdgeType(EdgeType);
-  void SetEdgeThikness(int);
+  void SetEdgeThickness(int);
+  int GetEdgeThickness();
 
   // vertices
   void SetVerticeType(VerticeType);
+  const VerticeType &GetVerticeType();
   void SetVerticeSize(int);
+  int GetVerticeSize();
 
   // object parameters
   unsigned GetVertexCount();

@@ -48,9 +48,7 @@ void Model::ApplyScale(float f) {
 }
 
 void Model::SetColor(ColorType type, const QColor &color) {
-  if (type == ColorType::BG_COLOR) settings_->SetBackgroundColor(color);
-  if (type == ColorType::VERTICE_COLOR) settings_->SetPointsColor(color);
-  if (type == ColorType::EDGE_COLOR) settings_->SetLinesColor(color);
+  settings_->SetColor(type, color);
 }
 
 const QColor &Model::GetColor(const ColorType &type) {

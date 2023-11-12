@@ -27,10 +27,6 @@ class Renderer {
   void PaintGL();
   void SetViewPort(int, int);
 
-  void SetEdgeType(EdgeType type) { edge_type_ = type; }
-  void SetVerticeType(VerticeType type) { vertice_type_ = type; }
-  void SetEdgeThikness(int value) { edge_thikness_ = value; }
-  void SetVerticeSize(int value) { vertice_size_ = value; }
   void SetTransformMatrix(QMatrix4x4 m) { transformation_ = m; };
 
  private:
@@ -40,10 +36,6 @@ class Renderer {
   int width_;
   int height_;
 
-  EdgeType edge_type_;
-  VerticeType vertice_type_;
-  int edge_thikness_;
-  int vertice_size_;
   QOpenGLVertexArrayObject vao_;
   QOpenGLBuffer vbo_;
   QOpenGLBuffer ebo_;

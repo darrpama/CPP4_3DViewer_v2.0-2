@@ -6,11 +6,7 @@ Renderer::Renderer(Object *obj, Transform *m, Settings *s)
   , transform_(m)
   , settings_(s)
   , width_(0)
-  , height_(0)
-  , edge_type_(EdgeType::NO_EDGE)
-  , vertice_type_(VerticeType::NO_VERTICE)
-  , edge_thikness_(1)
-  , vertice_size_(1) {}
+  , height_(0) {}
 
 Renderer::~Renderer() {
   vbo_.destroy();
@@ -70,11 +66,11 @@ void Renderer::PaintGL() {
   vao_.bind();
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   
-  if (edge_type_ != EdgeType::NO_EDGE) {
+  if (settings_->GetEdgeType() != EdgeType::NO_EDGE) {
     DrawLines();
   }
   
-  if (vertice_type_ != VerticeType::NO_VERTICE) {
+  if (settings_->GetVerticeType() != VerticeType::NO_VERTICE) {
     DrawPoints();
   }
   
@@ -89,12 +85,12 @@ void Renderer::InitPaint() {
 }
 
 void Renderer::DrawLines() {
-  glLineWidth(static_cast<float>(edge_thikness_));
+  glLineWidth(static_cast<float>(settings_->GetEdgeThickness()));
 
-  if (edge_type_ == EdgeType::SOLID) {
+  if (settings_->GetEdgeType() == EdgeType::SOLID) {
     glEnable(GL_LINE_STRIP);
   }
-  if (edge_type_ == EdgeType::DASHED) {
+  if (settings_->GetEdgeType() == EdgeType::DASHED) {
     glLineStipple(1, 0x00FF);
     glEnable(GL_LINE_STIPPLE);
   }
@@ -108,27 +104,27 @@ void Renderer::DrawLines() {
     glDrawElements(GL_LINES, faces_.size(), GL_UNSIGNED_INT, nullptr);
   }
   
-  if (edge_type_ == EdgeType::SOLID) {
+  if (settings_->GetEdgeType() == EdgeType::SOLID) {
     glDisable(GL_LINE_STRIP);
   }
-  if (edge_type_ == EdgeType::DASHED) {
+  if (settings_->GetEdgeType() == EdgeType::DASHED) {
     glDisable(GL_LINE_STIPPLE);
   }
 }
 
 void Renderer::DrawPoints() {
-  if (vertice_type_ == VerticeType::CIRCLE) {
+  if (settings_->GetVerticeType() == VerticeType::CIRCLE) {
     glEnable(GL_POINT_SMOOTH);
   }
   
-  glPointSize(vertice_size_);
+  glPointSize(settings_->GetVerticeSize());
   
   QVector3D vertex_color = NormalizeColor(settings_->GetColor(ColorType::VERTICE_COLOR));
   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
   shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
   glDrawArrays(GL_POINTS, 0, object_->GetVertexCount());
 
-  if (vertice_type_ == VerticeType::CIRCLE) {
+  if (settings_->GetVerticeType() == VerticeType::CIRCLE) {
     glDisable(GL_POINT_SMOOTH);
   }
 }
@@ -156,7 +152,7 @@ void Renderer::SetCamera() {
   projection_.setToIdentity();
   view_.setToIdentity();
 
-  if (projection_type_ == ProjectionType::CENTRAL) {
+  if (settings_->GetProjectionType() == ProjectionType::CENTRAL) {
     projection_.perspective(45.0f, (float) width_ / height_, 0.1f, 100000.0f);
   } else {
     projection_.ortho(-width_ / 100.0f, width_ / 100.0f, -height_ / 100.0f, height_ / 100.0f, 0.0001f, 1000000.0f);

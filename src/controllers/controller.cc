@@ -60,19 +60,35 @@ void Controller::SetEdgeType(EdgeType type) {
   model_->SetEdgeType(type);
 }
 
-void Controller::SetEdgeThikness(int position) {
-  model_->SetEdgeThikness(position);
+const EdgeType &Controller::GetEdgeType() {
+  return model_->GetEdgeType();
+}
+
+void Controller::SetEdgeThickness(int position) {
+  model_->SetEdgeThickness(position);
+}
+
+int Controller::GetEdgeThickness() {
+  return model_->GetEdgeThickness();
 }
 
 // VERTICES
 void Controller::SetVerticeType(VerticeType type) {
   model_->SetVerticeType(type);
 }
+const VerticeType &Controller::GetVerticeType() {
+  return model_->GetVerticeType();
+}
 
 void Controller::SetVerticeSize(int size) {
   model_->SetVerticeSize(size);
 }
 
+int Controller::GetVerticeSize() {
+  return model_->GetVerticeSize();
+}
+
+// OBJECT
 unsigned Controller::GetVertexCount() {
   return model_->GetVertexCount();
 }

@@ -114,8 +114,15 @@ private:
   void ApplyRotation();
   void MakeScreenshot(QWidget*);
   void MakeScreencast(QWidget*);
-  void SetValues();
-  void SetDefaultValues();
+  
+  void InitProjectionType();
+  void InitColors();
+  void InitEdgeType();
+  void InitVerticeType();
+  void InitEdgeThickness();
+  void InitVerticeSize();
+  void InitValues();
+  
   void SetProjectionType(s21::ProjectionType, bool);
   void SetColor(QWidget*, s21::ColorType);
   void SetEdgeType(s21::EdgeType);
