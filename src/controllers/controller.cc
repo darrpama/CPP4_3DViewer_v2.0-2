@@ -38,13 +38,21 @@ void Controller::ParseObjFile(QString &file_path) {
 }
 
 // PROJECTION
-void Controller::SetProjectionType(ProjectionType type) {
+void Controller::SetProjectionType(const ProjectionType &type) {
   model_->SetProjectionType(type);
 }
 
+const ProjectionType &Controller::GetProjectionType() {
+  return model_->GetProjectionType();
+}
+
 // COLORS
-void Controller::SetColor(ColorType type, QColor color) {
+void Controller::SetColor(ColorType type, const QColor &color) {
   model_->SetColor(type, color);
+}
+
+const QColor &Controller::GetColor(const ColorType &type) {
+  return model_->GetColor(type);
 }
 
 // EDGE

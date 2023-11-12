@@ -31,7 +31,8 @@ class Controller {
   void ParseObjFile(QString &);
 
   // projection
-  void SetProjectionType(ProjectionType);
+  void SetProjectionType(const ProjectionType&);
+  const ProjectionType &GetProjectionType();
 
   // transform
   void NormalizeObject();
@@ -40,9 +41,10 @@ class Controller {
   void ApplyScale(float);
   
   // colors
-  void SetColor(ColorType, QColor);
-
-  // edge
+  void SetColor(ColorType, const QColor &);
+  const QColor &GetColor(const ColorType &);
+  
+  // edges
   void SetEdgeType(EdgeType);
   void SetEdgeThikness(int);
 

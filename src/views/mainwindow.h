@@ -114,6 +114,7 @@ private:
   void ApplyRotation();
   void MakeScreenshot(QWidget*);
   void MakeScreencast(QWidget*);
+  void SetValues();
   void SetDefaultValues();
   void SetProjectionType(s21::ProjectionType, bool);
   void SetColor(QWidget*, s21::ColorType);

@@ -15,9 +15,7 @@ using GLuint = unsigned int;
 
 namespace s21
 {
-
 enum coordinate {X, Y, Z};
-
 enum RenderType {TRIANGLE_RENDER, LINE_RENDER};
 
 struct Vertex {
@@ -76,7 +74,6 @@ class Object {
   size_t GetFaceBufferSize();
 
   void ClearTriangleBuffer();
-  QVector<GLuint>* GetTriangleBuffer();
   void PushToTriangleBuffer(GLuint);
   size_t GetTriangleBufferSize();
   void ReserveTriangleBuffer();

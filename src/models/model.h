@@ -6,16 +6,18 @@
 #include "obj_parser.h"
 #include "transform.h"
 #include "renderer.h"
+#include "settings.h"
 
 namespace s21 {
 // facade
 class Model {
  public:
-  Model(Object *o, OBJParser *p, Transform *t, Renderer *r)
+  Model(Object *o, OBJParser *p, Transform *t, Renderer *r, Settings *s)
     : object_(o)
     , parser_(p) 
     , transform_(t)
-    , render_(r) {}
+    , render_(r)
+    , settings_(s) {}
 
   // RENDER methods
   void InitOpenGL();
@@ -32,10 +34,12 @@ class Model {
   void ApplyScale(float);
 
   // PROJECTION
-  void inline SetProjectionType(ProjectionType type) { render_->SetProjectionType(type); }
+  void SetProjectionType(const ProjectionType &type);
+  const ProjectionType &GetProjectionType();
 
   // COLORS
-  void SetColor(ColorType, QColor);
+  void SetColor(ColorType, const QColor &);
+  const QColor &GetColor(const ColorType &);
 
   // EDGE
   void inline SetEdgeType(EdgeType type) { render_->SetEdgeType(type); }
@@ -55,6 +59,7 @@ class Model {
   Transform *transform_;
   OBJParser *parser_;
   Object *object_;
+  Settings *settings_;
 };
 
 }  // namespace s21

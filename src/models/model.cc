@@ -18,6 +18,14 @@ void Model::PaintGL() {
   render_->PaintGL();
 }
 
+void Model::SetProjectionType(const ProjectionType &type) {
+  settings_->SetProjectionType(type);
+}
+
+const ProjectionType &Model::GetProjectionType() {
+  return settings_->GetProjectionType();
+}
+
 // TRANSFORM methods
 void Model::NormalizeObject() {
   object_->Normalize();
@@ -39,10 +47,14 @@ void Model::ApplyScale(float f) {
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
-void Model::SetColor(ColorType type, QColor color) {
-  if (type == ColorType::BG_COLOR) render_->SetBackgroundColor(color);
-  if (type == ColorType::VERTICE_COLOR) render_->SetPointsColor(color);
-  if (type == ColorType::EDGE_COLOR) render_->SetLinesColor(color);
+void Model::SetColor(ColorType type, const QColor &color) {
+  if (type == ColorType::BG_COLOR) settings_->SetBackgroundColor(color);
+  if (type == ColorType::VERTICE_COLOR) settings_->SetPointsColor(color);
+  if (type == ColorType::EDGE_COLOR) settings_->SetLinesColor(color);
+}
+
+const QColor &Model::GetColor(const ColorType &type) {
+  return settings_->GetColor(type);
 }
 
 // PARSE

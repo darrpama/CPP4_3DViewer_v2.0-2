@@ -8,13 +8,28 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui_->setupUi(this);
   canvas_ = findChild<Canvas*>("canvas");
-
-  // Set default values
-  ui_->central_projection_radio->setChecked(true);
-  ui_->edge_type_solid->setChecked(true);
-  ui_->vertice_type_circle->setChecked(true);
 }
 
+void MainWindow::SetValues() {
+  // Set default values
+  
+  ui_->central_projection_radio->setChecked(true);
+  ui_->parallel_projection_radio->setChecked(true);
+
+
+  ui_->edge_type_solid->setChecked(true);
+  ui_->vertice_type_circle->setChecked(true);
+
+  ui_->background_color->setStyleSheet(MakeColorStyle(
+    s21::Controller::GetInstance().GetColor(s21::ColorType::BG_COLOR)
+  ));
+  ui_->points_color->setStyleSheet(MakeColorStyle(
+    s21::Controller::GetInstance().GetColor(s21::ColorType::VERTICE_COLOR)
+  ));
+  ui_->lines_color->setStyleSheet(MakeColorStyle(
+    s21::Controller::GetInstance().GetColor(s21::ColorType::EDGE_COLOR)
+  ));
+}
 // TODO: remove hardcoded values
 void MainWindow::SetDefaultValues() {
   s21::Controller::GetInstance().SetEdgeType(s21::EdgeType::SOLID);

@@ -1,15 +1,12 @@
 #include "renderer.h"
 
 namespace s21 {
-Renderer::Renderer(Object *obj, Transform *m)
+Renderer::Renderer(Object *obj, Transform *m, Settings *s)
   : object_(obj)
   , transform_(m)
+  , settings_(s)
   , width_(0)
   , height_(0)
-  , bg_color_(QColor(0, 0, 0))
-  , points_color_(QColor(0, 255, 255))
-  , lines_color_(QColor(255, 0, 0))
-  , projection_type_(ProjectionType::CENTRAL)
   , edge_type_(EdgeType::NO_EDGE)
   , vertice_type_(VerticeType::NO_VERTICE)
   , edge_thikness_(1)
@@ -86,7 +83,8 @@ void Renderer::PaintGL() {
 }
 
 void Renderer::InitPaint() {
-  glClearColor(bg_color_.redF(), bg_color_.greenF(), bg_color_.blueF(), 1.0f);
+  QColor bg_color = settings_->GetColor(ColorType::BG_COLOR);
+  glClearColor(bg_color.redF(), bg_color.greenF(), bg_color.blueF(), 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -101,7 +99,7 @@ void Renderer::DrawLines() {
     glEnable(GL_LINE_STIPPLE);
   }
 
-  QVector3D lines_color = NormalizeColor(lines_color_);
+  QVector3D lines_color = NormalizeColor(settings_->GetColor(ColorType::EDGE_COLOR));
   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
   shader_program_.setUniformValueArray("FragColor", &lines_color, 1);
   if (object_->GetRenderType() == RenderType::TRIANGLE_RENDER) {
@@ -125,7 +123,7 @@ void Renderer::DrawPoints() {
   
   glPointSize(vertice_size_);
   
-  QVector3D vertex_color = NormalizeColor(points_color_);
+  QVector3D vertex_color = NormalizeColor(settings_->GetColor(ColorType::VERTICE_COLOR));
   shader_program_.setUniformValueArray("transformation", &transformation_, 1);
   shader_program_.setUniformValueArray("FragColor", &vertex_color, 1);
   glDrawArrays(GL_POINTS, 0, object_->GetVertexCount());
