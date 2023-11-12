@@ -33,17 +33,20 @@ void Model::NormalizeObject() {
 }
 
 void Model::ApplyTranslation(float x, float y, float z) {
-  transform_->UpdateTranslationMatrix(x, y, z);
+  settings_->SetTranslation(x, y, z);
+  transform_->UpdateTranslationMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::ApplyRotation(float x, float y, float z) {
-  transform_->UpdateRotatitionMatrix(x, y, z);
+  settings_->SetRotation(x, y, z);
+  transform_->UpdateRotatitionMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::ApplyScale(float f) {
-  transform_->UpdateScaleMatrix(f);
+  settings_->SetScale(f);
+  transform_->UpdateScaleMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 

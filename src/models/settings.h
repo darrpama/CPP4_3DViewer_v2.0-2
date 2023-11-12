@@ -3,6 +3,7 @@
 
 #include "type.h"
 #include <QColor>
+#include <QVector3D>
 #include <iostream>
 
 namespace s21 {
@@ -18,6 +19,9 @@ class Settings {
     , vertice_type_(VerticeType::SQUARE)
     , edge_thickness_(1)
     , vertice_size_(1)
+    , translation_(0.0f, 0.0f, 0.0f)
+    , rotation_(0.0f, 0.0f, 0.0f)
+    , scale_(1.0f)
     {}
 
   void SetColor(ColorType, const QColor &);
@@ -38,6 +42,15 @@ class Settings {
   void SetVerticeSize(int val) { vertice_size_ = val; }
   int GetVerticeSize() {return vertice_size_; }
 
+  void SetTranslation(float, float, float);
+  const QVector3D &GetTranslation() { return translation_; }
+
+  void SetRotation(float, float, float);
+  const QVector3D &GetRotation() { return rotation_; }
+
+  void SetScale(float f) { scale_ = f; }
+  float GetScale() { return scale_; }
+
  private:
   ProjectionType projection_type_;
   QColor bg_color_;
@@ -47,6 +60,9 @@ class Settings {
   VerticeType vertice_type_;
   int edge_thickness_;
   int vertice_size_;
+  QVector3D translation_;
+  QVector3D rotation_;
+  float scale_;
 };
 
 }  // namespace s21
