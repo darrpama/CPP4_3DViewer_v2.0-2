@@ -22,11 +22,7 @@ void Object::Normalize() {
     vertices_array_->constEnd()
   );
 
-  std::cout << "max vertice value: " << max_value << std::endl;
-  std::cout << "min vertice value: " << min_value << std::endl;
   GLfloat normalize_coef = (abs(min_value) > abs(max_value)) ? min_value : max_value;
-
-  std::cout << "divide coefficient: " <<  normalize_coef << std::endl;
 
   for (int i = 0; i < vertices_array_->size(); ++i) {
     (*vertices_array_)[i] /= normalize_coef;

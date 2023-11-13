@@ -99,6 +99,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QSize newSize = event->size();
 }
 
+// SLOTS
 void MainWindow::on_upload_button_clicked() {
   QString file_path = QFileDialog::getOpenFileName(
     this, tr("Select File"), "", tr("All Files (*.*)")
