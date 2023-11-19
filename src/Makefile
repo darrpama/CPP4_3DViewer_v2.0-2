@@ -47,7 +47,7 @@ build:
 
 install:
 	cd $(PROJECTDIR) && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
-	cd $(PROJECTDIR) && $(BUILDDIR)/Calculator.app/Contents/MacOS/Calculator
+	cd $(PROJECTDIR) && $(BUILDDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
 
 uninstall:
 	cd $(PROJECTDIR) && rm -rf $(BUILDDIR)
