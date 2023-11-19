@@ -71,7 +71,7 @@ void Model::ParseObjFile(QString &file_path) {
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
   // Print the execution time
   std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds" << std::endl;
-
+  settings_->SaveSettings();
 }
 
 }  // namespace s21

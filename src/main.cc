@@ -9,9 +9,9 @@ int main(int argc, char *argv[]) {
 
   QVector<GLfloat> vertices_array;
   QVector<GLuint> faces_array;
+  QVector<s21::Face> raw_faces_array_;
   QVector<GLuint> face_buffer;
   QVector<GLuint> triangle_buffer;
-  QVector<s21::Face> raw_faces_array_;
 
   s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
   s21::Settings settings = s21::Settings();

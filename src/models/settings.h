@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QVector3D>
 #include <iostream>
+#include <fstream>
 
 namespace s21 {
 // facade
@@ -23,6 +24,8 @@ class Settings {
     , rotation_(0.0f, 0.0f, 0.0f)
     , scale_(1.0f)
     {}
+
+  void SaveSettings();
 
   void SetColor(ColorType, const QColor &);
   const QColor &GetColor(const ColorType &);
