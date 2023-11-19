@@ -29,6 +29,7 @@ class OBJParser {
 
   void ParseVertices(std::string &);
   void ParseFaces(std::string &);
+  void CheckAndFixEndLine();
 };
 
 }  // namespace s21

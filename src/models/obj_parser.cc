@@ -12,8 +12,25 @@ void OBJParser::SetObject(Object *object) {
   object_ = object;
 }
 
+void OBJParser::CheckAndFixEndLine() {
+  const char *filepath = file_path_.c_str();
+  FILE *fp = fopen(filepath, "r+");
+  if (fp == NULL) {
+    std::cerr << "Failed to open file: " << file_path_ << std::endl;
+    return;
+  }
+  fseek(fp, 0, SEEK_END);
+  char c = fgetc(fp);
+  if (c != '\n') {
+    fputc('\n', fp);
+  }
+  fclose(fp);
+}
+
 void OBJParser::Parse() {
   auto start = std::chrono::high_resolution_clock::now();
+  
+  CheckAndFixEndLine();
 
   std::ifstream file(file_path_);
   if (!file.is_open()) {
