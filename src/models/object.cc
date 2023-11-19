@@ -7,7 +7,7 @@ QVector<GLfloat> Object::GetFlattenedVertices() {
 }
 
 QVector<GLuint> Object::GetFlattenedFaces() {
-  return *faces_array_;
+  return *triangulated_faces_array_;
 }
 
 void Object::Normalize() {
@@ -63,27 +63,32 @@ void Object::ReserveTriangleBuffer() {
 }
 
 void Object::AppendFace() {
-  faces_array_->append(*face_buffer_);
+  triangulated_faces_array_->append(*face_buffer_);
   face_count_++;
 }
 
+void Object::AppendRawFace() {
+  Face face;
+  face.vertices = *face_buffer_;
+  raw_faces_array_->append(face);
+}
+
 void Object::AppendTriangulatedFace() {
-  faces_array_->append(*triangle_buffer_);
+  triangulated_faces_array_->append(*triangle_buffer_);
   face_count_++;
 }
 
 void Object::CountEdges() {
-  // std::unordered_set<std::vector<unsigned>, VectorHash, VectorEqual> edges;
-  // for (const auto& face : faces_) {
-  //   int num_vertices = face.vertex_indices.size();
-  //   for (int i = 0; i < num_vertices; i++) {
-  //     std::vector<unsigned> edge = {face.vertex_indices[i], face.vertex_indices[(i + 1) % num_vertices]};
-  //     std::sort(edge.begin(), edge.end());
-  //     edges.insert(edge);
-  //   }
-  // }
-  // edge_count_ = edges.size();
-  edge_count_ = 0;
+  std::unordered_set<QVector<GLuint>, VectorHash, VectorEqual> edges;
+  for (const auto& face : *raw_faces_array_) {
+    int num_vertices = face.vertices.size();
+    for (int i = 0; i < num_vertices; i++) {
+      QVector<GLuint> edge = {face.vertices[i], face.vertices[(i + 1) % num_vertices]};
+      std::sort(edge.begin(), edge.end());
+      edges.insert(edge);
+    }
+  }
+  edge_count_ = edges.size();
 }
 
 void Object::SetRenderType(RenderType type) {
@@ -95,14 +100,15 @@ RenderType Object::GetRenderType() {
 
 void Object::Clear() {
   vertices_array_->clear();
-  faces_array_->clear();
+  triangulated_faces_array_->clear();
+  raw_faces_array_->clear();
   vertex_count_ = 0;
   face_count_ = 0;
   edge_count_ = 0;
 }
 
 size_t Object::GetEdgeCount() {
-  // CountEdges();
+  CountEdges();
   return edge_count_;
 }
 

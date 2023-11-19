@@ -11,8 +11,9 @@ int main(int argc, char *argv[]) {
   QVector<GLuint> faces_array;
   QVector<GLuint> face_buffer;
   QVector<GLuint> triangle_buffer;
+  QVector<s21::Face> raw_faces_array_;
 
-  s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer);
+  s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
   s21::Settings settings = s21::Settings();
 
   s21::Transform transform = s21::Transform(&settings);
@@ -28,6 +29,7 @@ int main(int argc, char *argv[]) {
 
   // window->setWindowTitle(QString("3DViewer 2.0"));
   window->show();
+
 
   return a.exec();
 }
