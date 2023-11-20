@@ -45,9 +45,10 @@ dvi:
 build:
 	cd $(PROJECTDIR) && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
 
-install:
-	cd $(PROJECTDIR) && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
+open:
 	cd $(PROJECTDIR) && $(BUILDDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
+
+install: build open
 
 uninstall:
 	cd $(PROJECTDIR) && rm -rf $(BUILDDIR)
