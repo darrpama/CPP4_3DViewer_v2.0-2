@@ -1,8 +1,9 @@
 CC = g++
 CCFLAGS = -g -std=c++17 -pedantic -Wall -Werror -Wextra
 LDFLAGS = -lstdc++ -lgtest -fprofile-arcs -ftest-coverage
-PROJECTDIR = .
-BUILDDIR = ./build
+PROJECTDIR = $(CURDIR)
+BUILDDIR = $(PROJECTDIR)/build
+INSTALLDIR = $(PROJECTDIR)
 EXECUTABLE = test.out
 STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
@@ -46,12 +47,13 @@ build:
 	cd $(PROJECTDIR) && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
 
 open:
-	cd $(PROJECTDIR) && $(BUILDDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
+	cd $(INSTALLDIR) && $(INSTALLDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
 
-install: build open
+install: build
+	cd $(INSTALLDIR) && ls -la && cp -r $(BUILDDIR)/3DViewer_2_0.app .
 
 uninstall:
-	cd $(PROJECTDIR) && rm -rf $(BUILDDIR)
+	cd $(INSTALLDIR) && rm -rf 3DViewer_2_0.app
 
 dist:
 	rm -rf $(DISTDIR)
@@ -86,10 +88,11 @@ gcov_report: $(EXECUTABLE)
 
 .PHONY: clean test dvi dist check leaks gcov_report
 clean:
-	@rm -rf $(OBJECTS)
-	@rm -rf $(EXECUTABLE)
-	@rm -rf $(STATICLIB)
-	@rm -rf *.gcno $(GCDA) $(GCNO) *.info
-	@rm -rf report
-	@rm -rf *.tgz
+	rm -rf $(OBJECTS)
+	rm -rf $(EXECUTABLE)
+	rm -rf $(STATICLIB)
+	rm -rf $(BUILDDIR)
+	rm -rf *.gcno $(GCDA) $(GCNO) *.info
+	rm -rf report
+	rm -rf *.tgz
 
