@@ -136,8 +136,8 @@ private:
   void SetObjectInfo();
 
   // GIF creating:
-  QTimer *record_time_;
-  QVector<QImage> GIF_;
+  // QTimer *record_time_;
+  // QVector<QImage> GIF_;
 
 };
 
