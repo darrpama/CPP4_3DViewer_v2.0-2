@@ -26,33 +26,42 @@ class Settings {
     {}
 
   void SaveSettings();
+  void LoadSettings();
 
+  void SetProjectionType(const ProjectionType &);
+  const ProjectionType &GetProjectionType();
+  
   void SetColor(ColorType, const QColor &);
   const QColor &GetColor(const ColorType &);
   
-  void SetProjectionType(const ProjectionType &type) { projection_type_ = type; }
-  const ProjectionType &GetProjectionType() { return projection_type_; }
-  
-  void SetEdgeType(const EdgeType &type) { edge_type_ = type; }
-  const EdgeType &GetEdgeType() { return edge_type_; }
+  void SetEdgeType(const EdgeType &);
+  const EdgeType &GetEdgeType();
 
-  void SetVerticeType(const VerticeType &type) { vertice_type_ = type; }
-  const VerticeType & GetVerticeType() { return vertice_type_; }
+  void SetVerticeType(const VerticeType &);
+  const VerticeType & GetVerticeType();
 
-  void SetEdgeThickness(int val) { edge_thickness_ = val; }
-  int GetEdgeThickness() { return edge_thickness_; }
+  void SetEdgeThickness(int);
+  int GetEdgeThickness();
 
-  void SetVerticeSize(int val) { vertice_size_ = val; }
-  int GetVerticeSize() {return vertice_size_; }
+  void SetVerticeSize(int);
+  int GetVerticeSize();
 
   void SetTranslation(float, float, float);
-  const QVector3D &GetTranslation() { return translation_; }
+  const QVector3D &GetTranslation();
+
+  float GetTranslationX();
+  float GetTranslationY();
+  float GetTranslationZ();
 
   void SetRotation(float, float, float);
-  const QVector3D &GetRotation() { return rotation_; }
+  const QVector3D &GetRotation();
 
-  void SetScale(float f) { scale_ = f; }
-  float GetScale() { return scale_; }
+  float GetRotationX();
+  float GetRotationY();
+  float GetRotationZ();
+
+  void SetScale(float);
+  float GetScale();
 
  private:
   ProjectionType projection_type_;

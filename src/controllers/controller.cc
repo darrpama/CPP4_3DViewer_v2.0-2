@@ -23,13 +23,36 @@ void Controller::NormalizeObject() {
 void Controller::ApplyTranslation(float x, float y, float z) {
   model_->ApplyTranslation(x, y, z);
 }
+float Controller::GetTranslationX() {
+  return model_->GetTranslationX();
+}
+float Controller::GetTranslationY() {
+  return model_->GetTranslationY();
+}
+float Controller::GetTranslationZ() {
+  return model_->GetTranslationZ();
+}
 
 void Controller::ApplyRotation(float x, float y, float z) {
   model_->ApplyRotation(x, y ,z);
 }
+float Controller::GetRotationX() {
+  return model_->GetRotationX();
+}
+float Controller::GetRotationY() {
+  return model_->GetRotationY();
+}
+float Controller::GetRotationZ() {
+  return model_->GetRotationZ();
+}
 
 void Controller::ApplyScale(float x) {
   model_->ApplyScale(x);
+}
+
+
+float Controller::GetScale() {
+  model_->GetScale();
 }
 
 // PARSE

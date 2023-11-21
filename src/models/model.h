@@ -33,6 +33,16 @@ class Model {
   void ApplyRotation(float, float, float);
   void ApplyScale(float);
 
+  float GetTranslationX();
+  float GetTranslationY();
+  float GetTranslationZ();
+
+  float GetRotationX();
+  float GetRotationY();
+  float GetRotationZ();
+
+  float GetScale();
+
   // PROJECTION
   void SetProjectionType(const ProjectionType &type);
   const ProjectionType &GetProjectionType();

@@ -124,6 +124,9 @@ private:
   void InitVerticeType();
   void InitEdgeThickness();
   void InitVerticeSize();
+  void InitTranslations();
+  void InitRotations();
+  void InitScale();
   void InitValues();
   
   void SetProjectionType(s21::ProjectionType, bool);

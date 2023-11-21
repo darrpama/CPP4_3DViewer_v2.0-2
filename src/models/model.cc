@@ -38,10 +38,38 @@ void Model::ApplyTranslation(float x, float y, float z) {
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
+float Model::GetTranslationX() {
+  return settings_->GetTranslationX();
+}
+
+float Model::GetTranslationY() {
+  return settings_->GetTranslationY();
+}
+
+float Model::GetTranslationZ() {
+  return settings_->GetTranslationZ();
+}
+
 void Model::ApplyRotation(float x, float y, float z) {
   settings_->SetRotation(x, y, z);
   transform_->UpdateRotatitionMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
+}
+
+float Model::GetRotationX() {
+  return settings_->GetRotationX();
+}
+
+float Model::GetRotationY() {
+  return settings_->GetRotationY();
+}
+
+float Model::GetRotationZ() {
+  return settings_->GetRotationZ();
+}
+
+float Model::GetScale() {
+  return settings_->GetScale();
 }
 
 void Model::ApplyScale(float f) {
@@ -71,7 +99,6 @@ void Model::ParseObjFile(QString &file_path) {
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
   // Print the execution time
   std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds" << std::endl;
-  settings_->SaveSettings();
 }
 
 }  // namespace s21
