@@ -79,6 +79,13 @@ void MainWindow::InitVerticeSize() {
   ui_->vertice_size->setValue(s21::Controller::GetInstance().GetVerticeSize());
 }
 
+// void MainWindow::InitGIFVariables() {
+//   is_recording_ = false;
+//   time_ = 0.0;
+//   record_time_ = new QTimer(this);
+//   connect(record_time_, &QTimer::timeout, this, Recording);
+// }
+
 void MainWindow::InitTranslations() {
   ui_->position_x->setValue(s21::Controller::GetInstance().GetTranslationX());
   ui_->position_y->setValue(s21::Controller::GetInstance().GetTranslationY());
@@ -105,6 +112,7 @@ void MainWindow::InitValues() {
   InitTranslations();
   InitRotations();
   InitScale();
+  // InitGIFVariables();
   canvas_->UpdateWidget();
 }
 
@@ -276,6 +284,30 @@ void MainWindow::MakeScreenshot(QWidget* widget) {
   }
 }
 
+// void MainWindow::Recording() {
+//   if (!is_recording_ && time_ <= 5.0) {
+//     GIF_.push_back(widget->grab().toImage());
+//     time_ += 0.1;
+//   } else {
+//     SaveGIF();
+//     record_time_->stop();
+//   }
+// }
+
 void MainWindow::MakeScreencast(QWidget* widget) {
-  
+
+
+  // QVector<QImage> GIF;
+  // QGifImage gif(QSize(640, 480));
+
+  // gif.setDefaultTransparentColor(Qt::black);
+  // gif.setDefaultDelay(100);
+
+  // for (QVector<QImage>::Iterator frame = GIF.begin(); frame != GIF.end(); frame++) {
+  //   gif.addFrame(*frame);
+  // }
+
+  // gif.save();
+  // GIF.clear();
+
 }

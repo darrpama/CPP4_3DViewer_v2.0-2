@@ -4,6 +4,7 @@
 #define GL_SILENCE_DEPRECATION
 
 #include "../controllers/controller.h"
+#include "../gif/gif_image/qgifimage.h"
 #include "canvas.h"
 
 #include <iostream>
@@ -24,6 +25,8 @@
 #include <QPainter>
 #include <QImageWriter>
 #include <QElapsedTimer>
+#include <QImage>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -129,6 +132,11 @@ private:
   void SetEdgeType(s21::EdgeType);
   void SetVerticeType(s21::VerticeType);
   void SetObjectInfo();
+
+  // GIF creating:
+  // QTimer *record_time_;
+  // QVector<QImage> GIF_;
+
 };
 
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H
