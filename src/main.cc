@@ -15,6 +15,7 @@ int main(int argc, char *argv[]) {
 
   s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
   s21::Settings settings = s21::Settings();
+  settings.LoadSettings();
 
   s21::Transform transform = s21::Transform(&settings);
   s21::OBJParser parser = s21::OBJParser(&object);

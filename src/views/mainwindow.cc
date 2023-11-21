@@ -80,6 +80,22 @@ void MainWindow::InitVerticeSize() {
   ui_->vertice_size->setValue(s21::Controller::GetInstance().GetVerticeSize());
 }
 
+void MainWindow::InitTranslations() {
+  ui_->position_x->setValue(s21::Controller::GetInstance().GetTranslationX());
+  ui_->position_y->setValue(s21::Controller::GetInstance().GetTranslationY());
+  ui_->position_z->setValue(s21::Controller::GetInstance().GetTranslationZ());
+}
+
+void MainWindow::InitRotations() {
+  ui_->rotation_x->setValue(s21::Controller::GetInstance().GetRotationX());
+  ui_->rotation_y->setValue(s21::Controller::GetInstance().GetRotationX());
+  ui_->rotation_z->setValue(s21::Controller::GetInstance().GetRotationX());
+}
+
+void MainWindow::InitScale() {
+  ui_->scale_control->setValue(s21::Controller::GetInstance().GetScale());
+}
+
 void MainWindow::InitValues() {
   InitProjectionType();
   InitColors();
@@ -87,6 +103,9 @@ void MainWindow::InitValues() {
   InitVerticeType();
   InitEdgeThickness();
   InitVerticeSize();
+  InitTranslations();
+  InitRotations();
+  InitScale();
   canvas_->UpdateWidget();
 }
 

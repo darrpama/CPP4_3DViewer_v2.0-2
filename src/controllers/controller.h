@@ -39,7 +39,17 @@ class Controller {
   void ApplyTranslation(float, float, float);
   void ApplyRotation(float, float, float);
   void ApplyScale(float);
+
+  float GetTranslationX();
+  float GetTranslationY();
+  float GetTranslationZ();
   
+  float GetRotationX();
+  float GetRotationY();
+  float GetRotationZ();
+  
+  float GetScale();
+
   // colors
   void SetColor(ColorType, const QColor &);
   const QColor &GetColor(const ColorType &);
