@@ -125,4 +125,16 @@ void Model::ParseObjFile(QString &file_path) {
   std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds" << std::endl;
 }
 
+void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
+  ScreenshotContext context;
+  if (type == ScreenshotType::BMP) {
+    context.SetStrategy(new BmpScreenshotStrategy());
+  } else if (type == ScreenshotType::JPG) {
+    context.SetStrategy(new JpgScreenshotStrategy());
+  } else {
+    context.SetStrategy(new JpgScreenshotStrategy());
+  }
+  context.MakeScreenshot(widget);
+}
+
 }  // namespace s21

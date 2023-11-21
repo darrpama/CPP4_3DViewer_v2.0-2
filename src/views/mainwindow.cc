@@ -232,6 +232,15 @@ void MainWindow::on_screencast_button_clicked() {
   MakeScreencast(canvas_);
 }
 
+void MainWindow::on_jpg_screenshot_button_clicked() {
+  s21::Controller::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::JPG);
+}
+
+void MainWindow::on_bmp_screenshot_button_clicked() {
+  s21::Controller::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::BMP);
+}
+// SLOTS END
+
 
 void MainWindow::SetObjectInfo() {
   ui_->vertex_count_label->setText(QString::number(s21::Controller::GetInstance().GetVertexCount()));
@@ -268,22 +277,6 @@ void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
   canvas_->UpdateWidget();
 }
 
-void MainWindow::MakeScreenshot(QWidget* widget) {
-  QPixmap pixmap = widget->grab();
-  QString folderPath = QDir::currentPath() + "/saved";
-  QDir folderDir(folderPath);
-  if (!folderDir.exists()) {
-    folderDir.mkpath(".");
-  }
-
-  QString imagePath = folderPath + "/widget_image.png";
-  if (pixmap.save(imagePath)) {
-    std::cout << "image saved!" << std::endl;
-  } else {
-    std::cout << "image not saved... there is an error!" << std::endl;
-  }
-}
-
 // void MainWindow::Recording() {
 //   if (!is_recording_ && time_ <= 5.0) {
 //     GIF_.push_back(widget->grab().toImage());
@@ -311,3 +304,4 @@ void MainWindow::MakeScreencast(QWidget* widget) {
   // GIF.clear();
 
 }
+

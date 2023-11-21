@@ -4,7 +4,7 @@
 #define GL_SILENCE_DEPRECATION
 
 #include "../controllers/controller.h"
-#include "../gif/gif_image/qgifimage.h"
+// #include "../gif/gif_image/qgifimage.h"
 #include "canvas.h"
 
 #include <iostream>
@@ -73,7 +73,8 @@ class MainWindow : public QMainWindow
   void on_vertice_type_square_clicked() { SetVerticeType(s21::VerticeType::SQUARE); }
   void on_vertice_size_sliderMoved(int);
   // screensave
-  void on_screenshot_button_clicked() { MakeScreenshot(canvas_); }
+  void on_jpg_screenshot_button_clicked();
+  void on_bmp_screenshot_button_clicked();
   void on_screencast_button_clicked();
 
 private:
@@ -113,7 +114,6 @@ private:
   QSlider *vertice_size_;
   QSlider *edge_thickness_;
 
-  void MakeScreenshot(QWidget*);
   void MakeScreencast(QWidget*);
   
   void InitProjectionType();

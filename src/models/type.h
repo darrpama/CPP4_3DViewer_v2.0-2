@@ -7,6 +7,7 @@ enum EdgeType {NO_EDGE, SOLID, DASHED};
 enum VerticeType {NO_VERTICE, CIRCLE, SQUARE};
 enum ProjectionType {CENTRAL, PARALLEL};
 enum ColorType {BG_COLOR, VERTICE_COLOR, EDGE_COLOR};
+enum ScreenshotType {BMP, JPG};
 
 }  // namespace s21
 

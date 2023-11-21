@@ -7,6 +7,7 @@
 #include "transform.h"
 #include "renderer.h"
 #include "settings.h"
+#include "screenshot.h"
 
 namespace s21 {
 // facade
@@ -17,7 +18,8 @@ class Model {
     , parser_(p) 
     , transform_(t)
     , render_(r)
-    , settings_(s) {}
+    , settings_(s)
+    {}
 
   // RENDER methods
   void InitOpenGL();
@@ -71,6 +73,8 @@ class Model {
   size_t GetVertexCount() { return object_->GetVertexCount(); }
   size_t GetFaceCount() { return object_->GetFaceCount(); }
   size_t GetEdgeCount() { return object_->GetEdgeCount(); }
+
+  void MakeScreenshot(QWidget *, ScreenshotType);
 
  private:
   Renderer *render_;

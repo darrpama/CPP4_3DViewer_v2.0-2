@@ -68,7 +68,6 @@ void Controller::ApplyScale(float x) {
   model_->ApplyScale(x);
 }
 
-
 float Controller::GetScale() {
   return model_->GetScale();
 }
@@ -140,6 +139,10 @@ unsigned Controller::GetFaceCount() {
 
 unsigned Controller::GetEdgeCount() {
   return model_->GetEdgeCount();
+}
+
+void Controller::MakeScreenshot(QWidget *widget, ScreenshotType type) {
+  model_->MakeScreenshot(widget, type);
 }
 
 } // namespace s21

@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-add_subdirectory(gif)
+# add_subdirectory(gif)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Core Gui OpenGLWidgets)
 
@@ -43,6 +43,8 @@ set(PROJECT_SOURCES
     models/transform.cc
     models/settings.h
     models/settings.cc
+    models/screenshot.h
+    models/screenshot.cc
 )
 
 
@@ -59,5 +61,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Gui
     Qt${QT_VERSION_MAJOR}::OpenGL
     Qt6::OpenGLWidgets
-    gif_lib
+    # gif_lib
 )

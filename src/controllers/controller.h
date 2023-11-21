@@ -70,6 +70,8 @@ class Controller {
   void SetVerticeSize(int);
   int GetVerticeSize();
 
+  void MakeScreenshot(QWidget *, ScreenshotType);
+
   // object parameters
   unsigned GetVertexCount();
   unsigned GetFaceCount();
