@@ -20,9 +20,18 @@ void Controller::NormalizeObject() {
   model_->NormalizeObject();
 }
 
-void Controller::ApplyTranslation(float x, float y, float z) {
-  model_->ApplyTranslation(x, y, z);
+void Controller::SetTranslationX(float val) {
+  model_->SetTranslationX(val);
 }
+
+void Controller::SetTranslationY(float val) {
+  model_->SetTranslationY(val);
+}
+
+void Controller::SetTranslationZ(float val) {
+  model_->SetTranslationZ(val);
+}
+
 float Controller::GetTranslationX() {
   return model_->GetTranslationX();
 }
@@ -33,9 +42,18 @@ float Controller::GetTranslationZ() {
   return model_->GetTranslationZ();
 }
 
-void Controller::ApplyRotation(float x, float y, float z) {
-  model_->ApplyRotation(x, y ,z);
+void Controller::SetRotationX(float val) {
+  model_->SetRotationX(val);
 }
+
+void Controller::SetRotationY(float val) {
+  model_->SetRotationY(val);
+}
+
+void Controller::SetRotationZ(float val) {
+  model_->SetRotationZ(val);
+}
+
 float Controller::GetRotationX() {
   return model_->GetRotationX();
 }
@@ -52,7 +70,7 @@ void Controller::ApplyScale(float x) {
 
 
 float Controller::GetScale() {
-  model_->GetScale();
+  return model_->GetScale();
 }
 
 // PARSE

@@ -36,8 +36,12 @@ class Controller {
 
   // transform
   void NormalizeObject();
-  void ApplyTranslation(float, float, float);
-  void ApplyRotation(float, float, float);
+  void SetTranslationX(float);
+  void SetTranslationY(float);
+  void SetTranslationZ(float);
+  void SetRotationX(float);
+  void SetRotationY(float);
+  void SetRotationZ(float);
   void ApplyScale(float);
 
   float GetTranslationX();

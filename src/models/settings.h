@@ -46,14 +46,18 @@ class Settings {
   void SetVerticeSize(int);
   int GetVerticeSize();
 
-  void SetTranslation(float, float, float);
+  void SetTranslationX(float);
+  void SetTranslationY(float);
+  void SetTranslationZ(float);
   const QVector3D &GetTranslation();
 
   float GetTranslationX();
   float GetTranslationY();
   float GetTranslationZ();
 
-  void SetRotation(float, float, float);
+  void SetRotationX(float);
+  void SetRotationY(float);
+  void SetRotationZ(float);
   const QVector3D &GetRotation();
 
   float GetRotationX();

@@ -37,17 +37,33 @@ void Settings::SetScale(float f) {
   SaveSettings();
 }
 
-void Settings::SetTranslation(float x, float y, float z) {
-  translation_.setX(x);
-  translation_.setY(y);
-  translation_.setZ(z);
+void Settings::SetTranslationX(float val) {
+  translation_.setX(val);
   SaveSettings();
 }
 
-void Settings::SetRotation(float x, float y, float z) {
-  rotation_.setX(x);
-  rotation_.setY(y);
-  rotation_.setZ(z);
+void Settings::SetTranslationY(float val) {
+  translation_.setY(val);
+  SaveSettings();
+}
+
+void Settings::SetTranslationZ(float val) {
+  translation_.setZ(val);
+  SaveSettings();
+}
+
+void Settings::SetRotationX(float val) {
+  rotation_.setX(val);
+  SaveSettings();
+}
+
+void Settings::SetRotationY(float val) {
+  rotation_.setY(val);
+  SaveSettings();
+}
+
+void Settings::SetRotationZ(float val) {
+  rotation_.setZ(val);
   SaveSettings();
 }
 
@@ -143,57 +159,49 @@ void Settings::SaveSettings() {
 }
 
 void Settings::LoadSettings() {
-  std::cout << "trying to load settings..." << std::endl;
   std::ifstream infile("settings.dat");
   int projection_type;
   infile >> projection_type;
   projection_type_ = (ProjectionType) projection_type;
-  std::cout << "load projection type: " << projection_type << std::endl;
 
   int bg_color_red, bg_color_green, bg_color_blue;
   infile >> bg_color_red; 
   infile >> bg_color_green;
   infile >> bg_color_blue;
   bg_color_ = QColor(bg_color_red, bg_color_green, bg_color_blue);
-  std::cout << "load bg_color: " << bg_color_.red() << ", " << bg_color_.green() << ", " << bg_color_.blue() << std::endl;
 
   int points_color_red, points_color_green, points_color_blue;
   infile >> points_color_red; 
   infile >> points_color_green;
   infile >> points_color_blue;
   points_color_ = QColor(points_color_red, points_color_green, points_color_blue);
-  std::cout << "load points_color_: " << points_color_.red() << ", " << points_color_.green() << ", " << points_color_.blue() << std::endl;
 
   int lines_color_red, lines_color_green, lines_color_blue;
   infile >> lines_color_red; 
   infile >> lines_color_green;
   infile >> lines_color_blue;
   lines_color_ = QColor(lines_color_red, lines_color_green, lines_color_blue);
-  std::cout << "load lines_color_: " << lines_color_.red() << ", " << lines_color_.green() << ", " << lines_color_.blue() << std::endl;
 
   int edge_type;
   infile >> edge_type;
   edge_type_ = (EdgeType) edge_type;
-  std::cout << "load edge_type_: " << edge_type_ << std::endl;
 
   int vertice_type;
   infile >> vertice_type;
   vertice_type_ = (VerticeType) vertice_type;
-  std::cout << "load vertice_type_: " << vertice_type_ << std::endl;
 
   infile >> edge_thickness_;
-  std::cout << "load edge_thickness_: " << edge_thickness_ << std::endl;
   infile >> vertice_size_;
-  std::cout << "load vertice_size_: " << vertice_size_ << std::endl;
 
-  float translation_x, translation_y, translation_z;
+  float translation_x;
+  float translation_y;
+  float translation_z;
   infile >> translation_x;
   infile >> translation_y;
   infile >> translation_z;
   translation_.setX(translation_x);
   translation_.setY(translation_y);
   translation_.setZ(translation_z);
-  std::cout << "load translation_: " << translation_.x() << ", " << translation_.y() << ", " << translation_.z() << std::endl;
 
   float rotation_x, rotation_y, rotation_z;
   infile >> rotation_x;
@@ -202,10 +210,8 @@ void Settings::LoadSettings() {
   rotation_.setX(rotation_x);
   rotation_.setY(rotation_y);
   rotation_.setZ(rotation_z);
-  std::cout << "load rotation_: " << rotation_.x() << ", " << rotation_.y() << ", " << rotation_.z() << std::endl;
 
   infile >> scale_;
-   std::cout << "load scale_: " << scale_ << std::endl;
 }
 
 }  // namespace s21

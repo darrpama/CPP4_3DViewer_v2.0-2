@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
   InitValues();
 }
 
-
 void MainWindow::InitProjectionType() {
   switch (s21::Controller::GetInstance().GetProjectionType()) {
     case s21::ProjectionType::CENTRAL:
@@ -88,8 +87,8 @@ void MainWindow::InitTranslations() {
 
 void MainWindow::InitRotations() {
   ui_->rotation_x->setValue(s21::Controller::GetInstance().GetRotationX());
-  ui_->rotation_y->setValue(s21::Controller::GetInstance().GetRotationX());
-  ui_->rotation_z->setValue(s21::Controller::GetInstance().GetRotationX());
+  ui_->rotation_y->setValue(s21::Controller::GetInstance().GetRotationY());
+  ui_->rotation_z->setValue(s21::Controller::GetInstance().GetRotationZ());
 }
 
 void MainWindow::InitScale() {
@@ -132,9 +131,13 @@ void MainWindow::on_upload_button_clicked() {
 }
 
 void MainWindow::on_reset_transform_button_clicked() {
-  s21::Controller::GetInstance().ApplyTranslation(0.0f, 0.0f, 0.0f);
+  s21::Controller::GetInstance().SetTranslationX(0.0f);
+  s21::Controller::GetInstance().SetTranslationY(0.0f);
+  s21::Controller::GetInstance().SetTranslationZ(0.0f);
   s21::Controller::GetInstance().ApplyScale(1.0f);
-  s21::Controller::GetInstance().ApplyRotation(0.0f, 0.0f, 0.0f);
+  s21::Controller::GetInstance().SetRotationX(0.0f);
+  s21::Controller::GetInstance().SetRotationY(0.0f);
+  s21::Controller::GetInstance().SetRotationZ(0.0f);
   ui_->position_x->setValue(0.0f);
   ui_->position_y->setValue(0.0f);
   ui_->position_z->setValue(0.0f);
@@ -147,6 +150,46 @@ void MainWindow::on_reset_transform_button_clicked() {
 
 void MainWindow::on_normalize_object_button_clicked() {
   s21::Controller::GetInstance().NormalizeObject();
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_position_x_valueChanged(double x) {
+  s21::Controller::GetInstance().SetTranslationX(
+    ui_->position_x->value()
+  );
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_position_y_valueChanged(double y) {
+  s21::Controller::GetInstance().SetTranslationY(
+    ui_->position_y->value()
+  );
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_position_z_valueChanged(double z) {
+  s21::Controller::GetInstance().SetTranslationZ(
+    ui_->position_z->value()
+  );
+  canvas_->UpdateWidget();
+}
+
+void MainWindow::on_rotation_x_valueChanged(double val) {
+  s21::Controller::GetInstance().SetRotationX(
+    ui_->rotation_x->value()
+  );
+  canvas_->UpdateWidget();
+}
+void MainWindow::on_rotation_y_valueChanged(double val) {
+  s21::Controller::GetInstance().SetRotationY(
+    ui_->rotation_y->value()
+  );
+  canvas_->UpdateWidget();
+}
+void MainWindow::on_rotation_z_valueChanged(double val) {
+  s21::Controller::GetInstance().SetRotationZ(
+    ui_->rotation_z->value()
+  );
   canvas_->UpdateWidget();
 }
 
@@ -186,25 +229,6 @@ void MainWindow::SetObjectInfo() {
   ui_->vertex_count_label->setText(QString::number(s21::Controller::GetInstance().GetVertexCount()));
   ui_->face_count_label->setText(QString::number(s21::Controller::GetInstance().GetFaceCount()));
   ui_->edge_count_label->setText(QString::number(s21::Controller::GetInstance().GetEdgeCount()));
-}
-
-// position X
-void MainWindow::ApplyTranslation() {
-  s21::Controller::GetInstance().ApplyTranslation(
-    ui_->position_x->value(), 
-    ui_->position_y->value(), 
-    ui_->position_z->value()
-  );
-  canvas_->UpdateWidget();
-}
-
-void MainWindow::ApplyRotation() {
-  s21::Controller::GetInstance().ApplyRotation(
-    ui_->rotation_x->value(),
-    ui_->rotation_y->value(),
-    ui_->rotation_z->value()
-  );
-  canvas_->UpdateWidget();
 }
 
 void MainWindow::SetColor(QWidget *widget, s21::ColorType type) {

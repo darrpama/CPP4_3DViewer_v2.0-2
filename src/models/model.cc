@@ -32,8 +32,20 @@ void Model::NormalizeObject() {
   render_->InitObjectModel();
 }
 
-void Model::ApplyTranslation(float x, float y, float z) {
-  settings_->SetTranslation(x, y, z);
+void Model::SetTranslationX(float val) {
+  settings_->SetTranslationX(val);
+  transform_->UpdateTranslationMatrix();
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+}
+
+void Model::SetTranslationY(float val) {
+  settings_->SetTranslationY(val);
+  transform_->UpdateTranslationMatrix();
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+}
+
+void Model::SetTranslationZ(float val) {
+  settings_->SetTranslationZ(val);
   transform_->UpdateTranslationMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
@@ -50,8 +62,20 @@ float Model::GetTranslationZ() {
   return settings_->GetTranslationZ();
 }
 
-void Model::ApplyRotation(float x, float y, float z) {
-  settings_->SetRotation(x, y, z);
+void Model::SetRotationX(float val) {
+  settings_->SetRotationX(val);
+  transform_->UpdateRotatitionMatrix();
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+}
+
+void Model::SetRotationY(float val) {
+  settings_->SetRotationY(val);
+  transform_->UpdateRotatitionMatrix();
+  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+}
+
+void Model::SetRotationZ(float val) {
+  settings_->SetRotationZ(val);
   transform_->UpdateRotatitionMatrix();
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
