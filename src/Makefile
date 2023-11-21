@@ -1,6 +1,6 @@
 CC = g++
 CCFLAGS = -g -std=c++17 -pedantic -Wall -Werror -Wextra
-LDFLAGS = -lstdc++ -lgtest -fprofile-arcs -ftest-coverage
+LDFLAGS = -lgtest -fprofile-arcs -ftest-coverage
 PROJECTDIR = $(CURDIR)
 BUILDDIR = $(PROJECTDIR)/build
 INSTALLDIR = $(PROJECTDIR)
@@ -9,32 +9,29 @@ STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
 
 HEADERS = \
-    $(PROJECTDIR)/models/model.h \
     $(PROJECTDIR)/models/obj_parser.h \
-    $(PROJECTDIR)/models/object.h \
-    $(PROJECTDIR)/models/renderer.h \
-    $(PROJECTDIR)/models/settings.h \
-    $(PROJECTDIR)/models/transform.h \
-    $(PROJECTDIR)/models/type.h
-
+    $(PROJECTDIR)/models/object.h
+    # $(PROJECTDIR)/models/renderer.h \
+    # $(PROJECTDIR)/models/settings.h \
+    # $(PROJECTDIR)/models/transform.h \
+    # $(PROJECTDIR)/models/type.h
+    # $(PROJECTDIR)/models/model.h \
 
 SOURCES = \
-    $(PROJECTDIR)/main.cc \
-    $(PROJECTDIR)/models/model.cc \
     $(PROJECTDIR)/models/obj_parser.cc \
-    $(PROJECTDIR)/models/object.cc \
-    $(PROJECTDIR)/models/renderer.cc \
-    $(PROJECTDIR)/models/settings.cc \
-    $(PROJECTDIR)/models/transform.cc \
-    $(PROJECTDIR)/tests/test_parser.cc \
-    $(PROJECTDIR)/tests/transform_test.cc \
-    $(PROJECTDIR)/tests/run_all_tests.cc
+    $(PROJECTDIR)/tests/test_parser.cc
+    # $(PROJECTDIR)/tests/transform_test.cc
+    # $(PROJECTDIR)/models/object.cc \
+    # $(PROJECTDIR)/models/renderer.cc \
+    # $(PROJECTDIR)/models/settings.cc \
+    # $(PROJECTDIR)/models/transform.cc \
+    # $(PROJECTDIR)/models/model.cc \
+    # $(PROJECTDIR)/tests/run_all_tests.cc
+    # $(PROJECTDIR)/main.cc \
 
 OBJECTS = $(SOURCES:.cc=.o)
 GCDA = $(SOURCES:.cc=.gcda)
 GCNO = $(SOURCES:.cc=.gcno)
-
-# Makefile: !all, !install, !uninstall, !dvi, clean, dist, tests
 
 all: install
 
@@ -75,7 +72,7 @@ $(EXECUTABLE): $(OBJECTS)
 	./$(EXECUTABLE) 
 
 %.o: %.cc
-	$(CC) $(CCFLAGS) -o $@ -c $< $(LDFLAGS)
+	$(CC) $(CCFLAGS) -o $@ -c $<
 
 $(STATICLIB): $(OBJECTS)
 	ar rcs $(STATICLIB) $^
