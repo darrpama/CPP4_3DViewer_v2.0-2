@@ -4,8 +4,14 @@
 
 TEST(OBJParserTest, Parse_Positive_first)
 {
-  s21::OBJParser parser{};
-  s21::Object object{};
+  QVector<GLfloat> vertices_array;
+  QVector<GLuint> faces_array;
+  QVector<s21::Face> raw_faces_array_;
+  QVector<GLuint> face_buffer;
+  QVector<GLuint> triangle_buffer;
+
+  s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
+  s21::OBJParser parser(&object);
   parser.SetFilePath("../assets/objects/cube.obj");
   parser.SetObject(&object);
   parser.Parse();
