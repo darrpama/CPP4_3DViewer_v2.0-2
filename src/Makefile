@@ -7,6 +7,7 @@ INSTALLDIR = $(PROJECTDIR)
 EXECUTABLE = test.out
 STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
+INCDIRS=-I/usr/local/include/QtCore -I/usr/local/include/QtGui
 
 HEADERS = \
     $(PROJECTDIR)/models/obj_parser.h \
@@ -19,7 +20,7 @@ HEADERS = \
 
 SOURCES = \
     $(PROJECTDIR)/models/obj_parser.cc \
-    $(PROJECTDIR)/tests/test_parser.cc
+    $(PROJECTDIR)/tests/parser_test.cc \
     # $(PROJECTDIR)/tests/transform_test.cc
     # $(PROJECTDIR)/models/object.cc \
     # $(PROJECTDIR)/models/renderer.cc \
@@ -72,7 +73,7 @@ $(EXECUTABLE): $(OBJECTS)
 	./$(EXECUTABLE) 
 
 %.o: %.cc
-	$(CC) $(CCFLAGS) -o $@ -c $<
+	$(CC) $(CCFLAGS) $(INCDIRS) -o $@ -c $<
 
 $(STATICLIB): $(OBJECTS)
 	ar rcs $(STATICLIB) $^

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "obj_parser.h"
+#include "../models/obj_parser.h"
 
 
 TEST(OBJParserTest, Parse_Positive_first)
