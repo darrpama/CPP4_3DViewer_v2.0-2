@@ -79,7 +79,7 @@ void Renderer::PaintGL() {
 }
 
 void Renderer::InitPaint() {
-  QColor bg_color = settings_->GetColor(ColorType::BG_COLOR);
+  Color bg_color = settings_->GetColor(ColorType::BG_COLOR);
   glClearColor(bg_color.redF(), bg_color.greenF(), bg_color.blueF(), 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -162,7 +162,7 @@ void Renderer::SetCamera() {
   shader_program_.setUniformValueArray("projection", &projection_, 1);
 }
 
-QVector3D Renderer::NormalizeColor(QColor color) {
+QVector3D Renderer::NormalizeColor(Color color) {
   return QVector3D(color.redF(), color.greenF(), color.blueF());
 }
 

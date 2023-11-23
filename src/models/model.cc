@@ -102,12 +102,14 @@ void Model::ApplyScale(float f) {
   render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
-void Model::SetColor(ColorType type, const QColor &color) {
+void Model::SetColor(ColorType type, const QColor &qcolor) {
+  Color color = Color(qcolor.red(), qcolor.green(), qcolor.blue());
   settings_->SetColor(type, color);
 }
 
-const QColor &Model::GetColor(const ColorType &type) {
-  return settings_->GetColor(type);
+QColor Model::GetColor(const ColorType &type) {
+  Color color = settings_->GetColor(type);
+  return QColor(color.red, color.green, color.blue);
 }
 
 // PARSE

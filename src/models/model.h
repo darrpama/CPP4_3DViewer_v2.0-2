@@ -55,7 +55,7 @@ class Model {
 
   // COLORS
   void SetColor(ColorType, const QColor &);
-  const QColor &GetColor(const ColorType &);
+  QColor GetColor(const ColorType &);
 
   // EDGE
   void SetEdgeType(EdgeType type) { settings_->SetEdgeType(type); }

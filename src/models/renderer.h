@@ -11,7 +11,6 @@
 #include <QtOpenGLWidgets/qopenglwidget.h>
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
-#include <QVector>
 #include <QOpenGLShader>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
@@ -49,10 +48,10 @@ class Renderer {
   QVector3D move_object_;
   QQuaternion rotation_;
   
-  QVector<GLfloat> vertices_; 
-  QVector<GLuint> faces_;
+  std::vector<GLfloat> vertices_; 
+  std::vector<GLuint> faces_;
 
-  QVector3D NormalizeColor(QColor);
+  QVector3D NormalizeColor(Color);
   void CalculateCamera();
   void SetCamera();
   void InitPaint();

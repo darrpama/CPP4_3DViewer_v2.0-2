@@ -91,7 +91,7 @@ void Controller::SetColor(ColorType type, const QColor &color) {
   model_->SetColor(type, color);
 }
 
-const QColor &Controller::GetColor(const ColorType &type) {
+QColor Controller::GetColor(const ColorType &type) {
   return model_->GetColor(type);
 }
 
