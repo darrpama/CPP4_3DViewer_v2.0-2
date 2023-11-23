@@ -6,7 +6,7 @@ Transform::Transform(Settings *s) : settings_(s) {
   TranslationMatrix_.setToIdentity();
   RotationMatrix_.setToIdentity();
   ScaleMatrix_.setToIdentity();
-};
+}
 
 void Transform::UpdateTranslationMatrix() {
   TranslationMatrix_.setToIdentity();

@@ -2,7 +2,6 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_SETTINGS_H
 
 #include "type.h"
-#include <QColor>
 #include <QVector3D>
 #include <iostream>
 #include <fstream>
@@ -13,9 +12,9 @@ class Settings {
  public:
   Settings()
     : projection_type_(ProjectionType::CENTRAL)
-    , bg_color_(QColor(20,20,20))
-    , points_color_(QColor(0, 255, 255))
-    , lines_color_(QColor(255, 0, 0))
+    , bg_color_(Color(20,20,20))
+    , points_color_(Color(0, 255, 255))
+    , lines_color_(Color(255, 0, 0))
     , edge_type_(EdgeType::SOLID)
     , vertice_type_(VerticeType::SQUARE)
     , edge_thickness_(1)
@@ -31,8 +30,8 @@ class Settings {
   void SetProjectionType(const ProjectionType &);
   const ProjectionType &GetProjectionType();
   
-  void SetColor(ColorType, const QColor &);
-  const QColor &GetColor(const ColorType &);
+  void SetColor(ColorType, const Color &);
+  const Color &GetColor(const ColorType &);
   
   void SetEdgeType(const EdgeType &);
   const EdgeType &GetEdgeType();
@@ -69,9 +68,9 @@ class Settings {
 
  private:
   ProjectionType projection_type_;
-  QColor bg_color_;
-  QColor points_color_;
-  QColor lines_color_;
+  Color bg_color_;
+  Color points_color_;
+  Color lines_color_;
   EdgeType edge_type_;
   VerticeType vertice_type_;
   int edge_thickness_;

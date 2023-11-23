@@ -1,5 +1,5 @@
 CC = g++
-CCFLAGS = -g -std=c++17 -pedantic -Wall -Werror -Wextra
+CCFLAGS = -g -std=c++17 -Wall -Werror -Wextra
 LDFLAGS = -lgtest -fprofile-arcs -ftest-coverage
 PROJECTDIR = $(CURDIR)
 BUILDDIR = $(PROJECTDIR)/build
@@ -7,25 +7,22 @@ INSTALLDIR = $(PROJECTDIR)
 EXECUTABLE = test.out
 STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
-INCDIRS=-I/usr/local/include/QtCore -I/usr/local/include/QtGui
 
 HEADERS = \
-    $(PROJECTDIR)/models/obj_parser.h \
-    $(PROJECTDIR)/models/object.h
+    $(PROJECTDIR)/models/transform.h
+    # $(PROJECTDIR)/models/obj_parser.h \
+    $(PROJECTDIR)/models/settings.h
     # $(PROJECTDIR)/models/renderer.h \
-    # $(PROJECTDIR)/models/settings.h \
-    # $(PROJECTDIR)/models/transform.h \
     # $(PROJECTDIR)/models/type.h
     # $(PROJECTDIR)/models/model.h \
 
 SOURCES = \
-    $(PROJECTDIR)/models/obj_parser.cc \
-    $(PROJECTDIR)/tests/parser_test.cc \
-    # $(PROJECTDIR)/tests/transform_test.cc
-    # $(PROJECTDIR)/models/object.cc \
+    $(PROJECTDIR)/models/transform.cc \
+    $(PROJECTDIR)/tests/transform_test.cc
+    # $(PROJECTDIR)/models/obj_parser.cc \
+    # $(PROJECTDIR)/tests/parser_test.cc \
     # $(PROJECTDIR)/models/renderer.cc \
     # $(PROJECTDIR)/models/settings.cc \
-    # $(PROJECTDIR)/models/transform.cc \
     # $(PROJECTDIR)/models/model.cc \
     # $(PROJECTDIR)/tests/run_all_tests.cc
     # $(PROJECTDIR)/main.cc \
@@ -69,11 +66,11 @@ leaks: $(EXECUTABLE)
 	leaks -atExit -- ./$(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(HEADERS) -o $@ $(LDFLAGS)
+	$(CC) $(OBJECTS) $(HEADERS) $(INCLUDE) -o $@ $(LDFLAGS)
 	./$(EXECUTABLE) 
 
 %.o: %.cc
-	$(CC) $(CCFLAGS) $(INCDIRS) -o $@ -c $<
+	$(CC) $(CCFLAGS) $(INCLUDE) -o $@ -c $<
 
 $(STATICLIB): $(OBJECTS)
 	ar rcs $(STATICLIB) $^

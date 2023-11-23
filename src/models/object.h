@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <QVector>
 #include <forward_list>
 #include <unordered_set>
 #include <algorithm>
@@ -25,12 +24,12 @@ struct Vertex {
 };
 
 struct Face {
-  QVector<GLuint> vertices;
+  std::vector<GLuint> vertices;
 };
 
 struct VectorHash {
   template <typename T>
-  std::size_t operator()(const QVector<T>& vec) const {
+  std::size_t operator()(const std::vector<T>& vec) const {
     std::size_t seed = vec.size();
     for (const auto& element : vec) {
       seed ^= std::hash<T>{}(element) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
@@ -41,7 +40,7 @@ struct VectorHash {
 
 struct VectorEqual {
   template <typename T>
-  bool operator()(const QVector<T>& lhs, const QVector<T>& rhs) const {
+  bool operator()(const std::vector<T>& lhs, const std::vector<T>& rhs) const {
     return lhs == rhs;
   }
 };
@@ -49,18 +48,18 @@ struct VectorEqual {
 class Object {
  public:
   Object(
-    QVector<GLfloat> *v_array, 
-    QVector<GLuint> *f_array, 
-    QVector<GLuint> *f_buffer, 
-    QVector<GLuint> *t_buffer,
-    QVector<Face> *raw_faces_array_)
+    std::vector<GLfloat> *v_array, 
+    std::vector<GLuint> *f_array, 
+    std::vector<GLuint> *f_buffer, 
+    std::vector<GLuint> *t_buffer,
+    std::vector<Face> *raw_faces_array_)
       : vertices_array_(v_array)
       , triangulated_faces_array_(f_array)
       , face_buffer_(f_buffer)
       , triangle_buffer_(t_buffer) 
       , raw_faces_array_(raw_faces_array_) {}
-  QVector<GLfloat> GetFlattenedVertices();
-  QVector<GLuint> GetFlattenedFaces();
+  std::vector<GLfloat> GetFlattenedVertices();
+  std::vector<GLuint> GetFlattenedFaces();
 
   void Clear();
   void CountEdges();
@@ -89,11 +88,11 @@ class Object {
   void Normalize();
 
  private:
-  QVector<GLfloat> *vertices_array_;
-  QVector<GLuint> *triangulated_faces_array_;
-  QVector<GLuint> *face_buffer_;
-  QVector<GLuint> *triangle_buffer_;
-  QVector<Face> *raw_faces_array_;
+  std::vector<GLfloat> *vertices_array_;
+  std::vector<GLuint> *triangulated_faces_array_;
+  std::vector<GLuint> *face_buffer_;
+  std::vector<GLuint> *triangle_buffer_;
+  std::vector<Face> *raw_faces_array_;
   RenderType render_type_;
 
   size_t vertex_count_{};

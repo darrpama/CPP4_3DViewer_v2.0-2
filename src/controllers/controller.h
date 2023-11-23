@@ -56,7 +56,7 @@ class Controller {
 
   // colors
   void SetColor(ColorType, const QColor &);
-  const QColor &GetColor(const ColorType &);
+  QColor GetColor(const ColorType &);
   
   // edges
   const EdgeType &GetEdgeType();

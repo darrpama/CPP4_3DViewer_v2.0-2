@@ -16,7 +16,6 @@ class Transform {
   void UpdateRotatitionMatrix();
   void UpdateScaleMatrix();
 
-  void CalculateTransformMatrix();
   QMatrix4x4 GetTransformMatrix();
 
  private:

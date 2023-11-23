@@ -2,27 +2,26 @@
 
 namespace s21 {
 
-QVector<GLfloat> Object::GetFlattenedVertices() {
+std::vector<GLfloat> Object::GetFlattenedVertices() {
   return *vertices_array_;
 }
 
-QVector<GLuint> Object::GetFlattenedFaces() {
+std::vector<GLuint> Object::GetFlattenedFaces() {
   return *triangulated_faces_array_;
 }
 
 void Object::Normalize() {
-  
-  GLfloat max_value = *std::max_element(
-    vertices_array_->constBegin(), 
-    vertices_array_->constEnd()
+  auto max_value = std::max_element(
+    vertices_array_->begin(), 
+    vertices_array_->end()
   );
 
-  GLfloat min_value = *std::min_element(
-    vertices_array_->constBegin(), 
-    vertices_array_->constEnd()
+  auto min_value = std::min_element(
+    vertices_array_->begin(), 
+    vertices_array_->end()
   );
 
-  GLfloat normalize_coef = (abs(min_value) > abs(max_value)) ? min_value : max_value;
+  GLfloat normalize_coef = (abs(*min_value) > abs(*max_value)) ? *min_value : *max_value;
 
   for (int i = 0; i < vertices_array_->size(); ++i) {
     (*vertices_array_)[i] /= normalize_coef;
@@ -39,12 +38,15 @@ void Object::PushBackVertice(float x, float y, float z) {
 void Object::PushToFaceBuffer(GLuint v) {
   face_buffer_->push_back(v);
 }
+
 GLuint Object::GetFaceBufferAt(size_t i) {
   return face_buffer_->at(i);
 }
+
 size_t Object::GetFaceBufferSize() {
   return face_buffer_->size();
 }
+
 void Object::ClearFaceBuffer() {
   face_buffer_->clear();
 }
@@ -52,38 +54,52 @@ void Object::ClearFaceBuffer() {
 void Object::PushToTriangleBuffer(GLuint v) {
   triangle_buffer_->push_back(v);
 }
+
 size_t Object::GetTriangleBufferSize() {
   return triangle_buffer_->size();
 }
+
 void Object::ClearTriangleBuffer() {
   triangle_buffer_->clear();
 }
+
 void Object::ReserveTriangleBuffer() {
   triangle_buffer_->reserve((GetFaceBufferSize() - 2) * 3);
 }
 
 void Object::AppendFace() {
-  triangulated_faces_array_->append(*face_buffer_);
+  triangulated_faces_array_->insert(
+    triangulated_faces_array_->end(), 
+    face_buffer_->begin(), 
+    face_buffer_->end()
+  );
+  // triangulated_faces_array_->append(*face_buffer_);
   face_count_++;
 }
 
 void Object::AppendRawFace() {
   Face face;
   face.vertices = *face_buffer_;
-  raw_faces_array_->append(face);
+  raw_faces_array_->push_back(face);
+  // raw_faces_array_->append(face);
 }
 
 void Object::AppendTriangulatedFace() {
-  triangulated_faces_array_->append(*triangle_buffer_);
+  triangulated_faces_array_->insert(
+    triangulated_faces_array_->end(),
+    triangle_buffer_->begin(),
+    triangle_buffer_->end()
+  );
+  // triangulated_faces_array_->append(*triangle_buffer_);
   face_count_++;
 }
 
 void Object::CountEdges() {
-  std::unordered_set<QVector<GLuint>, VectorHash, VectorEqual> edges;
+  std::unordered_set<std::vector<GLuint>, VectorHash, VectorEqual> edges;
   for (const auto& face : *raw_faces_array_) {
     int num_vertices = face.vertices.size();
     for (int i = 0; i < num_vertices; i++) {
-      QVector<GLuint> edge = {face.vertices[i], face.vertices[(i + 1) % num_vertices]};
+      std::vector<GLuint> edge = {face.vertices[i], face.vertices[(i + 1) % num_vertices]};
       std::sort(edge.begin(), edge.end());
       edges.insert(edge);
     }
