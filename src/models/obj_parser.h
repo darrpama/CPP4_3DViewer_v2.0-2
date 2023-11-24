@@ -6,8 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <sstream>
+#include <chrono>
 
 // #include <QFile>
 // #include <QString>

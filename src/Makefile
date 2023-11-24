@@ -68,11 +68,7 @@ leaks: $(EXECUTABLE)
 	leaks -atExit -- ./$(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-<<<<<<< HEAD
-	$(CC) $(OBJECTS) $(HEADERS) $(INCLUDE) -o $@ $(LDFLAGS)
-=======
 	$(CC) $(OBJECTS) $(INCLUDE) -o $@ $(LDFLAGS)
->>>>>>> 10b56335aacb4782ef7fa29f59432cd14d57e779
 	./$(EXECUTABLE) 
 
 %.o: %.cc

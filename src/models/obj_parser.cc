@@ -1,6 +1,4 @@
 #include "obj_parser.h"
-#include <chrono>
-#include <iostream>
 
 namespace s21 {
 
@@ -72,7 +70,7 @@ void OBJParser::ParseVertices(std::string &line) {
 }
 
 void OBJParser::ParseFaces(std::string &line) {
-  if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ') {
+  if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ' && object_->GetVertexCount() > 0) {
     object_->ClearFaceBuffer();
     std::istringstream iss(line.data() + 2);  // Remove the "f " part
     face_element_.clear();
@@ -80,7 +78,15 @@ void OBJParser::ParseFaces(std::string &line) {
       std::istringstream element_stream(face_element_);
       std::string vertex_index_str;
       std::getline(element_stream, vertex_index_str, '/');  // Extract the vertex index
-      int vertex_index = std::stoi(vertex_index_str);
+      int vertex_index = 0;
+      for (size_t i = 0; i < vertex_index_str.size(); i++) {
+        char vertex_char = vertex_index_str[i];
+        if (isdigit(vertex_char) || vertex_char == '-' || vertex_char == '.') {
+          vertex_index = std::stoi(vertex_index_str);
+        } else {
+          break;
+        }
+      }
       if (vertex_index < 0) {
         vertex_index = object_->GetVertexCount() + vertex_index + 1;
       }

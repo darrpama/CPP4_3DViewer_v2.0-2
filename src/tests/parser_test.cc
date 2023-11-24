@@ -27,20 +27,20 @@ TEST(OBJParserTest, Parse_Positive_first)
     -1, 1, -1
   };
 
-  std::vector<s21::Face> correct_faces = 
+  std::vector<GLuint> correct_faces = 
   {
-    {{2, 3, 4}},
-    {{8, 7, 6}},
-    {{5, 6, 2}},
-    {{6, 7, 3}},
-    {{3, 7, 8}},
-    {{1, 4, 8}},
-    {{1, 2, 4}},
-    {{5, 8, 6}},
-    {{1, 5, 2}},
-    {{2, 6, 3}},
-    {{4, 3, 8}},
-    {{5, 1, 8}}
+    2, 3, 4,
+    8, 7, 6,
+    5, 6, 2,
+    6, 7, 3,
+    3, 7, 8,
+    1, 4, 8,
+    1, 2, 4,
+    5, 8, 6,
+    1, 5, 2,
+    2, 6, 3,
+    4, 3, 8,
+    5, 1, 8
   };
   // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 8;
@@ -56,13 +56,11 @@ TEST(OBJParserTest, Parse_Positive_first)
     EXPECT_FLOAT_EQ(vertices[i], correct_vertices[i]);
   }
 
-  std::vector<s21::Face> faces = object.GetFaces();
+  std::vector<GLuint> faces = object.GetFlattenedFaces();
   for (size_t i = 0; i < faces.size(); i++)
   {
-    for (size_t j = 0; j < faces[i].vertices.size(); j++) {
-      EXPECT_EQ(faces[i].vertices[j], correct_faces[i].vertices[j]);
-      // std::cout << "parsed: " << faces[i].vertices[j] << " correct: " << correct_faces[i].vertices[j] << std::endl;
-    }
+    EXPECT_EQ(faces[i], correct_faces[i] - 1);
+    // std::cout << "parsed: " << faces[i].vertices[j] << " correct: " << correct_faces[i].vertices[j] << std::endl;
   }
   object.CountEdges();
   size_t correct_edges_num = 18;
