@@ -83,9 +83,12 @@ void Object::AppendFace() {
 
 void Object::AppendRawFace() {
   Face face;
-  face.vertices = *face_buffer_;
+  std::vector<GLuint> tmp(*face_buffer_);
+  for (auto it = tmp.begin(); it != tmp.end(); it++) {
+    *it += 1;
+  }
+  face.vertices = tmp;
   raw_faces_array_->push_back(face);
-  // raw_faces_array_->append(face);
 }
 
 void Object::AppendTriangulatedFace() {

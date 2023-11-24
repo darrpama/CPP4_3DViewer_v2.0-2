@@ -84,7 +84,7 @@ void OBJParser::ParseFaces(std::string &line) {
       if (vertex_index < 0) {
         vertex_index = object_->GetVertexCount() + vertex_index + 1;
       }
-      object_->PushToFaceBuffer(std::move(vertex_index));
+      object_->PushToFaceBuffer(std::move(vertex_index - 1));
     }
 
     size_t face_vertices_size = object_->GetFaceBufferSize();
