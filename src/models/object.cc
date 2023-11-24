@@ -96,7 +96,6 @@ void Object::AppendTriangulatedFace() {
     triangle_buffer_->begin(),
     triangle_buffer_->end()
   );
-  // triangulated_faces_array_->append(*triangle_buffer_);
   face_count_++;
 }
 

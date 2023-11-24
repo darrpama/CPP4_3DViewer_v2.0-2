@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include <QMatrix4x4>
 
 #include "../models/transform.h"
 

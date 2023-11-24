@@ -11,9 +11,9 @@ Transform::Transform(Settings *s) : settings_(s) {
 void Transform::UpdateTranslationMatrix() {
   TranslationMatrix_.setToIdentity();
   TranslationMatrix_.translate(
-    settings_->GetTranslation().x(),
-    settings_->GetTranslation().y(),
-    settings_->GetTranslation().z()
+    settings_->GetTranslation().x,
+    settings_->GetTranslation().y,
+    settings_->GetTranslation().z
   );
 }
 
@@ -21,17 +21,17 @@ void Transform::UpdateRotatitionMatrix() {
   RotationMatrix_.setToIdentity();
   
   RotationMatrix_.rotate(
-    settings_->GetRotation().x(), 
+    settings_->GetRotation().x,
     1.0f, 0.0f, 0.0f
   );
   
   RotationMatrix_.rotate(
-    settings_->GetRotation().y(), 
+    settings_->GetRotation().y,
     0.0f, 1.0f, 0.0f
   );
   
   RotationMatrix_.rotate(
-    settings_->GetRotation().z(), 
+    settings_->GetRotation().z,
     0.0f, 0.0f, 1.0f
   );
 }

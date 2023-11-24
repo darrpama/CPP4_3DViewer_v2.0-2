@@ -24,6 +24,22 @@ struct Color {
   float blueF() { return (float) blue / 255.0f; }
 };
 
+struct Vector3D {
+  float x{};
+  float y{};
+  float z{};
+
+  Vector3D() {}
+  Vector3D(float xv, float yv, float zv) 
+    : x(xv)
+    , y(yv)
+    , z(zv) {}
+
+  void SetX(float v) { x = v; }
+  void SetY(float v) { y = v; }
+  void SetZ(float v) { z = v; }
+};
+
 }  // namespace s21
 
 #endif  // CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TYPE_H
