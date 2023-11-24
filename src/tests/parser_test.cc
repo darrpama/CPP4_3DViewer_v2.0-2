@@ -15,7 +15,6 @@ TEST(OBJParserTest, Parse_Positive_first)
   parser.SetFilePath("/Users/darrpama/projects/CPP4_3DViewer_v2.0-2/src/assets/objects/cube.obj");
   parser.Parse();
 
-  std::vector<GLfloat> vertices = object.GetFlattenedVertices();
   std::vector<GLfloat> correct_vertices =
   {
     1, -1, -1,
@@ -28,7 +27,6 @@ TEST(OBJParserTest, Parse_Positive_first)
     -1, 1, -1
   };
 
-  std::vector<s21::Face> faces = object.GetFaces();
   std::vector<s21::Face> correct_faces = 
   {
     {{2, 3, 4}},
@@ -52,16 +50,18 @@ TEST(OBJParserTest, Parse_Positive_first)
   size_t correct_faces_num = 12;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
+  std::vector<GLfloat> vertices = object.GetFlattenedVertices();
   for (size_t i = 0; i < vertices.size(); i++)
   {
     EXPECT_FLOAT_EQ(vertices[i], correct_vertices[i]);
   }
 
+  std::vector<s21::Face> faces = object.GetFaces();
   for (size_t i = 0; i < faces.size(); i++)
   {
     for (size_t j = 0; j < faces[i].vertices.size(); j++) {
-      // EXPECT_EQ(faces[i].vertices[j], correct_faces[i].vertices[j]);
-      std::cout << "parsed: " << faces[i].vertices[j] << " correct: " << correct_faces[i].vertices[j] << std::endl;
+      EXPECT_EQ(faces[i].vertices[j], correct_faces[i].vertices[j]);
+      // std::cout << "parsed: " << faces[i].vertices[j] << " correct: " << correct_faces[i].vertices[j] << std::endl;
     }
   }
   object.CountEdges();
