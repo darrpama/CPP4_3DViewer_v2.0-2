@@ -10,6 +10,10 @@ std::vector<GLuint> Object::GetFlattenedFaces() {
   return *triangulated_faces_array_;
 }
 
+std::vector<Face> Object::GetFaces() {
+  return *raw_faces_array_;
+}
+
 void Object::Normalize() {
   auto max_value = std::max_element(
     vertices_array_->begin(), 

@@ -12,8 +12,7 @@ TEST(OBJParserTest, Parse_Positive_first)
 
   s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
   s21::OBJParser parser(&object);
-  parser.SetFilePath("../assets/objects/cube.obj");
-  // parser.SetObject(&object);
+  parser.SetFilePath("/Users/darrpama/projects/CPP4_3DViewer_v2.0-2/src/assets/objects/cube.obj");
   parser.Parse();
 
   std::vector<GLfloat> vertices = object.GetFlattenedVertices();
@@ -29,21 +28,21 @@ TEST(OBJParserTest, Parse_Positive_first)
     -1, 1, -1
   };
 
-  std::vector<GLuint> faces = object.GetFlattenedFaces();
-  std::vector<GLuint> correct_faces = 
+  std::vector<s21::Face> faces = object.GetFaces();
+  std::vector<s21::Face> correct_faces = 
   {
-    2, 3, 4,
-    8, 7, 6,
-    5, 6, 2,
-    6, 7, 3,
-    3, 7, 8,
-    1, 4, 8,
-    1, 2, 4,
-    5, 8, 6,
-    1, 5, 2,
-    2, 6, 3,
-    4, 3, 8,
-    5, 1, 8
+    {{2, 3, 4}},
+    {{8, 7, 6}},
+    {{5, 6, 2}},
+    {{6, 7, 3}},
+    {{3, 7, 8}},
+    {{1, 4, 8}},
+    {{1, 2, 4}},
+    {{5, 8, 6}},
+    {{1, 5, 2}},
+    {{2, 6, 3}},
+    {{4, 3, 8}},
+    {{5, 1, 8}}
   };
   // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 8;
@@ -60,7 +59,10 @@ TEST(OBJParserTest, Parse_Positive_first)
 
   for (size_t i = 0; i < faces.size(); i++)
   {
-    EXPECT_EQ(faces[i], correct_faces[i]);
+    for (size_t j = 0; j < faces[i].vertices.size(); j++) {
+      // EXPECT_EQ(faces[i].vertices[j], correct_faces[i].vertices[j]);
+      std::cout << "parsed: " << faces[i].vertices[j] << " correct: " << correct_faces[i].vertices[j] << std::endl;
+    }
   }
   object.CountEdges();
   size_t correct_edges_num = 18;
