@@ -19,7 +19,7 @@ void OBJParser::CheckAndFixEndLine() {
     std::cerr << "Failed to open file: " << file_path_ << std::endl;
     return;
   }
-  fseek(fp, 0, SEEK_END);
+  fseek(fp, -1, SEEK_END);
   char c = fgetc(fp);
   if (c != '\n') {
     fputc('\n', fp);
