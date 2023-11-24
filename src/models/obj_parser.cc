@@ -4,8 +4,8 @@
 
 namespace s21 {
 
-void s21::OBJParser::SetFilePath(const QString &file_path) {
-  file_path_ = file_path.toStdString();
+void s21::OBJParser::SetFilePath(const std::string &file_path) {
+  file_path_ = file_path;
 }
 
 void OBJParser::SetObject(Object *object) {
@@ -19,7 +19,7 @@ void OBJParser::CheckAndFixEndLine() {
     std::cerr << "Failed to open file: " << file_path_ << std::endl;
     return;
   }
-  fseek(fp, 0, SEEK_END);
+  fseek(fp, -1, SEEK_END);
   char c = fgetc(fp);
   if (c != '\n') {
     fputc('\n', fp);

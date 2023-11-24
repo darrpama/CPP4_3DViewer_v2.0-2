@@ -10,6 +10,10 @@ std::vector<GLuint> Object::GetFlattenedFaces() {
   return *triangulated_faces_array_;
 }
 
+std::vector<Face> Object::GetFaces() {
+  return *raw_faces_array_;
+}
+
 void Object::Normalize() {
   auto max_value = std::max_element(
     vertices_array_->begin(), 
@@ -23,7 +27,7 @@ void Object::Normalize() {
 
   GLfloat normalize_coef = (abs(*min_value) > abs(*max_value)) ? *min_value : *max_value;
 
-  for (int i = 0; i < vertices_array_->size(); ++i) {
+  for (size_t i = 0; i < vertices_array_->size(); ++i) {
     (*vertices_array_)[i] /= normalize_coef;
   }
 }
@@ -73,15 +77,17 @@ void Object::AppendFace() {
     face_buffer_->begin(), 
     face_buffer_->end()
   );
-  // triangulated_faces_array_->append(*face_buffer_);
   face_count_++;
 }
 
 void Object::AppendRawFace() {
   Face face;
-  face.vertices = *face_buffer_;
+  std::vector<GLuint> tmp(*face_buffer_);
+  for (auto it = tmp.begin(); it != tmp.end(); it++) {
+    *it += 1;
+  }
+  face.vertices = tmp;
   raw_faces_array_->push_back(face);
-  // raw_faces_array_->append(face);
 }
 
 void Object::AppendTriangulatedFace() {

@@ -60,6 +60,7 @@ class Object {
       , raw_faces_array_(raw_faces_array_) {}
   std::vector<GLfloat> GetFlattenedVertices();
   std::vector<GLuint> GetFlattenedFaces();
+  std::vector<Face> GetFaces();
 
   void Clear();
   void CountEdges();

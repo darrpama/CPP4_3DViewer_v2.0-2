@@ -9,8 +9,8 @@
 #include <vector>
 #include <sstream>
 
-#include <QFile>
-#include <QString>
+// #include <QFile>
+// #include <QString>
 
 
 namespace s21
@@ -19,7 +19,7 @@ class OBJParser {
  public:
   OBJParser(Object *obj) : object_(obj) {};
   void Parse();
-  void SetFilePath(const QString&);
+  void SetFilePath(const std::string&);
   void SetObject(Object *);
 
  private:
