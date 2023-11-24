@@ -4,8 +4,8 @@
 
 namespace s21 {
 
-void s21::OBJParser::SetFilePath(const QString &file_path) {
-  file_path_ = file_path.toStdString();
+void s21::OBJParser::SetFilePath(const std::string &file_path) {
+  file_path_ = file_path;
 }
 
 void OBJParser::SetObject(Object *object) {

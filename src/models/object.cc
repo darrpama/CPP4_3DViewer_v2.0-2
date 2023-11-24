@@ -23,7 +23,7 @@ void Object::Normalize() {
 
   GLfloat normalize_coef = (abs(*min_value) > abs(*max_value)) ? *min_value : *max_value;
 
-  for (int i = 0; i < vertices_array_->size(); ++i) {
+  for (size_t i = 0; i < vertices_array_->size(); ++i) {
     (*vertices_array_)[i] /= normalize_coef;
   }
 }
