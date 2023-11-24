@@ -9,22 +9,24 @@ STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
 
 HEADERS = \
-    $(PROJECTDIR)/models/transform.h
-    # $(PROJECTDIR)/models/obj_parser.h \
-    $(PROJECTDIR)/models/settings.h
+    $(PROJECTDIR)/models/object.h \
+    $(PROJECTDIR)/models/obj_parser.h
+    # $(PROJECTDIR)/models/transform.h
+    # $(PROJECTDIR)/models/settings.h
     # $(PROJECTDIR)/models/renderer.h \
     # $(PROJECTDIR)/models/type.h
     # $(PROJECTDIR)/models/model.h \
 
 SOURCES = \
-    $(PROJECTDIR)/models/transform.cc \
-    $(PROJECTDIR)/tests/transform_test.cc
-    # $(PROJECTDIR)/models/obj_parser.cc \
-    # $(PROJECTDIR)/tests/parser_test.cc \
+    $(PROJECTDIR)/models/object.cc \
+    $(PROJECTDIR)/models/obj_parser.cc \
+    $(PROJECTDIR)/tests/parser_test.cc \
+    $(PROJECTDIR)/tests/run_all_tests.cc
+    # $(PROJECTDIR)/models/transform.cc \
+    # $(PROJECTDIR)/tests/transform_test.cc
     # $(PROJECTDIR)/models/renderer.cc \
     # $(PROJECTDIR)/models/settings.cc \
     # $(PROJECTDIR)/models/model.cc \
-    # $(PROJECTDIR)/tests/run_all_tests.cc
     # $(PROJECTDIR)/main.cc \
 
 OBJECTS = $(SOURCES:.cc=.o)
@@ -66,7 +68,7 @@ leaks: $(EXECUTABLE)
 	leaks -atExit -- ./$(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(HEADERS) $(INCLUDE) -o $@ $(LDFLAGS)
+	$(CC) $(OBJECTS) $(INCLUDE) -o $@ $(LDFLAGS)
 	./$(EXECUTABLE) 
 
 %.o: %.cc
