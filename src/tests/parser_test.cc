@@ -13,7 +13,7 @@ TEST(OBJParserTest, Parse_Positive_first)
   s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer, &triangle_buffer, &raw_faces_array_);
   s21::OBJParser parser(&object);
   parser.SetFilePath("../assets/objects/cube.obj");
-  parser.SetObject(&object);
+  // parser.SetObject(&object);
   parser.Parse();
 
   std::vector<GLfloat> vertices = object.GetFlattenedVertices();
@@ -46,10 +46,12 @@ TEST(OBJParserTest, Parse_Positive_first)
     5, 1, 8
   };
   // Test if the vertices were parsed correctly
-  EXPECT_EQ(object.GetVertexCount(), (unsigned)8);
+  size_t correct_vertices_num = 8;
+  EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
   // Test if the faces were parsed correctly
-  EXPECT_EQ(object.GetFaceCount(), (unsigned)12);
+  size_t correct_faces_num = 12;
+  EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
   for (size_t i = 0; i < vertices.size(); i++)
   {
@@ -61,7 +63,8 @@ TEST(OBJParserTest, Parse_Positive_first)
     EXPECT_EQ(faces[i], correct_faces[i]);
   }
   object.CountEdges();
-  EXPECT_EQ(object.GetEdgeCount(), (unsigned)18);
+  size_t correct_edges_num = 18;
+  EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
 }
 
 
