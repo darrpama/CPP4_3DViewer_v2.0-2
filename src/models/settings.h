@@ -2,7 +2,6 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_SETTINGS_H
 
 #include "type.h"
-#include <QVector3D>
 #include <iostream>
 #include <fstream>
 

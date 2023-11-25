@@ -82,6 +82,9 @@ class Model {
   OBJParser *parser_;
   Object *object_;
   Settings *settings_;
+
+  QMatrix4x4 ConvertToQMatrix(Matrix4x4 m);
+  void PrintMatrix(QMatrix4x4 m);
 };
 
 }  // namespace s21

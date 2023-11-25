@@ -2,15 +2,16 @@
 
 namespace s21 {
 
-Transform::Transform(Settings *s) : settings_(s) {
-  TranslationMatrix_.setToIdentity();
-  RotationMatrix_.setToIdentity();
-  ScaleMatrix_.setToIdentity();
+Transform::Transform(Settings *s) : settings_(s)
+{
+  TranslationMatrix_.SetToIdentity();
+  RotationMatrix_.SetToIdentity();
+  ScaleMatrix_.SetToIdentity();
 }
 
 void Transform::UpdateTranslationMatrix() {
-  TranslationMatrix_.setToIdentity();
-  TranslationMatrix_.translate(
+  TranslationMatrix_.SetToIdentity();
+  TranslationMatrix_.Translate(
     settings_->GetTranslation().x,
     settings_->GetTranslation().y,
     settings_->GetTranslation().z
@@ -18,30 +19,27 @@ void Transform::UpdateTranslationMatrix() {
 }
 
 void Transform::UpdateRotatitionMatrix() {
-  RotationMatrix_.setToIdentity();
-  
-  RotationMatrix_.rotate(
+  RotationMatrix_.SetToIdentity();
+  RotationMatrix_.Rotate(
     settings_->GetRotation().x,
     1.0f, 0.0f, 0.0f
   );
-  
-  RotationMatrix_.rotate(
+  RotationMatrix_.Rotate(
     settings_->GetRotation().y,
     0.0f, 1.0f, 0.0f
   );
-  
-  RotationMatrix_.rotate(
+  RotationMatrix_.Rotate(
     settings_->GetRotation().z,
     0.0f, 0.0f, 1.0f
   );
 }
 
 void Transform::UpdateScaleMatrix() {
-  ScaleMatrix_.setToIdentity();
-  ScaleMatrix_.scale(settings_->GetScale());
+  ScaleMatrix_.SetToIdentity();
+  ScaleMatrix_.Scale(settings_->GetScale());
 }
 
-QMatrix4x4 Transform::GetTransformMatrix() {
+Matrix4x4 Transform::GetTransformMatrix() {
   TransformMatrix_ = TranslationMatrix_ * RotationMatrix_ * ScaleMatrix_;
   return TransformMatrix_;
 }

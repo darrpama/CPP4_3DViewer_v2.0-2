@@ -3,9 +3,10 @@
 
 #include "object.h"
 #include "settings.h"
+#include "matrix4x4.h"
 
-#include <cmath>
 #include <QMatrix4x4>
+#include <cmath>
 
 namespace s21 {
 
@@ -16,14 +17,15 @@ class Transform {
   void UpdateRotatitionMatrix();
   void UpdateScaleMatrix();
 
-  QMatrix4x4 GetTransformMatrix();
+  Matrix4x4 GetTransformMatrix();
+  QMatrix4x4 GetTransformMatrix2();
 
  private:
   Settings *settings_;
-  QMatrix4x4 TranslationMatrix_;
-  QMatrix4x4 RotationMatrix_;
-  QMatrix4x4 ScaleMatrix_;
-  QMatrix4x4 TransformMatrix_;
+  Matrix4x4 TranslationMatrix_;
+  Matrix4x4 RotationMatrix_;
+  Matrix4x4 ScaleMatrix_;
+  Matrix4x4 TransformMatrix_;
 };
 }  // namespace s21
 
