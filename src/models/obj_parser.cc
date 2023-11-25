@@ -6,10 +6,6 @@ void s21::OBJParser::SetFilePath(const std::string &file_path) {
   file_path_ = file_path;
 }
 
-void OBJParser::SetObject(Object *object) {
-  object_ = object;
-}
-
 void OBJParser::CheckAndFixEndLine() {
   const char *filepath = file_path_.c_str();
   FILE *fp = fopen(filepath, "r+");
