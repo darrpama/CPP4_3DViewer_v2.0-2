@@ -19,71 +19,80 @@ void Matrix4x4::Translate(float x, float y, float z) {
   matrix_[3][2] = z;
 }
 
+void Matrix4x4::PreCalculateSinCos(float angle, float *sin, float *cos) {
+  if (angle == 90.0f || angle == -270.0f) {
+    *sin = 1.0f;
+    *cos = 0.0f;
+  } else if (angle == -90.0f || angle == 270.0f) {
+    *sin = -1.0f;
+    *cos = 0.0f;
+  } else if (angle == 180.0f || angle == -180.0f) {
+    *sin = 0.0f;
+    *cos = -1.0f;
+  } else {
+    float a = angle * M_PI / 180.0f;
+    *cos = cosf(a);
+    *sin = sinf(a);
+  }
+}
+
 void Matrix4x4::Rotate(float angle, float x, float y, float z) {
   if (angle == 0.0f)
     return;
-
   Matrix4x4 m(1);
-
-  float cos, sin;
-  if (angle == 90.0f || angle == -270.0f) {
-    sin = 1.0f;
-    cos = 0.0f;
-  } else if (angle == -90.0f || angle == 270.0f) {
-    sin = -1.0f;
-    cos = 0.0f;
-  } else if (angle == 180.0f || angle == -180.0f) {
-    sin = 0.0f;
-    cos = -1.0f;
-  } else {
-    float a = angle * M_PI / 180.0f;
-    cos = cosf(a);
-    sin = sinf(a);
-  }
-
+  float sin, cos;
+  PreCalculateSinCos(angle, &sin, &cos);
   if (x == 0.0f) {
     if (y == 0.0f) {
       if (z != 0.0f) {
-        // Rotate around the Z axis.
-        m.SetToIdentity();
-        m.matrix_[0][0] = cos;
-        m.matrix_[1][1] = cos;
-        if (z < 0.0f) {
-            m.matrix_[1][0] = sin;
-            m.matrix_[0][1] = -sin;
-        } else {
-            m.matrix_[1][0] = -sin;
-            m.matrix_[0][1] = sin;
-        }
+        RotateZ(&m, z, sin, cos);
       }
     } else if (z == 0.0f) {
-      // Rotate around the Y axis.
-      m.SetToIdentity();
-      m.matrix_[0][0] = cos;
-      m.matrix_[2][2] = cos;
-      if (y < 0.0f) {
-        m.matrix_[2][0] = -sin;
-        m.matrix_[0][2] = sin;
-      } else {
-        m.matrix_[2][0] = sin;
-        m.matrix_[0][2] = -sin;
-      }
+      RotateY(&m, y, sin, cos);
     }
   } else if (y == 0.0f && z == 0.0f) {
-    // Rotate around the X axis.
-    m.SetToIdentity();
-    m.matrix_[1][1] = cos;
-    m.matrix_[2][2] = cos;
-    if (x < 0.0f) {
-      m.matrix_[2][1] = sin;
-      m.matrix_[1][2] = -sin;
-    } else {
-      m.matrix_[2][1] = -sin;
-      m.matrix_[1][2] = sin;
-    }
+    RotateZ(&m, x, sin, cos);
   }
-
   *this *= m;
+}
+
+void Matrix4x4::RotateZ(Matrix4x4 *m, float z, float sin, float cos) {
+  m->SetToIdentity();
+  m->matrix_[0][0] = cos;
+  m->matrix_[1][1] = cos;
+  if (z < 0.0f) {
+      m->matrix_[1][0] = sin;
+      m->matrix_[0][1] = -sin;
+  } else {
+      m->matrix_[1][0] = -sin;
+      m->matrix_[0][1] = sin;
+  }
+}
+
+void Matrix4x4::RotateY(Matrix4x4 *m, float y, float sin, float cos) {
+  m->SetToIdentity();
+  m->matrix_[0][0] = cos;
+  m->matrix_[2][2] = cos;
+  if (y < 0.0f) {
+    m->matrix_[2][0] = -sin;
+    m->matrix_[0][2] = sin;
+  } else {
+    m->matrix_[2][0] = sin;
+    m->matrix_[0][2] = -sin;
+  }
+}
+
+void Matrix4x4::RotateX(Matrix4x4 *m, float x, float sin, float cos) {
+  m->SetToIdentity();
+  m->matrix_[1][1] = cos;
+  m->matrix_[2][2] = cos;
+  if (x < 0.0f) {
+    m->matrix_[2][1] = sin;
+    m->matrix_[1][2] = -sin;
+  } else {
+    m->matrix_[2][1] = -sin;
+    m->matrix_[1][2] = sin;
+  }
 }
 
 void Matrix4x4::Scale(float factor) {
