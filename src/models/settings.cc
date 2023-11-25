@@ -38,32 +38,32 @@ void Settings::SetScale(float f) {
 }
 
 void Settings::SetTranslationX(float val) {
-  translation_.setX(val);
+  translation_.SetX(val);
   SaveSettings();
 }
 
 void Settings::SetTranslationY(float val) {
-  translation_.setY(val);
+  translation_.SetY(val);
   SaveSettings();
 }
 
 void Settings::SetTranslationZ(float val) {
-  translation_.setZ(val);
+  translation_.SetZ(val);
   SaveSettings();
 }
 
 void Settings::SetRotationX(float val) {
-  rotation_.setX(val);
+  rotation_.SetX(val);
   SaveSettings();
 }
 
 void Settings::SetRotationY(float val) {
-  rotation_.setY(val);
+  rotation_.SetY(val);
   SaveSettings();
 }
 
 void Settings::SetRotationZ(float val) {
-  rotation_.setZ(val);
+  rotation_.SetZ(val);
   SaveSettings();
 }
 
@@ -96,35 +96,35 @@ int Settings::GetVerticeSize() {
 }
 
 float Settings::GetTranslationX() {
-  return translation_.x();
+  return translation_.x;
 }
 
 float Settings::GetTranslationY() {
-  return translation_.y();
+  return translation_.y;
 }
 
 float Settings::GetTranslationZ() {
-  return translation_.z();
+  return translation_.z;
 }
 
-const QVector3D &Settings::GetTranslation() {
+const Vector3D &Settings::GetTranslation() {
   return translation_;
 }
 
-const QVector3D &Settings::GetRotation() {
+const Vector3D &Settings::GetRotation() {
   return rotation_;
 }
 
 float Settings::GetRotationX() {
-  return rotation_.x();
+  return rotation_.x;
 }
 
 float Settings::GetRotationY() {
-  return rotation_.y();
+  return rotation_.y;
 }
 
 float Settings::GetRotationZ() {
-  return rotation_.z();
+  return rotation_.z;
 }
 
 float Settings::GetScale() {
@@ -147,12 +147,12 @@ void Settings::SaveSettings() {
   outfile << vertice_type_ << std::endl;          // 12
   outfile << edge_thickness_ << std::endl;        // 13
   outfile << vertice_size_ << std::endl;          // 14
-  outfile << translation_.x() << std::endl;       // 15
-  outfile << translation_.y() << std::endl;       // 16
-  outfile << translation_.z() << std::endl;       // 17
-  outfile << rotation_.x() << std::endl;          // 18
-  outfile << rotation_.y() << std::endl;          // 19
-  outfile << rotation_.z() << std::endl;          // 20
+  outfile << translation_.x << std::endl;       // 15
+  outfile << translation_.y << std::endl;       // 16
+  outfile << translation_.z << std::endl;       // 17
+  outfile << rotation_.x << std::endl;          // 18
+  outfile << rotation_.y << std::endl;          // 19
+  outfile << rotation_.z << std::endl;          // 20
   outfile << scale_ << std::endl;                 // 21
 
   outfile.close();
@@ -199,17 +199,17 @@ void Settings::LoadSettings() {
   infile >> translation_x;
   infile >> translation_y;
   infile >> translation_z;
-  translation_.setX(translation_x);
-  translation_.setY(translation_y);
-  translation_.setZ(translation_z);
+  translation_.SetX(translation_x);
+  translation_.SetY(translation_y);
+  translation_.SetZ(translation_z);
 
   float rotation_x, rotation_y, rotation_z;
   infile >> rotation_x;
   infile >> rotation_y;
   infile >> rotation_z;
-  rotation_.setX(rotation_x);
-  rotation_.setY(rotation_y);
-  rotation_.setZ(rotation_z);
+  rotation_.SetX(rotation_x);
+  rotation_.SetY(rotation_y);
+  rotation_.SetZ(rotation_z);
 
   infile >> scale_;
 }

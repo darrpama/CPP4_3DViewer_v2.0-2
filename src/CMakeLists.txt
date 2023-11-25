@@ -45,6 +45,8 @@ set(PROJECT_SOURCES
     models/settings.cc
     models/screenshot.h
     models/screenshot.cc
+    models/matrix4x4.h
+    models/matrix4x4.cc
 )
 
 

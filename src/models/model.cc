@@ -35,19 +35,50 @@ void Model::NormalizeObject() {
 void Model::SetTranslationX(float val) {
   settings_->SetTranslationX(val);
   transform_->UpdateTranslationMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
 }
 
 void Model::SetTranslationY(float val) {
   settings_->SetTranslationY(val);
   transform_->UpdateTranslationMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
 }
 
 void Model::SetTranslationZ(float val) {
   settings_->SetTranslationZ(val);
   transform_->UpdateTranslationMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
+}
+
+void Model::SetRotationX(float val) {
+  settings_->SetRotationX(val);
+  transform_->UpdateRotatitionMatrix();
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
+}
+
+void Model::SetRotationY(float val) {
+  settings_->SetRotationY(val);
+  transform_->UpdateRotatitionMatrix();
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
+}
+
+void Model::SetRotationZ(float val) {
+  settings_->SetRotationZ(val);
+  transform_->UpdateRotatitionMatrix();
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
+}
+
+void Model::ApplyScale(float f) {
+  settings_->SetScale(f);
+  transform_->UpdateScaleMatrix();
+  QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
+  render_->SetTransformMatrix(qmatrix);
 }
 
 float Model::GetTranslationX() {
@@ -60,24 +91,6 @@ float Model::GetTranslationY() {
 
 float Model::GetTranslationZ() {
   return settings_->GetTranslationZ();
-}
-
-void Model::SetRotationX(float val) {
-  settings_->SetRotationX(val);
-  transform_->UpdateRotatitionMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
-}
-
-void Model::SetRotationY(float val) {
-  settings_->SetRotationY(val);
-  transform_->UpdateRotatitionMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
-}
-
-void Model::SetRotationZ(float val) {
-  settings_->SetRotationZ(val);
-  transform_->UpdateRotatitionMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 float Model::GetRotationX() {
@@ -94,12 +107,6 @@ float Model::GetRotationZ() {
 
 float Model::GetScale() {
   return settings_->GetScale();
-}
-
-void Model::ApplyScale(float f) {
-  settings_->SetScale(f);
-  transform_->UpdateScaleMatrix();
-  render_->SetTransformMatrix(transform_->GetTransformMatrix());
 }
 
 void Model::SetColor(ColorType type, const QColor &qcolor) {
@@ -137,6 +144,15 @@ void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
     context.SetStrategy(new JpgScreenshotStrategy());
   }
   context.MakeScreenshot(widget);
+}
+
+QMatrix4x4 Model::ConvertToQMatrix(Matrix4x4 m) {
+  return QMatrix4x4(
+    m.at(0,0), m.at(1,0), m.at(2,0), m.at(3,0), 
+    m.at(0,1), m.at(1,1), m.at(2,1), m.at(3,1), 
+    m.at(0,2), m.at(1,2), m.at(2,2), m.at(3,2), 
+    m.at(0,3), m.at(1,3), m.at(2,3), m.at(3,3)
+  );
 }
 
 }  // namespace s21

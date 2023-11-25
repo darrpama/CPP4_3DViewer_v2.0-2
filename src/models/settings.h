@@ -2,7 +2,6 @@
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_SETTINGS_H
 
 #include "type.h"
-#include <QVector3D>
 #include <iostream>
 #include <fstream>
 
@@ -48,7 +47,7 @@ class Settings {
   void SetTranslationX(float);
   void SetTranslationY(float);
   void SetTranslationZ(float);
-  const QVector3D &GetTranslation();
+  const Vector3D &GetTranslation();
 
   float GetTranslationX();
   float GetTranslationY();
@@ -57,7 +56,7 @@ class Settings {
   void SetRotationX(float);
   void SetRotationY(float);
   void SetRotationZ(float);
-  const QVector3D &GetRotation();
+  const Vector3D &GetRotation();
 
   float GetRotationX();
   float GetRotationY();
@@ -75,8 +74,8 @@ class Settings {
   VerticeType vertice_type_;
   int edge_thickness_;
   int vertice_size_;
-  QVector3D translation_;
-  QVector3D rotation_;
+  Vector3D translation_;
+  Vector3D rotation_;
   float scale_;
 };
 

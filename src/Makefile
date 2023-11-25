@@ -10,20 +10,24 @@ DISTDIR = ../distributive
 
 HEADERS = \
     $(PROJECTDIR)/models/object.h \
-    $(PROJECTDIR)/models/obj_parser.h
-    # $(PROJECTDIR)/models/transform.h
-    # $(PROJECTDIR)/models/settings.h
+    $(PROJECTDIR)/models/matrix4x4.h \
+    $(PROJECTDIR)/models/settings.h \
+    $(PROJECTDIR)/models/transform.h \
+    $(PROJECTDIR)/models/type.h
+    # $(PROJECTDIR)/models/obj_parser.h \
     # $(PROJECTDIR)/models/renderer.h \
     # $(PROJECTDIR)/models/type.h
     # $(PROJECTDIR)/models/model.h \
 
 SOURCES = \
     $(PROJECTDIR)/models/object.cc \
-    $(PROJECTDIR)/models/obj_parser.cc \
-    $(PROJECTDIR)/tests/parser_test.cc \
+    $(PROJECTDIR)/models/transform.cc \
+    $(PROJECTDIR)/models/matrix4x4.cc \
+    $(PROJECTDIR)/models/settings.cc \
+    $(PROJECTDIR)/tests/transform_test.cc \
     $(PROJECTDIR)/tests/run_all_tests.cc
-    # $(PROJECTDIR)/models/transform.cc \
-    # $(PROJECTDIR)/tests/transform_test.cc
+    # $(PROJECTDIR)/tests/parser_test.cc \
+    # $(PROJECTDIR)/models/obj_parser.cc \
     # $(PROJECTDIR)/models/renderer.cc \
     # $(PROJECTDIR)/models/settings.cc \
     # $(PROJECTDIR)/models/model.cc \
