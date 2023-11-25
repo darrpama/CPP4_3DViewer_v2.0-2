@@ -5,7 +5,6 @@
 #include "settings.h"
 #include "matrix4x4.h"
 
-#include <QMatrix4x4>
 #include <cmath>
 
 namespace s21 {
@@ -18,7 +17,6 @@ class Transform {
   void UpdateScaleMatrix();
 
   Matrix4x4 GetTransformMatrix();
-  QMatrix4x4 GetTransformMatrix2();
 
  private:
   Settings *settings_;

@@ -7,10 +7,22 @@ float Matrix4x4::at(unsigned x, unsigned y) {
 }
 
 void Matrix4x4::SetToIdentity() {
-  matrix_[0][0] = 1.0f; matrix_[1][0] = 0.0f; matrix_[2][0] = 0.0f;  matrix_[3][0] = 0.0f;
-  matrix_[0][1] = 0.0f; matrix_[1][1] = 1.0f; matrix_[2][1] = 0.0f;  matrix_[3][1] = 0.0f;
-  matrix_[0][2] = 0.0f; matrix_[1][2] = 0.0f; matrix_[2][2] = 1.0f;  matrix_[3][2] = 0.0f;
-  matrix_[0][3] = 0.0f; matrix_[1][3] = 0.0f; matrix_[2][3] = 0.0f;  matrix_[3][3] = 1.0f;
+  matrix_[0][0] = 1.0f;
+  matrix_[0][1] = 0.0f;
+  matrix_[0][2] = 0.0f;
+  matrix_[0][3] = 0.0f;
+  matrix_[1][0] = 0.0f;
+  matrix_[1][1] = 1.0f;
+  matrix_[1][2] = 0.0f;
+  matrix_[1][3] = 0.0f;
+  matrix_[2][0] = 0.0f;
+  matrix_[2][1] = 0.0f;
+  matrix_[2][2] = 1.0f;
+  matrix_[2][3] = 0.0f;
+  matrix_[3][0] = 0.0f;
+  matrix_[3][1] = 0.0f;
+  matrix_[3][2] = 0.0f;
+  matrix_[3][3] = 1.0f;
 }
 
 void Matrix4x4::Translate(float x, float y, float z) {
