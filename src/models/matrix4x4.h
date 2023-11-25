@@ -8,6 +8,10 @@ class Matrix4x4 {
  public:
   Matrix4x4() { SetToIdentity(); }
   Matrix4x4(int) {}
+  Matrix4x4(float, float, float, float, 
+            float, float, float, float, 
+            float, float, float, float, 
+            float, float, float, float);
   void SetToIdentity();
   void Translate(float x, float y, float z);
   void Rotate(float angle, float x, float y, float z);

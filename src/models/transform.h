@@ -13,7 +13,7 @@ class Transform {
  public:
   Transform(Settings *);
   void UpdateTranslationMatrix();
-  void UpdateRotatitionMatrix();
+  void UpdateRotationMatrix();
   void UpdateScaleMatrix();
 
   Matrix4x4 GetTransformMatrix();

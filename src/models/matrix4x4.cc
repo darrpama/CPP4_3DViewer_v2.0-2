@@ -6,6 +6,28 @@ float Matrix4x4::at(unsigned x, unsigned y) {
   return matrix_[x][y];
 }
 
+Matrix4x4::Matrix4x4(float r0c0, float r0c1, float r0c2, float r0c3, 
+                     float r1c0, float r1c1, float r1c2, float r1c3,
+                     float r2c0, float r2c1, float r2c2, float r2c3, 
+                     float r3c0, float r3c1, float r3c2, float r3c3) {
+  matrix_[0][0] = r0c0;
+  matrix_[1][0] = r0c1;
+  matrix_[2][0] = r0c2;
+  matrix_[3][0] = r0c3;
+  matrix_[0][1] = r1c0;
+  matrix_[1][1] = r1c1;
+  matrix_[2][1] = r1c2;
+  matrix_[3][1] = r1c3;
+  matrix_[0][2] = r2c0;
+  matrix_[1][2] = r2c1;
+  matrix_[2][2] = r2c2;
+  matrix_[3][2] = r2c3;
+  matrix_[0][3] = r3c0;
+  matrix_[1][3] = r3c1;
+  matrix_[2][3] = r3c2;
+  matrix_[3][3] = r3c3;
+}
+
 void Matrix4x4::SetToIdentity() {
   matrix_[0][0] = 1.0f;
   matrix_[0][1] = 0.0f;
@@ -63,7 +85,7 @@ void Matrix4x4::Rotate(float angle, float x, float y, float z) {
       RotateY(&m, y, sin, cos);
     }
   } else if (y == 0.0f && z == 0.0f) {
-    RotateZ(&m, x, sin, cos);
+    RotateX(&m, x, sin, cos);
   }
   *this *= m;
 }

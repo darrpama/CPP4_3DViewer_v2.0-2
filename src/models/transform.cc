@@ -18,7 +18,7 @@ void Transform::UpdateTranslationMatrix() {
   );
 }
 
-void Transform::UpdateRotatitionMatrix() {
+void Transform::UpdateRotationMatrix() {
   RotationMatrix_.SetToIdentity();
   RotationMatrix_.Rotate(
     settings_->GetRotation().x,

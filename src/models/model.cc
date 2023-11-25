@@ -55,21 +55,21 @@ void Model::SetTranslationZ(float val) {
 
 void Model::SetRotationX(float val) {
   settings_->SetRotationX(val);
-  transform_->UpdateRotatitionMatrix();
+  transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
 void Model::SetRotationY(float val) {
   settings_->SetRotationY(val);
-  transform_->UpdateRotatitionMatrix();
+  transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
 void Model::SetRotationZ(float val) {
   settings_->SetRotationZ(val);
-  transform_->UpdateRotatitionMatrix();
+  transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
