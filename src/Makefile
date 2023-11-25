@@ -76,14 +76,14 @@ $(EXECUTABLE): $(OBJECTS)
 	./$(EXECUTABLE) 
 
 %.o: %.cc
-	$(CC) $(CCFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CCFLAGS) $(INCLUDE) -o $@ -c $< $(LDFLAGS)
 
 $(STATICLIB): $(OBJECTS)
 	ar rcs $(STATICLIB) $^
 
 gcov_report: $(EXECUTABLE)
 	./$(EXECUTABLE)
-	lcov -t "./test.out" -o test.info --no-external -c -d .
+	lcov -t "./test.out" -o test.info --no-external -c -d . --ignore-errors mismatch
 	genhtml -o report test.info
 	open report/index.html
 
