@@ -18,7 +18,6 @@ class OBJParser {
   OBJParser(Object *obj) : object_(obj) {};
   void Parse();
   void SetFilePath(const std::string&);
-  void SetObject(Object *);
 
  private:
   Object *object_;
