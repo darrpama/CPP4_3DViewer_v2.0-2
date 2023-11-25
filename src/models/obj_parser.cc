@@ -26,8 +26,6 @@ void OBJParser::CheckAndFixEndLine() {
 }
 
 void OBJParser::Parse() {
-  auto start = std::chrono::high_resolution_clock::now();
-  
   CheckAndFixEndLine();
 
   std::ifstream file(file_path_);
@@ -52,11 +50,7 @@ void OBJParser::Parse() {
 
     pos = line_end + 1;
   }
-
   file.close();
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-  std::cout << "OBJParser::Parse vertices exec time: " << duration << " milliseconds" << std::endl;
 }
 
 void OBJParser::ParseVertices(std::string &line) {

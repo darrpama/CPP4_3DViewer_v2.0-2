@@ -9,10 +9,6 @@
 #include <cstring>
 #include <vector>
 #include <sstream>
-#include <chrono>
-
-// #include <QFile>
-// #include <QString>
 
 
 namespace s21
