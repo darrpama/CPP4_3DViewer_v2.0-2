@@ -1,4 +1,11 @@
+#ifndef CPP4_3DVIEWER_V2_0_1_SRC_MODELS_SCREENSHOT_STRATEGY_H
+#define CPP4_3DVIEWER_V2_0_1_SRC_MODELS_SCREENSHOT_STRATEGY_H
+
+#include <QDir>
+#include <QPixmap>
 #include <QWidget>
+#include <iostream>
+
 namespace s21 {
 
 class ScreenshotStrategy {
@@ -27,3 +34,5 @@ class ScreenshotContext {
 };
 
 }  // namespace s21
+
+#endif  // CPP4_3DVIEWER_V2_0_1_SRC_MODELS_SCREENSHOT_STRATEGY_H

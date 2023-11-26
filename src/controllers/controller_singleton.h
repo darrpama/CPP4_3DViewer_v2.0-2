@@ -4,24 +4,19 @@
 #include <string>
 #include <unordered_map>
 
-#include "../models/model.h"
+#include "../models/model_facade.h"
 
 namespace s21 {
 
 // singleton
-class Controller {
- private:
-  Controller() : model_(){};
-  Controller(const Controller &);
-  Controller &operator=(const Controller &) = delete;
-
+class ControllerSingleton {
  public:
-  static Controller &GetInstance() {
-    static Controller instance;
+  static ControllerSingleton &GetInstance() {
+    static ControllerSingleton instance;
     return instance;
   }
 
-  void SetModel(Model *model) { model_ = model; }
+  void SetModel(ModelFacade *model) { model_ = model; }
   // render
   void InitOpenGL();
   void SetViewPort(int, int);
@@ -78,7 +73,11 @@ class Controller {
   unsigned GetEdgeCount();
 
  private:
-  Model *model_;
+  ModelFacade *model_;
+
+  ControllerSingleton() : model_(){};
+  ControllerSingleton(const ControllerSingleton &);
+  ControllerSingleton &operator=(const ControllerSingleton &) = delete;
 };
 
 }  // namespace s21

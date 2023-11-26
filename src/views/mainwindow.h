@@ -3,8 +3,7 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include "../controllers/controller.h"
-// #include "../gif/gif_image/qgifimage.h"
+#include "../controllers/controller_singleton.h"
 #include "canvas.h"
 
 #include <iostream>
@@ -17,16 +16,13 @@
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QPalette>
-
 #include <QApplication>
 #include <QScreen>
 #include <QPixmap>
 #include <QDir>
 #include <QPainter>
 #include <QImageWriter>
-#include <QElapsedTimer>
 #include <QImage>
-#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -99,22 +95,14 @@ private:
   QPushButton *bg_color_button_;
   QPushButton *points_color_button_;
   QPushButton *lines_color_button_;
-
-  // Edge types
   QRadioButton *edge_type_none_;
   QRadioButton *edge_type_solid_;
   QRadioButton *edge_type_dashed_;
-
-  // Vertice types
   QRadioButton *vertice_type_none_;
   QRadioButton *vertice_type_circle_;
   QRadioButton *vertice_type_square_;
-
-  // Sliders
   QSlider *vertice_size_;
   QSlider *edge_thickness_;
-
-  void MakeScreencast(QWidget*);
   
   void InitProjectionType();
   void InitColors();
@@ -132,11 +120,6 @@ private:
   void SetEdgeType(s21::EdgeType);
   void SetVerticeType(s21::VerticeType);
   void SetObjectInfo();
-
-  // GIF creating:
-  // QTimer *record_time_;
-  // QVector<QImage> GIF_;
-
 };
 
 #endif // CPP4_3DVIEWER_V2_0_2_SRC_VIEWS_MAINWINDOW_H

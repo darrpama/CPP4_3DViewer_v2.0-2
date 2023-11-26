@@ -28,11 +28,9 @@ TEST(OBJParserTest, Parse_Positive_first) {
   std::vector<GLuint> correct_faces = {2, 3, 4, 8, 7, 6, 5, 6, 2, 6, 7, 3,
                                        3, 7, 8, 1, 4, 8, 1, 2, 4, 5, 8, 6,
                                        1, 5, 2, 2, 6, 3, 4, 3, 8, 5, 1, 8};
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 8;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 12;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
@@ -89,11 +87,9 @@ TEST(OBJParserTest, Parse_Positive_second) {
   std::vector<GLuint> correct_faces = {2, 3, 4, 8, 7, 6, 5, 6, 2, 6, 7, 3,
                                        3, 7, 8, 1, 4, 8, 1, 2, 4, 5, 8, 6,
                                        1, 5, 2, 2, 6, 3, 4, 3, 8, 5, 1, 8};
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 8;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 12;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
@@ -131,11 +127,9 @@ TEST(OBJParserTest, Parse_Positive_third) {
   std::vector<GLfloat> correct_vertices = {1, 2, 3, 2, 3, 4};
 
   std::vector<GLuint> correct_faces = {1, 2};
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 2;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 1;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
@@ -170,11 +164,9 @@ TEST(OBJParserTest, Parse_Positive_fourth) {
   parser.SetFilePath(parent_path);
   parser.Parse();
 
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 6122;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 9537;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
@@ -210,11 +202,9 @@ TEST(OBJParserTest, Parse_Negative_first) {
   std::vector<GLuint> correct_faces = {
       4294967295, 4, 6, 4294967295, 6, 2, 3, 2, 6, 3, 6, 7, 7, 6, 4, 7, 4, 5,
       5,          1, 3, 5,          3, 7, 1, 0, 2, 1, 2, 3, 5, 4, 0, 5, 0, 1};
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 8;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 6;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
@@ -232,17 +222,16 @@ TEST(OBJParserTest, Parse_Negative_first) {
   EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
 }
 
-TEST(OBJParserTest, Parse_Negative_second)
-{
+TEST(OBJParserTest, Parse_Negative_second) {
   std::vector<GLfloat> vertices_array;
   std::vector<GLuint> faces_array;
   std::vector<s21::Face> raw_faces_array_;
   std::vector<GLuint> face_buffer;
   std::vector<GLuint> triangle_buffer;
 
-  s21::Object object = s21::Object(&vertices_array, &faces_array,
-  &face_buffer, &triangle_buffer, &raw_faces_array_); s21::OBJParser
-  parser(&object);
+  s21::Object object = s21::Object(&vertices_array, &faces_array, &face_buffer,
+                                   &triangle_buffer, &raw_faces_array_);
+  s21::OBJParser parser(&object);
 
   std::filesystem::path path = std::filesystem::current_path();
   std::string parent_path = path.parent_path();
@@ -251,11 +240,9 @@ TEST(OBJParserTest, Parse_Negative_second)
   parser.SetFilePath(parent_path);
   parser.Parse();
 
-  // Test if the vertices were parsed correctly
   size_t correct_vertices_num = 0;
   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-  // Test if the faces were parsed correctly
   size_t correct_faces_num = 0;
   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 

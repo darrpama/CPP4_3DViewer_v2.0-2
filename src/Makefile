@@ -28,16 +28,14 @@ SOURCES = \
 	$(PROJECTDIR)/tests/parser_test.cc
 
 OTHERS = \
-	$(PROJECTDIR)/models/model.h \
-	$(PROJECTDIR)/models/model.cc \
+	$(PROJECTDIR)/models/model_facade.h \
+	$(PROJECTDIR)/models/model_facade.cc \
 	$(PROJECTDIR)/models/renderer.h \
 	$(PROJECTDIR)/models/renderer.cc \
-	$(PROJECTDIR)/models/screenshot.h \
-	$(PROJECTDIR)/models/screenshot.cc
-
-CONTROLLER = \
-	$(PROJECTDIR)/controllers/controller.h \
-	$(PROJECTDIR)/controllers/controller.cc
+	$(PROJECTDIR)/models/screenshot_strategy.h \
+	$(PROJECTDIR)/models/screenshot_strategy.cc \
+	$(PROJECTDIR)/controllers/controller_singleton.h \
+	$(PROJECTDIR)/controllers/controller_singleton.cc
 
 OBJECTS = $(SOURCES:.cc=.o)
 GCDA = $(SOURCES:.cc=.gcda)
@@ -71,8 +69,8 @@ dist:
 	rm -rf $(DISTDIR)
 
 check:
-	clang-format -i --style="Google" $(SOURCES) $(HEADERS) $(OTHERS) $(CONTROLLER)
-	cppcheck --std=c++17 --language=c++ --enable=all --suppress=unusedStructMember --suppress=unusedFunction --suppress=missingInclude $(SOURCES) $(OTHERS) $(HEADERS) $(CONTROLLER)
+	clang-format -i --style="Google" $(SOURCES) $(HEADERS) $(OTHERS)
+	cppcheck --std=c++17 --language=c++ --enable=all --suppress=unusedStructMember --suppress=unusedFunction --suppress=missingInclude $(SOURCES) $(OTHERS) $(HEADERS)
 
 leaks: $(EXECUTABLE)
 	leaks -atExit -- ./$(EXECUTABLE)

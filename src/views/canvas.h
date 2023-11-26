@@ -6,7 +6,7 @@
 #define GL_SILENCE_DEPRECATION
 #endif
 
-#include "../controllers/controller.h"
+#include "../controllers/controller_singleton.h"
 
 #include <QtOpenGLWidgets/qopenglwidget.h>
 #include <QOpenGLFunctions>
@@ -27,7 +27,6 @@ class Canvas : public QOpenGLWidget, protected QOpenGLFunctions {
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int, int) override;
-
 };
 
 #endif // GRAPHWIDGET_H

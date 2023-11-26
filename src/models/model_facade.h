@@ -1,30 +1,33 @@
-#ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
-#define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
+#ifndef CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_FACADE_H
+#define CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_FACADE_H
+
+#include <chrono>
+#include <iostream>
 
 #include "obj_parser.h"
 #include "object.h"
 #include "renderer.h"
-#include "screenshot.h"
+#include "screenshot_strategy.h"
 #include "settings.h"
 #include "transform.h"
 #include "type.h"
 
 namespace s21 {
 // facade
-class Model {
+class ModelFacade {
  public:
-  Model(Object *o, OBJParser *p, Transform *t, Renderer *r, Settings *s)
+  ModelFacade(Object *o, OBJParser *p, Transform *t, Renderer *r, Settings *s)
       : object_(o), parser_(p), transform_(t), render_(r), settings_(s) {}
 
-  // RENDER methods
+  // RENDER
   void InitOpenGL();
   void SetViewPort(int, int);
   void PaintGL();
 
-  // PARSER methods
+  // PARSER
   void ParseObjFile(QString &);
 
-  // TRANSFRORM methods
+  // TRANSFRORM
   void NormalizeObject();
   void SetTranslationX(float);
   void SetTranslationY(float);
@@ -33,15 +36,12 @@ class Model {
   void SetRotationY(float);
   void SetRotationZ(float);
   void ApplyScale(float);
-
   float GetTranslationX();
   float GetTranslationY();
   float GetTranslationZ();
-
   float GetRotationX();
   float GetRotationY();
   float GetRotationZ();
-
   float GetScale();
 
   // PROJECTION
@@ -79,9 +79,8 @@ class Model {
   Settings *settings_;
 
   QMatrix4x4 ConvertToQMatrix(Matrix4x4 m);
-  void PrintMatrix(QMatrix4x4 m);
 };
 
 }  // namespace s21
 
-#endif  // CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_H
+#endif  // CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_FACADE_H

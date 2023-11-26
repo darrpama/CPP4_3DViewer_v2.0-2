@@ -1,5 +1,5 @@
-#include "controllers/controller.h"
-#include "models/model.h"
+#include "controllers/controller_singleton.h"
+#include "models/model_facade.h"
 #include "views/mainwindow.h"
 
 #include <QApplication>
@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
   s21::OBJParser parser = s21::OBJParser(&object);
   s21::Renderer renderer = s21::Renderer(&object, &transform, &settings);
 
-  s21::Model model = s21::Model(&object, &parser, &transform, &renderer, &settings);
+  s21::ModelFacade model = s21::ModelFacade(&object, &parser, &transform, &renderer, &settings);
   
-  s21::Controller& controller = s21::Controller::GetInstance();
+  s21::ControllerSingleton& controller = s21::ControllerSingleton::GetInstance();
   controller.SetModel(&model);
   
   MainWindow *window = new MainWindow();

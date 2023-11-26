@@ -13,14 +13,8 @@ using GLfloat = float;
 using GLuint = unsigned int;
 
 namespace s21 {
-enum coordinate { X, Y, Z };
-enum RenderType { TRIANGLE_RENDER, LINE_RENDER };
 
-struct Vertex {
-  float x;
-  float y;
-  float z;
-};
+enum RenderType { TRIANGLE_RENDER, LINE_RENDER };
 
 struct Face {
   std::vector<GLuint> vertices;
@@ -31,7 +25,8 @@ struct VectorHash {
   std::size_t operator()(const std::vector<T> &vec) const {
     std::size_t seed = vec.size();
     for (const auto &element : vec) {
-      seed ^= std::hash<T>{}(element) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+      seed ^= std::hash<T>{}(element) + 0x9e3779b9 + (seed << 6) +
+              (seed >> 2);  // creating unique hash key
     }
     return seed;
   }

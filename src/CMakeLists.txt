@@ -8,16 +8,12 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release)
-endif()
+set(CMAKE_BUILD_TYPE Release)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-
-# add_subdirectory(gif)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL Core Gui OpenGLWidgets)
 
@@ -29,10 +25,10 @@ set(PROJECT_SOURCES
     views/mainwindow.ui
     views/canvas.h
     views/canvas.cc
-    controllers/controller.h
-    controllers/controller.cc
-    models/model.h
-    models/model.cc
+    controllers/controller_singleton.h
+    controllers/controller_singleton.cc
+    models/model_facade.h
+    models/model_facade.cc
     models/object.h
     models/object.cc
     models/obj_parser.h
@@ -43,8 +39,8 @@ set(PROJECT_SOURCES
     models/transform.cc
     models/settings.h
     models/settings.cc
-    models/screenshot.h
-    models/screenshot.cc
+    models/screenshot_strategy.h
+    models/screenshot_strategy.cc
     models/matrix4x4.h
     models/matrix4x4.cc
 )
@@ -61,7 +57,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Widgets
     Qt6::Core
     Qt6::Gui
-    Qt${QT_VERSION_MAJOR}::OpenGL
+    Qt6::OpenGL
     Qt6::OpenGLWidgets
-    # gif_lib
 )

@@ -51,23 +51,6 @@ void Matrix4x4::Translate(float x, float y, float z) {
   matrix_[3][2] = z;
 }
 
-void Matrix4x4::PreCalculateSinCos(float angle, float *sin, float *cos) {
-  if (angle == 90.0f || angle == -270.0f) {
-    *sin = 1.0f;
-    *cos = 0.0f;
-  } else if (angle == -90.0f || angle == 270.0f) {
-    *sin = -1.0f;
-    *cos = 0.0f;
-  } else if (angle == 180.0f || angle == -180.0f) {
-    *sin = 0.0f;
-    *cos = -1.0f;
-  } else {
-    float a = angle * M_PI / 180.0f;
-    *cos = cosf(a);
-    *sin = sinf(a);
-  }
-}
-
 void Matrix4x4::Rotate(float angle, float x, float y, float z) {
   if (angle == 0.0f) return;
   Matrix4x4 m(1);
@@ -85,6 +68,23 @@ void Matrix4x4::Rotate(float angle, float x, float y, float z) {
     RotateX(&m, sin, cos);
   }
   *this *= m;
+}
+
+void Matrix4x4::PreCalculateSinCos(float angle, float *sin, float *cos) {
+  if (angle == 90.0f || angle == -270.0f) {
+    *sin = 1.0f;
+    *cos = 0.0f;
+  } else if (angle == -90.0f || angle == 270.0f) {
+    *sin = -1.0f;
+    *cos = 0.0f;
+  } else if (angle == 180.0f || angle == -180.0f) {
+    *sin = 0.0f;
+    *cos = -1.0f;
+  } else {
+    float a = angle * M_PI / 180.0f;
+    *cos = cosf(a);
+    *sin = sinf(a);
+  }
 }
 
 void Matrix4x4::RotateZ(Matrix4x4 *m, float sin, float cos) {

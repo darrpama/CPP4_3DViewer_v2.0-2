@@ -1,109 +1,103 @@
-#include "model.h"
-
-#include <chrono>
-#include <iostream>
+#include "model_facade.h"
 
 namespace s21 {
 
-// RENDER methods
-void Model::InitOpenGL() {
+void ModelFacade::InitOpenGL() {
   object_->Clear();
   render_->InitOpenGL();
 }
 
-void Model::SetViewPort(int w, int h) { render_->SetViewPort(w, h); }
+void ModelFacade::SetViewPort(int w, int h) { render_->SetViewPort(w, h); }
 
-void Model::PaintGL() { render_->PaintGL(); }
+void ModelFacade::PaintGL() { render_->PaintGL(); }
 
-void Model::SetProjectionType(const ProjectionType &type) {
+void ModelFacade::SetProjectionType(const ProjectionType &type) {
   settings_->SetProjectionType(type);
 }
 
-const ProjectionType &Model::GetProjectionType() {
+const ProjectionType &ModelFacade::GetProjectionType() {
   return settings_->GetProjectionType();
 }
 
-// TRANSFORM methods
-void Model::NormalizeObject() {
+void ModelFacade::NormalizeObject() {
   object_->Normalize();
   render_->InitObjectModel();
 }
 
-void Model::SetTranslationX(float val) {
+void ModelFacade::SetTranslationX(float val) {
   settings_->SetTranslationX(val);
   transform_->UpdateTranslationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::SetTranslationY(float val) {
+void ModelFacade::SetTranslationY(float val) {
   settings_->SetTranslationY(val);
   transform_->UpdateTranslationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::SetTranslationZ(float val) {
+void ModelFacade::SetTranslationZ(float val) {
   settings_->SetTranslationZ(val);
   transform_->UpdateTranslationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::SetRotationX(float val) {
+void ModelFacade::SetRotationX(float val) {
   settings_->SetRotationX(val);
   transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::SetRotationY(float val) {
+void ModelFacade::SetRotationY(float val) {
   settings_->SetRotationY(val);
   transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::SetRotationZ(float val) {
+void ModelFacade::SetRotationZ(float val) {
   settings_->SetRotationZ(val);
   transform_->UpdateRotationMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-void Model::ApplyScale(float f) {
+void ModelFacade::ApplyScale(float f) {
   settings_->SetScale(f);
   transform_->UpdateScaleMatrix();
   QMatrix4x4 qmatrix = ConvertToQMatrix(transform_->GetTransformMatrix());
   render_->SetTransformMatrix(qmatrix);
 }
 
-float Model::GetTranslationX() { return settings_->GetTranslationX(); }
+float ModelFacade::GetTranslationX() { return settings_->GetTranslationX(); }
 
-float Model::GetTranslationY() { return settings_->GetTranslationY(); }
+float ModelFacade::GetTranslationY() { return settings_->GetTranslationY(); }
 
-float Model::GetTranslationZ() { return settings_->GetTranslationZ(); }
+float ModelFacade::GetTranslationZ() { return settings_->GetTranslationZ(); }
 
-float Model::GetRotationX() { return settings_->GetRotationX(); }
+float ModelFacade::GetRotationX() { return settings_->GetRotationX(); }
 
-float Model::GetRotationY() { return settings_->GetRotationY(); }
+float ModelFacade::GetRotationY() { return settings_->GetRotationY(); }
 
-float Model::GetRotationZ() { return settings_->GetRotationZ(); }
+float ModelFacade::GetRotationZ() { return settings_->GetRotationZ(); }
 
-float Model::GetScale() { return settings_->GetScale(); }
+float ModelFacade::GetScale() { return settings_->GetScale(); }
 
-void Model::SetColor(ColorType type, const QColor &qcolor) {
+void ModelFacade::SetColor(ColorType type, const QColor &qcolor) {
   Color color = Color(qcolor.red(), qcolor.green(), qcolor.blue());
   settings_->SetColor(type, color);
 }
 
-QColor Model::GetColor(const ColorType &type) {
+QColor ModelFacade::GetColor(const ColorType &type) {
   Color color = settings_->GetColor(type);
   return QColor(color.red, color.green, color.blue);
 }
 
-// PARSE
-void Model::ParseObjFile(QString &file_path) {
+void ModelFacade::ParseObjFile(QString &file_path) {
   auto start = std::chrono::high_resolution_clock::now();
 
   object_->Clear();
@@ -120,7 +114,7 @@ void Model::ParseObjFile(QString &file_path) {
             << std::endl;
 }
 
-void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
+void ModelFacade::MakeScreenshot(QWidget *widget, ScreenshotType type) {
   ScreenshotContext context;
   if (type == ScreenshotType::BMP) {
     context.SetStrategy(new BmpScreenshotStrategy());
@@ -132,7 +126,7 @@ void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
   context.MakeScreenshot(widget);
 }
 
-QMatrix4x4 Model::ConvertToQMatrix(Matrix4x4 m) {
+QMatrix4x4 ModelFacade::ConvertToQMatrix(Matrix4x4 m) {
   return QMatrix4x4(m.at(0, 0), m.at(1, 0), m.at(2, 0), m.at(3, 0), m.at(0, 1),
                     m.at(1, 1), m.at(2, 1), m.at(3, 1), m.at(0, 2), m.at(1, 2),
                     m.at(2, 2), m.at(3, 2), m.at(0, 3), m.at(1, 3), m.at(2, 3),

@@ -1,8 +1,4 @@
-#include "screenshot.h"
-
-#include <QDir>
-#include <QPixmap>
-#include <iostream>
+#include "screenshot_strategy.h"
 
 namespace s21 {
 void BmpScreenshotStrategy::Make(QWidget *widget) {

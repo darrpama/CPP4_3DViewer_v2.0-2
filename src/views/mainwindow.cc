@@ -11,8 +11,12 @@ MainWindow::MainWindow(QWidget *parent)
   InitValues();
 }
 
+MainWindow::~MainWindow() {
+  delete ui_;
+}
+
 void MainWindow::InitProjectionType() {
-  switch (s21::Controller::GetInstance().GetProjectionType()) {
+  switch (s21::ControllerSingleton::GetInstance().GetProjectionType()) {
     case s21::ProjectionType::CENTRAL:
       ui_->central_projection_radio->setChecked(true);
       break;
@@ -27,18 +31,18 @@ void MainWindow::InitProjectionType() {
 
 void MainWindow::InitColors() {
   ui_->background_color->setStyleSheet(MakeColorStyle(
-    s21::Controller::GetInstance().GetColor(s21::ColorType::BG_COLOR)
+    s21::ControllerSingleton::GetInstance().GetColor(s21::ColorType::BG_COLOR)
   ));
   ui_->points_color->setStyleSheet(MakeColorStyle(
-    s21::Controller::GetInstance().GetColor(s21::ColorType::VERTICE_COLOR)
+    s21::ControllerSingleton::GetInstance().GetColor(s21::ColorType::VERTICE_COLOR)
   ));
   ui_->lines_color->setStyleSheet(MakeColorStyle(
-    s21::Controller::GetInstance().GetColor(s21::ColorType::EDGE_COLOR)
+    s21::ControllerSingleton::GetInstance().GetColor(s21::ColorType::EDGE_COLOR)
   ));
 }
 
 void MainWindow::InitEdgeType() {
-  switch (s21::Controller::GetInstance().GetEdgeType()) {
+  switch (s21::ControllerSingleton::GetInstance().GetEdgeType()) {
     case s21::EdgeType::DASHED:
       ui_->edge_type_dashed->setChecked(true);
       break;
@@ -55,7 +59,7 @@ void MainWindow::InitEdgeType() {
 }
 
 void MainWindow::InitVerticeType() {
-  switch (s21::Controller::GetInstance().GetVerticeType()) {
+  switch (s21::ControllerSingleton::GetInstance().GetVerticeType()) {
     case s21::VerticeType::CIRCLE:
       ui_->vertice_type_circle->setChecked(true);
       break;
@@ -72,34 +76,27 @@ void MainWindow::InitVerticeType() {
 }
 
 void MainWindow::InitEdgeThickness() {
-  ui_->edge_thikness->setValue(s21::Controller::GetInstance().GetEdgeThickness());
+  ui_->edge_thikness->setValue(s21::ControllerSingleton::GetInstance().GetEdgeThickness());
 }
 
 void MainWindow::InitVerticeSize() {
-  ui_->vertice_size->setValue(s21::Controller::GetInstance().GetVerticeSize());
+  ui_->vertice_size->setValue(s21::ControllerSingleton::GetInstance().GetVerticeSize());
 }
 
-// void MainWindow::InitGIFVariables() {
-//   is_recording_ = false;
-//   time_ = 0.0;
-//   record_time_ = new QTimer(this);
-//   connect(record_time_, &QTimer::timeout, this, Recording);
-// }
-
 void MainWindow::InitTranslations() {
-  ui_->position_x->setValue(s21::Controller::GetInstance().GetTranslationX());
-  ui_->position_y->setValue(s21::Controller::GetInstance().GetTranslationY());
-  ui_->position_z->setValue(s21::Controller::GetInstance().GetTranslationZ());
+  ui_->position_x->setValue(s21::ControllerSingleton::GetInstance().GetTranslationX());
+  ui_->position_y->setValue(s21::ControllerSingleton::GetInstance().GetTranslationY());
+  ui_->position_z->setValue(s21::ControllerSingleton::GetInstance().GetTranslationZ());
 }
 
 void MainWindow::InitRotations() {
-  ui_->rotation_x->setValue(s21::Controller::GetInstance().GetRotationX());
-  ui_->rotation_y->setValue(s21::Controller::GetInstance().GetRotationY());
-  ui_->rotation_z->setValue(s21::Controller::GetInstance().GetRotationZ());
+  ui_->rotation_x->setValue(s21::ControllerSingleton::GetInstance().GetRotationX());
+  ui_->rotation_y->setValue(s21::ControllerSingleton::GetInstance().GetRotationY());
+  ui_->rotation_z->setValue(s21::ControllerSingleton::GetInstance().GetRotationZ());
 }
 
 void MainWindow::InitScale() {
-  ui_->scale_control->setValue(s21::Controller::GetInstance().GetScale());
+  ui_->scale_control->setValue(s21::ControllerSingleton::GetInstance().GetScale());
 }
 
 void MainWindow::InitValues() {
@@ -112,12 +109,7 @@ void MainWindow::InitValues() {
   InitTranslations();
   InitRotations();
   InitScale();
-  // InitGIFVariables();
   canvas_->UpdateWidget();
-}
-
-MainWindow::~MainWindow() {
-  delete ui_;
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -125,27 +117,26 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
   QSize newSize = event->size();
 }
 
-// SLOTS
 void MainWindow::on_upload_button_clicked() {
   QString file_path = QFileDialog::getOpenFileName(
     this, tr("Select File"), "", tr("All Files (*.*)")
   );
   if (!file_path.isEmpty()) {
     ui_->filepath_label->setText(file_path);
-    s21::Controller::GetInstance().ParseObjFile(file_path);
+    s21::ControllerSingleton::GetInstance().ParseObjFile(file_path);
     SetObjectInfo();
     InitValues();
   }
 }
 
 void MainWindow::on_reset_transform_button_clicked() {
-  s21::Controller::GetInstance().SetTranslationX(0.0f);
-  s21::Controller::GetInstance().SetTranslationY(0.0f);
-  s21::Controller::GetInstance().SetTranslationZ(0.0f);
-  s21::Controller::GetInstance().ApplyScale(1.0f);
-  s21::Controller::GetInstance().SetRotationX(0.0f);
-  s21::Controller::GetInstance().SetRotationY(0.0f);
-  s21::Controller::GetInstance().SetRotationZ(0.0f);
+  s21::ControllerSingleton::GetInstance().SetTranslationX(0.0f);
+  s21::ControllerSingleton::GetInstance().SetTranslationY(0.0f);
+  s21::ControllerSingleton::GetInstance().SetTranslationZ(0.0f);
+  s21::ControllerSingleton::GetInstance().ApplyScale(1.0f);
+  s21::ControllerSingleton::GetInstance().SetRotationX(0.0f);
+  s21::ControllerSingleton::GetInstance().SetRotationY(0.0f);
+  s21::ControllerSingleton::GetInstance().SetRotationZ(0.0f);
   ui_->position_x->setValue(0.0f);
   ui_->position_y->setValue(0.0f);
   ui_->position_z->setValue(0.0f);
@@ -157,52 +148,52 @@ void MainWindow::on_reset_transform_button_clicked() {
 }
 
 void MainWindow::on_normalize_object_button_clicked() {
-  s21::Controller::GetInstance().NormalizeObject();
+  s21::ControllerSingleton::GetInstance().NormalizeObject();
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_position_x_valueChanged(double x) {
-  s21::Controller::GetInstance().SetTranslationX(
+  s21::ControllerSingleton::GetInstance().SetTranslationX(
     ui_->position_x->value()
   );
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_position_y_valueChanged(double y) {
-  s21::Controller::GetInstance().SetTranslationY(
+  s21::ControllerSingleton::GetInstance().SetTranslationY(
     ui_->position_y->value()
   );
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_position_z_valueChanged(double z) {
-  s21::Controller::GetInstance().SetTranslationZ(
+  s21::ControllerSingleton::GetInstance().SetTranslationZ(
     ui_->position_z->value()
   );
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_rotation_x_valueChanged(double val) {
-  s21::Controller::GetInstance().SetRotationX(
+  s21::ControllerSingleton::GetInstance().SetRotationX(
     ui_->rotation_x->value()
   );
   canvas_->UpdateWidget();
 }
 void MainWindow::on_rotation_y_valueChanged(double val) {
-  s21::Controller::GetInstance().SetRotationY(
+  s21::ControllerSingleton::GetInstance().SetRotationY(
     ui_->rotation_y->value()
   );
   canvas_->UpdateWidget();
 }
 void MainWindow::on_rotation_z_valueChanged(double val) {
-  s21::Controller::GetInstance().SetRotationZ(
+  s21::ControllerSingleton::GetInstance().SetRotationZ(
     ui_->rotation_z->value()
   );
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_scale_control_valueChanged(double x) {
-  s21::Controller::GetInstance().ApplyScale((float) x);
+  s21::ControllerSingleton::GetInstance().ApplyScale((float) x);
   canvas_->UpdateWidget();
 }
 
@@ -219,38 +210,34 @@ void MainWindow::on_lines_color_clicked() {
 }
 
 void MainWindow::on_edge_thikness_sliderMoved(int position) {
-  s21::Controller::GetInstance().SetEdgeThickness(position);
+  s21::ControllerSingleton::GetInstance().SetEdgeThickness(position);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::on_vertice_size_sliderMoved(int position) {
-  s21::Controller::GetInstance().SetVerticeSize(position);
+  s21::ControllerSingleton::GetInstance().SetVerticeSize(position);
   canvas_->UpdateWidget();
 }
 
-void MainWindow::on_screencast_button_clicked() {
-  MakeScreencast(canvas_);
-}
+void MainWindow::on_screencast_button_clicked() {}
 
 void MainWindow::on_jpg_screenshot_button_clicked() {
-  s21::Controller::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::JPG);
+  s21::ControllerSingleton::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::JPG);
 }
 
 void MainWindow::on_bmp_screenshot_button_clicked() {
-  s21::Controller::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::BMP);
+  s21::ControllerSingleton::GetInstance().MakeScreenshot(canvas_, s21::ScreenshotType::BMP);
 }
-// SLOTS END
-
 
 void MainWindow::SetObjectInfo() {
-  ui_->vertex_count_label->setText(QString::number(s21::Controller::GetInstance().GetVertexCount()));
-  ui_->face_count_label->setText(QString::number(s21::Controller::GetInstance().GetFaceCount()));
-  ui_->edge_count_label->setText(QString::number(s21::Controller::GetInstance().GetEdgeCount()));
+  ui_->vertex_count_label->setText(QString::number(s21::ControllerSingleton::GetInstance().GetVertexCount()));
+  ui_->face_count_label->setText(QString::number(s21::ControllerSingleton::GetInstance().GetFaceCount()));
+  ui_->edge_count_label->setText(QString::number(s21::ControllerSingleton::GetInstance().GetEdgeCount()));
 }
 
 void MainWindow::SetColor(QWidget *widget, s21::ColorType type) {
   QColor color = QColorDialog::getColor();
-  s21::Controller::GetInstance().SetColor(type, color);
+  s21::ControllerSingleton::GetInstance().SetColor(type, color);
   widget->setStyleSheet(MakeColorStyle(color));
   canvas_->UpdateWidget();
 }
@@ -263,45 +250,16 @@ QString MainWindow::MakeColorStyle(QColor color) {
 }
 
 void MainWindow::SetVerticeType(s21::VerticeType type) {
-  s21::Controller::GetInstance().SetVerticeType(type);
+  s21::ControllerSingleton::GetInstance().SetVerticeType(type);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::SetEdgeType(s21::EdgeType type) {
-  s21::Controller::GetInstance().SetEdgeType(type);
+  s21::ControllerSingleton::GetInstance().SetEdgeType(type);
   canvas_->UpdateWidget();
 }
 
 void MainWindow::SetProjectionType(s21::ProjectionType type, bool checked) {
-  if (checked) s21::Controller::GetInstance().SetProjectionType(type);
+  if (checked) s21::ControllerSingleton::GetInstance().SetProjectionType(type);
   canvas_->UpdateWidget();
 }
-
-// void MainWindow::Recording() {
-//   if (!is_recording_ && time_ <= 5.0) {
-//     GIF_.push_back(widget->grab().toImage());
-//     time_ += 0.1;
-//   } else {
-//     SaveGIF();
-//     record_time_->stop();
-//   }
-// }
-
-void MainWindow::MakeScreencast(QWidget* widget) {
-
-
-  // QVector<QImage> GIF;
-  // QGifImage gif(QSize(640, 480));
-
-  // gif.setDefaultTransparentColor(Qt::black);
-  // gif.setDefaultDelay(100);
-
-  // for (QVector<QImage>::Iterator frame = GIF.begin(); frame != GIF.end(); frame++) {
-  //   gif.addFrame(*frame);
-  // }
-
-  // gif.save();
-  // GIF.clear();
-
-}
-

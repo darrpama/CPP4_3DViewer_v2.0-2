@@ -104,27 +104,27 @@ float Settings::GetScale() { return scale_; }
 
 void Settings::SaveSettings() {
   std::ofstream outfile("settings.dat");
-  outfile << projection_type_ << std::endl;     // 1
-  outfile << bg_color_.red << std::endl;        // 2
-  outfile << bg_color_.green << std::endl;      // 3
-  outfile << bg_color_.blue << std::endl;       // 4
-  outfile << points_color_.red << std::endl;    // 5
-  outfile << points_color_.green << std::endl;  // 6
-  outfile << points_color_.blue << std::endl;   // 7
-  outfile << lines_color_.red << std::endl;     // 8
-  outfile << lines_color_.green << std::endl;   // 9
-  outfile << lines_color_.blue << std::endl;    // 11
-  outfile << edge_type_ << std::endl;           // 11
-  outfile << vertice_type_ << std::endl;        // 12
-  outfile << edge_thickness_ << std::endl;      // 13
-  outfile << vertice_size_ << std::endl;        // 14
-  outfile << translation_.x << std::endl;       // 15
-  outfile << translation_.y << std::endl;       // 16
-  outfile << translation_.z << std::endl;       // 17
-  outfile << rotation_.x << std::endl;          // 18
-  outfile << rotation_.y << std::endl;          // 19
-  outfile << rotation_.z << std::endl;          // 20
-  outfile << scale_ << std::endl;               // 21
+  outfile << projection_type_ << std::endl;
+  outfile << bg_color_.red << std::endl;
+  outfile << bg_color_.green << std::endl;
+  outfile << bg_color_.blue << std::endl;
+  outfile << points_color_.red << std::endl;
+  outfile << points_color_.green << std::endl;
+  outfile << points_color_.blue << std::endl;
+  outfile << lines_color_.red << std::endl;
+  outfile << lines_color_.green << std::endl;
+  outfile << lines_color_.blue << std::endl;
+  outfile << edge_type_ << std::endl;
+  outfile << vertice_type_ << std::endl;
+  outfile << edge_thickness_ << std::endl;
+  outfile << vertice_size_ << std::endl;
+  outfile << translation_.x << std::endl;
+  outfile << translation_.y << std::endl;
+  outfile << translation_.z << std::endl;
+  outfile << rotation_.x << std::endl;
+  outfile << rotation_.y << std::endl;
+  outfile << rotation_.z << std::endl;
+  outfile << scale_ << std::endl;
 
   outfile.close();
 }

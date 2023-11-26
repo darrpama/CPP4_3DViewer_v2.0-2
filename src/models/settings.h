@@ -7,7 +7,7 @@
 #include "type.h"
 
 namespace s21 {
-// facade
+
 class Settings {
  public:
   Settings()

@@ -30,8 +30,6 @@ void OBJParser::Parse() {
     std::cerr << "Failed to open file: " << file_path_ << std::endl;
     return;
   }
-
-  // Read the entire file into a string
   std::stringstream buffer;
   buffer << file.rdbuf();
   std::string file_content = buffer.str();
@@ -69,8 +67,7 @@ void OBJParser::ParseFaces(std::string &line) {
     while (iss >> face_element_) {
       std::istringstream element_stream(face_element_);
       std::string vertex_index_str;
-      std::getline(element_stream, vertex_index_str,
-                   '/');  // Extract the vertex index
+      std::getline(element_stream, vertex_index_str, '/');
       int vertex_index = 0;
       for (size_t i = 0; i < vertex_index_str.size(); i++) {
         char vertex_char = vertex_index_str[i];
