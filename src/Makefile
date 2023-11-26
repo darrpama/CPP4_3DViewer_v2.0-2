@@ -54,10 +54,17 @@ build:
 open:
 	cd $(INSTALLDIR) && $(INSTALLDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
 
-install: build
-	cd $(INSTALLDIR) && ls -la && cp -r $(BUILDDIR)/3DViewer_2_0.app .
+# install: build
+# 	cd $(INSTALLDIR) && ls -la && cp -r $(BUILDDIR)/3DViewer_2_0.app .
 
-uninstall:
+install:
+	@read -p "Enter path to install: " path; \
+	if [ -z "$$path" ]; then \
+        path="./"; \
+    fi; \
+	cd $$path && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
+
+uninstall: clean
 	cd $(INSTALLDIR) && rm -rf 3DViewer_2_0.app
 
 dist: build
