@@ -24,9 +24,9 @@ class Matrix4x4 {
   float matrix_[4][4];
 
   void PreCalculateSinCos(float angle, float *sin, float *cos);
-  void RotateZ(Matrix4x4 *m, float z, float sin, float cos);
-  void RotateY(Matrix4x4 *m, float y, float sin, float cos);
-  void RotateX(Matrix4x4 *m, float x, float sin, float cos);
+  void RotateZ(Matrix4x4 *m, float sin, float cos);
+  void RotateY(Matrix4x4 *m, float sin, float cos);
+  void RotateX(Matrix4x4 *m, float sin, float cos);
 };
 
 }  // namespace s21

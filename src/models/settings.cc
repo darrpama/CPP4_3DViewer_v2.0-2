@@ -75,8 +75,7 @@ const ProjectionType &Settings::GetProjectionType() {
 const Color &Settings::GetColor(const ColorType &type) {
   if (type == ColorType::BG_COLOR) return bg_color_;
   if (type == ColorType::VERTICE_COLOR) return points_color_;
-  if (type == ColorType::EDGE_COLOR) return lines_color_;
-  return bg_color_;
+  return lines_color_;
 }
 
 const EdgeType &Settings::GetEdgeType() {
