@@ -217,34 +217,34 @@ TEST(OBJParserTest, Parse_Negative_first) {
   EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
 }
 
-// TEST(OBJParserTest, Parse_Negative_second)
-// {
-//   std::vector<GLfloat> vertices_array;
-//   std::vector<GLuint> faces_array;
-//   std::vector<s21::Face> raw_faces_array_;
-//   std::vector<GLuint> face_buffer;
-//   std::vector<GLuint> triangle_buffer;
+TEST(OBJParserTest, Parse_Negative_second)
+{
+  std::vector<GLfloat> vertices_array;
+  std::vector<GLuint> faces_array;
+  std::vector<s21::Face> raw_faces_array_;
+  std::vector<GLuint> face_buffer;
+  std::vector<GLuint> triangle_buffer;
 
-//   s21::Object object = s21::Object(&vertices_array, &faces_array,
-//   &face_buffer, &triangle_buffer, &raw_faces_array_); s21::OBJParser
-//   parser(&object);
+  s21::Object object = s21::Object(&vertices_array, &faces_array,
+  &face_buffer, &triangle_buffer, &raw_faces_array_); s21::OBJParser
+  parser(&object);
 
-//   std::filesystem::path path = std::filesystem::current_path();
-//   std::string parent_path = path.parent_path();
-//   parent_path.append("/src/assets/objects/incorrect/nonexist.obj");
+  std::filesystem::path path = std::filesystem::current_path();
+  std::string parent_path = path.parent_path();
+  parent_path.append("/src/assets/objects/incorrect/nonexist.obj");
 
-//   parser.SetFilePath(parent_path);
-//   parser.Parse();
+  parser.SetFilePath(parent_path);
+  parser.Parse();
 
-//   // Test if the vertices were parsed correctly
-//   size_t correct_vertices_num = 0;
-//   EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
+  // Test if the vertices were parsed correctly
+  size_t correct_vertices_num = 0;
+  EXPECT_EQ(object.GetVertexCount(), correct_vertices_num);
 
-//   // Test if the faces were parsed correctly
-//   size_t correct_faces_num = 0;
-//   EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
+  // Test if the faces were parsed correctly
+  size_t correct_faces_num = 0;
+  EXPECT_EQ(object.GetFaceCount(), correct_faces_num);
 
-//   object.CountEdges();
-//   size_t correct_edges_num = 0;
-//   EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
-// }
+  object.CountEdges();
+  size_t correct_edges_num = 0;
+  EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
+}
