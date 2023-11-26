@@ -48,6 +48,21 @@ TEST(OBJParserTest, Parse_Positive_first) {
   object.CountEdges();
   size_t correct_edges_num = 18;
   EXPECT_EQ(object.GetEdgeCount(), correct_edges_num);
+
+  size_t correct_triangle_buffer_size = 0;
+  EXPECT_EQ(object.GetTriangleBufferSize(), correct_triangle_buffer_size);
+
+  std::vector<s21::Face> faces2 = object.GetFaces();
+  size_t correct_faces_size = 12;
+  EXPECT_EQ(faces2.size(), correct_faces_size);
+
+  object.Normalize();
+  std::vector<GLfloat> vertices_normalized = object.GetFlattenedVertices();
+  for (size_t i = 0; i < vertices_normalized.size(); i++) {
+    EXPECT_FLOAT_EQ(vertices_normalized[i], correct_vertices[i]);
+  }
+
+  object.Clear();
 }
 
 TEST(OBJParserTest, Parse_Positive_second) {
