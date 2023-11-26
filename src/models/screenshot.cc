@@ -1,8 +1,7 @@
 #include "screenshot.h"
 
-#include <QPixmap>
 #include <QDir>
-
+#include <QPixmap>
 #include <iostream>
 
 namespace s21 {

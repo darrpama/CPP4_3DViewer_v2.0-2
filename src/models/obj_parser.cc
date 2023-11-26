@@ -16,6 +16,7 @@ void OBJParser::CheckAndFixEndLine() {
   fseek(fp, -1, SEEK_END);
   char c = fgetc(fp);
   if (c != '\n') {
+    fseek(fp, -1, SEEK_END);
     fputc('\n', fp);
   }
   fclose(fp);
@@ -51,7 +52,7 @@ void OBJParser::Parse() {
 
 void OBJParser::ParseVertices(std::string &line) {
   if (line.size() >= 2 && std::strncmp(line.c_str(), "v ", 2) == 0) {
-    char* end;
+    char *end;
     float x = std::strtof(line.c_str() + 2, &end);
     float y = std::strtof(end, &end);
     float z = std::strtof(end, nullptr);
@@ -60,14 +61,16 @@ void OBJParser::ParseVertices(std::string &line) {
 }
 
 void OBJParser::ParseFaces(std::string &line) {
-  if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ' && object_->GetVertexCount() > 0) {
+  if (line.size() >= 2 && line[0] == 'f' && line[1] == ' ' &&
+      object_->GetVertexCount() > 0) {
     object_->ClearFaceBuffer();
     std::istringstream iss(line.data() + 2);  // Remove the "f " part
     face_element_.clear();
     while (iss >> face_element_) {
       std::istringstream element_stream(face_element_);
       std::string vertex_index_str;
-      std::getline(element_stream, vertex_index_str, '/');  // Extract the vertex index
+      std::getline(element_stream, vertex_index_str,
+                   '/');  // Extract the vertex index
       int vertex_index = 0;
       for (size_t i = 0; i < vertex_index_str.size(); i++) {
         char vertex_char = vertex_index_str[i];

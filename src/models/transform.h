@@ -1,17 +1,17 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_TRANSFORM_H
 
+#include <cmath>
+
+#include "matrix4x4.h"
 #include "object.h"
 #include "settings.h"
-#include "matrix4x4.h"
-
-#include <cmath>
 
 namespace s21 {
 
 class Transform {
  public:
-  Transform(Settings *);
+  explicit Transform(Settings *);
   void UpdateTranslationMatrix();
   void UpdateRotationMatrix();
   void UpdateScaleMatrix();

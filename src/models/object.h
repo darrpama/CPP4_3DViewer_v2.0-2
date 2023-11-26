@@ -1,21 +1,20 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <forward_list>
-#include <unordered_set>
 #include <algorithm>
+#include <forward_list>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
 
 using GLfloat = float;
 using GLuint = unsigned int;
 
-namespace s21
-{
-enum coordinate {X, Y, Z};
-enum RenderType {TRIANGLE_RENDER, LINE_RENDER};
+namespace s21 {
+enum coordinate { X, Y, Z };
+enum RenderType { TRIANGLE_RENDER, LINE_RENDER };
 
 struct Vertex {
   float x;
@@ -29,9 +28,9 @@ struct Face {
 
 struct VectorHash {
   template <typename T>
-  std::size_t operator()(const std::vector<T>& vec) const {
+  std::size_t operator()(const std::vector<T> &vec) const {
     std::size_t seed = vec.size();
-    for (const auto& element : vec) {
+    for (const auto &element : vec) {
       seed ^= std::hash<T>{}(element) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
     return seed;
@@ -40,24 +39,22 @@ struct VectorHash {
 
 struct VectorEqual {
   template <typename T>
-  bool operator()(const std::vector<T>& lhs, const std::vector<T>& rhs) const {
+  bool operator()(const std::vector<T> &lhs, const std::vector<T> &rhs) const {
     return lhs == rhs;
   }
 };
 
 class Object {
  public:
-  Object(
-    std::vector<GLfloat> *v_array, 
-    std::vector<GLuint> *f_array, 
-    std::vector<GLuint> *f_buffer, 
-    std::vector<GLuint> *t_buffer,
-    std::vector<Face> *raw_faces_array_)
-      : vertices_array_(v_array)
-      , triangulated_faces_array_(f_array)
-      , face_buffer_(f_buffer)
-      , triangle_buffer_(t_buffer) 
-      , raw_faces_array_(raw_faces_array_) {}
+  Object(std::vector<GLfloat> *v_array, std::vector<GLuint> *f_array,
+         std::vector<GLuint> *f_buffer, std::vector<GLuint> *t_buffer,
+         std::vector<Face> *raw_faces_array_)
+      : vertices_array_(v_array),
+        triangulated_faces_array_(f_array),
+        face_buffer_(f_buffer),
+        triangle_buffer_(t_buffer),
+        raw_faces_array_(raw_faces_array_),
+        render_type_{} {}
   std::vector<GLfloat> GetFlattenedVertices();
   std::vector<GLuint> GetFlattenedFaces();
   std::vector<Face> GetFaces();
@@ -72,7 +69,7 @@ class Object {
   void AppendRawFace();
   void AppendFace();
   void AppendTriangulatedFace();
-  
+
   void SetRenderType(RenderType);
   RenderType GetRenderType();
 
@@ -101,6 +98,6 @@ class Object {
   size_t edge_count_{};
 };
 
-}
+}  // namespace s21
 
 #endif  // CPP4_3DVIEWER_V2_0_2_SRC_MODELS_OBJECT_H

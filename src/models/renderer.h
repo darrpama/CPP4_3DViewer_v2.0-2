@@ -3,23 +3,24 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include "object.h"
-#include "transform.h"
-#include "settings.h"
-#include "type.h"
-
 #include <QtOpenGLWidgets/qopenglwidget.h>
-#include <QOpenGLFunctions>
+
 #include <QOpenGLBuffer>
+#include <QOpenGLFunctions>
 #include <QOpenGLShader>
-#include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
+#include <QOpenGLVertexArrayObject>
+
+#include "object.h"
+#include "settings.h"
+#include "transform.h"
+#include "type.h"
 
 namespace s21 {
 
 class Renderer {
  public:
-  Renderer(Object*, Transform*, Settings*);
+  Renderer(Object *, Transform *, Settings *);
   ~Renderer();
   void InitObjectModel();
   void InitOpenGL();
@@ -47,8 +48,8 @@ class Renderer {
   QVector3D camera_up_;
   QVector3D move_object_;
   QQuaternion rotation_;
-  
-  std::vector<GLfloat> vertices_; 
+
+  std::vector<GLfloat> vertices_;
   std::vector<GLuint> faces_;
 
   QVector3D NormalizeColor(Color);

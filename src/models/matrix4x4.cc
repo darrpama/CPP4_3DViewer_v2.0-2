@@ -2,14 +2,12 @@
 
 namespace s21 {
 
-float Matrix4x4::at(unsigned x, unsigned y) {
-  return matrix_[x][y];
-}
+float Matrix4x4::at(unsigned x, unsigned y) { return matrix_[x][y]; }
 
-Matrix4x4::Matrix4x4(float r0c0, float r0c1, float r0c2, float r0c3, 
-                     float r1c0, float r1c1, float r1c2, float r1c3,
-                     float r2c0, float r2c1, float r2c2, float r2c3, 
-                     float r3c0, float r3c1, float r3c2, float r3c3) {
+Matrix4x4::Matrix4x4(float r0c0, float r0c1, float r0c2, float r0c3, float r1c0,
+                     float r1c1, float r1c2, float r1c3, float r2c0, float r2c1,
+                     float r2c2, float r2c3, float r3c0, float r3c1, float r3c2,
+                     float r3c3) {
   matrix_[0][0] = r0c0;
   matrix_[1][0] = r0c1;
   matrix_[2][0] = r0c2;
@@ -71,8 +69,7 @@ void Matrix4x4::PreCalculateSinCos(float angle, float *sin, float *cos) {
 }
 
 void Matrix4x4::Rotate(float angle, float x, float y, float z) {
-  if (angle == 0.0f)
-    return;
+  if (angle == 0.0f) return;
   Matrix4x4 m(1);
   float sin, cos;
   PreCalculateSinCos(angle, &sin, &cos);
@@ -104,7 +101,6 @@ void Matrix4x4::RotateY(Matrix4x4 *m, float sin, float cos) {
   m->matrix_[2][2] = cos;
   m->matrix_[2][0] = sin;
   m->matrix_[0][2] = -sin;
-
 }
 
 void Matrix4x4::RotateX(Matrix4x4 *m, float sin, float cos) {
@@ -130,88 +126,88 @@ void Matrix4x4::Scale(float factor) {
   matrix_[2][3] *= factor;
 }
 
-Matrix4x4& Matrix4x4::operator*=(const Matrix4x4& other) {
+Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &other) {
   *this = *this * other;
   return *this;
 }
 
-Matrix4x4 operator*(const Matrix4x4& m1, const Matrix4x4& m2) {
+Matrix4x4 operator*(const Matrix4x4 &m1, const Matrix4x4 &m2) {
   Matrix4x4 m(1);
   m.matrix_[0][0] = m1.matrix_[0][0] * m2.matrix_[0][0] +
                     m1.matrix_[1][0] * m2.matrix_[0][1] +
                     m1.matrix_[2][0] * m2.matrix_[0][2] +
                     m1.matrix_[3][0] * m2.matrix_[0][3];
-  
+
   m.matrix_[0][1] = m1.matrix_[0][1] * m2.matrix_[0][0] +
                     m1.matrix_[1][1] * m2.matrix_[0][1] +
                     m1.matrix_[2][1] * m2.matrix_[0][2] +
                     m1.matrix_[3][1] * m2.matrix_[0][3];
-  
+
   m.matrix_[0][2] = m1.matrix_[0][2] * m2.matrix_[0][0] +
                     m1.matrix_[1][2] * m2.matrix_[0][1] +
                     m1.matrix_[2][2] * m2.matrix_[0][2] +
                     m1.matrix_[3][2] * m2.matrix_[0][3];
-  
+
   m.matrix_[0][3] = m1.matrix_[0][3] * m2.matrix_[0][0] +
                     m1.matrix_[1][3] * m2.matrix_[0][1] +
                     m1.matrix_[2][3] * m2.matrix_[0][2] +
                     m1.matrix_[3][3] * m2.matrix_[0][3];
-  
+
   m.matrix_[1][0] = m1.matrix_[0][0] * m2.matrix_[1][0] +
                     m1.matrix_[1][0] * m2.matrix_[1][1] +
                     m1.matrix_[2][0] * m2.matrix_[1][2] +
                     m1.matrix_[3][0] * m2.matrix_[1][3];
-  
+
   m.matrix_[1][1] = m1.matrix_[0][1] * m2.matrix_[1][0] +
                     m1.matrix_[1][1] * m2.matrix_[1][1] +
                     m1.matrix_[2][1] * m2.matrix_[1][2] +
                     m1.matrix_[3][1] * m2.matrix_[1][3];
-  
+
   m.matrix_[1][2] = m1.matrix_[0][2] * m2.matrix_[1][0] +
                     m1.matrix_[1][2] * m2.matrix_[1][1] +
                     m1.matrix_[2][2] * m2.matrix_[1][2] +
                     m1.matrix_[3][2] * m2.matrix_[1][3];
-  
+
   m.matrix_[1][3] = m1.matrix_[0][3] * m2.matrix_[1][0] +
                     m1.matrix_[1][3] * m2.matrix_[1][1] +
                     m1.matrix_[2][3] * m2.matrix_[1][2] +
                     m1.matrix_[3][3] * m2.matrix_[1][3];
-  
+
   m.matrix_[2][0] = m1.matrix_[0][0] * m2.matrix_[2][0] +
                     m1.matrix_[1][0] * m2.matrix_[2][1] +
                     m1.matrix_[2][0] * m2.matrix_[2][2] +
                     m1.matrix_[3][0] * m2.matrix_[2][3];
-  
+
   m.matrix_[2][1] = m1.matrix_[0][1] * m2.matrix_[2][0] +
                     m1.matrix_[1][1] * m2.matrix_[2][1] +
                     m1.matrix_[2][1] * m2.matrix_[2][2] +
                     m1.matrix_[3][1] * m2.matrix_[2][3];
-  
+
   m.matrix_[2][2] = m1.matrix_[0][2] * m2.matrix_[2][0] +
                     m1.matrix_[1][2] * m2.matrix_[2][1] +
                     m1.matrix_[2][2] * m2.matrix_[2][2] +
                     m1.matrix_[3][2] * m2.matrix_[2][3];
-  
+
   m.matrix_[2][3] = m1.matrix_[0][3] * m2.matrix_[2][0] +
                     m1.matrix_[1][3] * m2.matrix_[2][1] +
                     m1.matrix_[2][3] * m2.matrix_[2][2] +
                     m1.matrix_[3][3] * m2.matrix_[2][3];
-  
+
   m.matrix_[3][0] = m1.matrix_[0][0] * m2.matrix_[3][0] +
                     m1.matrix_[1][0] * m2.matrix_[3][1] +
                     m1.matrix_[2][0] * m2.matrix_[3][2] +
                     m1.matrix_[3][0] * m2.matrix_[3][3];
-  
+
   m.matrix_[3][1] = m1.matrix_[0][1] * m2.matrix_[3][0] +
                     m1.matrix_[1][1] * m2.matrix_[3][1] +
                     m1.matrix_[2][1] * m2.matrix_[3][2] +
                     m1.matrix_[3][1] * m2.matrix_[3][3];
-  
+
   m.matrix_[3][2] = m1.matrix_[0][2] * m2.matrix_[3][0] +
                     m1.matrix_[1][2] * m2.matrix_[3][1] +
                     m1.matrix_[2][2] * m2.matrix_[3][2] +
                     m1.matrix_[3][2] * m2.matrix_[3][3];
-  
+
   m.matrix_[3][3] = m1.matrix_[0][3] * m2.matrix_[3][0] +
                     m1.matrix_[1][3] * m2.matrix_[3][1] +
                     m1.matrix_[2][3] * m2.matrix_[3][2] +

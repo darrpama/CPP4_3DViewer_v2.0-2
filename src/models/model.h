@@ -1,25 +1,20 @@
 #ifndef CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 #define CPP4_3DVIEWER_V2_0_2_SRC_MODELS_MODEL_H
 
-#include "type.h"
-#include "object.h"
 #include "obj_parser.h"
-#include "transform.h"
+#include "object.h"
 #include "renderer.h"
-#include "settings.h"
 #include "screenshot.h"
+#include "settings.h"
+#include "transform.h"
+#include "type.h"
 
 namespace s21 {
 // facade
 class Model {
  public:
   Model(Object *o, OBJParser *p, Transform *t, Renderer *r, Settings *s)
-    : object_(o)
-    , parser_(p) 
-    , transform_(t)
-    , render_(r)
-    , settings_(s)
-    {}
+      : object_(o), parser_(p), transform_(t), render_(r), settings_(s) {}
 
   // RENDER methods
   void InitOpenGL();
@@ -27,7 +22,7 @@ class Model {
   void PaintGL();
 
   // PARSER methods
-  void ParseObjFile(QString&);
+  void ParseObjFile(QString &);
 
   // TRANSFRORM methods
   void NormalizeObject();

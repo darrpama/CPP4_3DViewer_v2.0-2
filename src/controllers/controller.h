@@ -1,22 +1,22 @@
 #ifndef CPP3_SMARTCALC_V2_0_1_SRC_CONTROLLERS_CONTROLLER_H
 #define CPP3_SMARTCALC_V2_0_1_SRC_CONTROLLERS_CONTROLLER_H
 
-#include "../models/model.h"
-
 #include <string>
 #include <unordered_map>
+
+#include "../models/model.h"
 
 namespace s21 {
 
 // singleton
 class Controller {
  private:
-  Controller() : model_() {};
-  Controller(const Controller&);
-  Controller& operator=(const Controller&) = delete;
+  Controller() : model_(){};
+  Controller(const Controller &);
+  Controller &operator=(const Controller &) = delete;
 
  public:
-  static Controller& GetInstance() { 
+  static Controller &GetInstance() {
     static Controller instance;
     return instance;
   }
@@ -31,7 +31,7 @@ class Controller {
   void ParseObjFile(QString &);
 
   // projection
-  void SetProjectionType(const ProjectionType&);
+  void SetProjectionType(const ProjectionType &);
   const ProjectionType &GetProjectionType();
 
   // transform
@@ -47,17 +47,17 @@ class Controller {
   float GetTranslationX();
   float GetTranslationY();
   float GetTranslationZ();
-  
+
   float GetRotationX();
   float GetRotationY();
   float GetRotationZ();
-  
+
   float GetScale();
 
   // colors
   void SetColor(ColorType, const QColor &);
   QColor GetColor(const ColorType &);
-  
+
   // edges
   const EdgeType &GetEdgeType();
   void SetEdgeType(EdgeType);

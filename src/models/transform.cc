@@ -2,8 +2,7 @@
 
 namespace s21 {
 
-Transform::Transform(Settings *s) : settings_(s)
-{
+Transform::Transform(Settings *s) : settings_(s) {
   TranslationMatrix_.SetToIdentity();
   RotationMatrix_.SetToIdentity();
   ScaleMatrix_.SetToIdentity();
@@ -11,27 +10,16 @@ Transform::Transform(Settings *s) : settings_(s)
 
 void Transform::UpdateTranslationMatrix() {
   TranslationMatrix_.SetToIdentity();
-  TranslationMatrix_.Translate(
-    settings_->GetTranslation().x,
-    settings_->GetTranslation().y,
-    settings_->GetTranslation().z
-  );
+  TranslationMatrix_.Translate(settings_->GetTranslation().x,
+                               settings_->GetTranslation().y,
+                               settings_->GetTranslation().z);
 }
 
 void Transform::UpdateRotationMatrix() {
   RotationMatrix_.SetToIdentity();
-  RotationMatrix_.Rotate(
-    settings_->GetRotation().x,
-    1.0f, 0.0f, 0.0f
-  );
-  RotationMatrix_.Rotate(
-    settings_->GetRotation().y,
-    0.0f, 1.0f, 0.0f
-  );
-  RotationMatrix_.Rotate(
-    settings_->GetRotation().z,
-    0.0f, 0.0f, 1.0f
-  );
+  RotationMatrix_.Rotate(settings_->GetRotation().x, 1.0f, 0.0f, 0.0f);
+  RotationMatrix_.Rotate(settings_->GetRotation().y, 0.0f, 1.0f, 0.0f);
+  RotationMatrix_.Rotate(settings_->GetRotation().z, 0.0f, 0.0f, 1.0f);
 }
 
 void Transform::UpdateScaleMatrix() {

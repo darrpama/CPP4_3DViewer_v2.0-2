@@ -9,23 +9,35 @@ STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
 
 HEADERS = \
-    $(PROJECTDIR)/models/object.h \
-    $(PROJECTDIR)/models/matrix4x4.h \
-    $(PROJECTDIR)/models/settings.h \
-    $(PROJECTDIR)/models/transform.h \
-    $(PROJECTDIR)/models/type.h \
-    $(PROJECTDIR)/models/obj_parser.h
+	$(PROJECTDIR)/models/object.h \
+	$(PROJECTDIR)/models/matrix4x4.h \
+	$(PROJECTDIR)/models/settings.h \
+	$(PROJECTDIR)/models/transform.h \
+	$(PROJECTDIR)/models/type.h \
+	$(PROJECTDIR)/models/obj_parser.h
 
 SOURCES = \
-    $(PROJECTDIR)/models/object.cc \
-    $(PROJECTDIR)/models/transform.cc \
-    $(PROJECTDIR)/models/matrix4x4.cc \
-    $(PROJECTDIR)/models/settings.cc \
-    $(PROJECTDIR)/models/obj_parser.cc \
-    $(PROJECTDIR)/tests/settings_test.cc \
-    $(PROJECTDIR)/tests/transform_test.cc \
-    $(PROJECTDIR)/tests/run_all_tests.cc \
-    $(PROJECTDIR)/tests/parser_test.cc
+	$(PROJECTDIR)/models/object.cc \
+	$(PROJECTDIR)/models/transform.cc \
+	$(PROJECTDIR)/models/matrix4x4.cc \
+	$(PROJECTDIR)/models/settings.cc \
+	$(PROJECTDIR)/models/obj_parser.cc \
+	$(PROJECTDIR)/tests/settings_test.cc \
+	$(PROJECTDIR)/tests/transform_test.cc \
+	$(PROJECTDIR)/tests/run_all_tests.cc \
+	$(PROJECTDIR)/tests/parser_test.cc
+
+OTHERS = \
+	$(PROJECTDIR)/models/model.h \
+	$(PROJECTDIR)/models/model.cc \
+	$(PROJECTDIR)/models/renderer.h \
+	$(PROJECTDIR)/models/renderer.cc \
+	$(PROJECTDIR)/models/screenshot.h \
+	$(PROJECTDIR)/models/screenshot.cc
+
+CONTROLLER = \
+	$(PROJECTDIR)/controllers/controller.h \
+	$(PROJECTDIR)/controllers/controller.cc
 
 OBJECTS = $(SOURCES:.cc=.o)
 GCDA = $(SOURCES:.cc=.gcda)
@@ -59,8 +71,8 @@ dist:
 	rm -rf $(DISTDIR)
 
 check:
-	clang-format -n --style="Google" $(SOURCES) $(HEADERS)
-	cppcheck --std=c++17 --language=c++ --enable=all --suppress=unusedStructMember --suppress=missingInclude $(SOURCES) $(HEADERS)
+	clang-format -i --style="Google" $(SOURCES) $(HEADERS) $(OTHERS) $(CONTROLLER)
+	cppcheck --std=c++17 --language=c++ --enable=all --suppress=unusedStructMember --suppress=unusedFunction --suppress=missingInclude $(SOURCES) $(OTHERS) $(HEADERS) $(CONTROLLER)
 
 leaks: $(EXECUTABLE)
 	leaks -atExit -- ./$(EXECUTABLE)

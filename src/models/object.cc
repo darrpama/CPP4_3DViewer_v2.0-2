@@ -2,30 +2,23 @@
 
 namespace s21 {
 
-std::vector<GLfloat> Object::GetFlattenedVertices() {
-  return *vertices_array_;
-}
+std::vector<GLfloat> Object::GetFlattenedVertices() { return *vertices_array_; }
 
 std::vector<GLuint> Object::GetFlattenedFaces() {
   return *triangulated_faces_array_;
 }
 
-std::vector<Face> Object::GetFaces() {
-  return *raw_faces_array_;
-}
+std::vector<Face> Object::GetFaces() { return *raw_faces_array_; }
 
 void Object::Normalize() {
-  auto max_value = std::max_element(
-    vertices_array_->begin(), 
-    vertices_array_->end()
-  );
+  auto max_value =
+      std::max_element(vertices_array_->begin(), vertices_array_->end());
 
-  auto min_value = std::min_element(
-    vertices_array_->begin(), 
-    vertices_array_->end()
-  );
+  auto min_value =
+      std::min_element(vertices_array_->begin(), vertices_array_->end());
 
-  GLfloat normalize_coef = (abs(*min_value) > abs(*max_value)) ? *min_value : *max_value;
+  GLfloat normalize_coef =
+      (abs(*min_value) > abs(*max_value)) ? *min_value : *max_value;
 
   for (size_t i = 0; i < vertices_array_->size(); ++i) {
     (*vertices_array_)[i] /= normalize_coef;
@@ -39,44 +32,27 @@ void Object::PushBackVertice(float x, float y, float z) {
   vertex_count_++;
 }
 
-void Object::PushToFaceBuffer(GLuint v) {
-  face_buffer_->push_back(v);
-}
+void Object::PushToFaceBuffer(GLuint v) { face_buffer_->push_back(v); }
 
-GLuint Object::GetFaceBufferAt(size_t i) {
-  return face_buffer_->at(i);
-}
+GLuint Object::GetFaceBufferAt(size_t i) { return face_buffer_->at(i); }
 
-size_t Object::GetFaceBufferSize() {
-  return face_buffer_->size();
-}
+size_t Object::GetFaceBufferSize() { return face_buffer_->size(); }
 
-void Object::ClearFaceBuffer() {
-  face_buffer_->clear();
-}
+void Object::ClearFaceBuffer() { face_buffer_->clear(); }
 
-void Object::PushToTriangleBuffer(GLuint v) {
-  triangle_buffer_->push_back(v);
-}
+void Object::PushToTriangleBuffer(GLuint v) { triangle_buffer_->push_back(v); }
 
-size_t Object::GetTriangleBufferSize() {
-  return triangle_buffer_->size();
-}
+size_t Object::GetTriangleBufferSize() { return triangle_buffer_->size(); }
 
-void Object::ClearTriangleBuffer() {
-  triangle_buffer_->clear();
-}
+void Object::ClearTriangleBuffer() { triangle_buffer_->clear(); }
 
 void Object::ReserveTriangleBuffer() {
   triangle_buffer_->reserve((GetFaceBufferSize() - 2) * 3);
 }
 
 void Object::AppendFace() {
-  triangulated_faces_array_->insert(
-    triangulated_faces_array_->end(), 
-    face_buffer_->begin(), 
-    face_buffer_->end()
-  );
+  triangulated_faces_array_->insert(triangulated_faces_array_->end(),
+                                    face_buffer_->begin(), face_buffer_->end());
   face_count_++;
 }
 
@@ -91,11 +67,9 @@ void Object::AppendRawFace() {
 }
 
 void Object::AppendTriangulatedFace() {
-  triangulated_faces_array_->insert(
-    triangulated_faces_array_->end(),
-    triangle_buffer_->begin(),
-    triangle_buffer_->end()
-  );
+  triangulated_faces_array_->insert(triangulated_faces_array_->end(),
+                                    triangle_buffer_->begin(),
+                                    triangle_buffer_->end());
   face_count_++;
 }
 
@@ -104,7 +78,8 @@ void Object::CountEdges() {
   for (const auto& face : *raw_faces_array_) {
     int num_vertices = face.vertices.size();
     for (int i = 0; i < num_vertices; i++) {
-      std::vector<GLuint> edge = {face.vertices[i], face.vertices[(i + 1) % num_vertices]};
+      std::vector<GLuint> edge = {face.vertices[i],
+                                  face.vertices[(i + 1) % num_vertices]};
       std::sort(edge.begin(), edge.end());
       edges.insert(edge);
     }
@@ -112,12 +87,8 @@ void Object::CountEdges() {
   edge_count_ = edges.size();
 }
 
-void Object::SetRenderType(RenderType type) {
-  render_type_ = type;
-}
-RenderType Object::GetRenderType() {
-  return render_type_;
-}
+void Object::SetRenderType(RenderType type) { render_type_ = type; }
+RenderType Object::GetRenderType() { return render_type_; }
 
 void Object::Clear() {
   vertices_array_->clear();

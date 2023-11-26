@@ -1,4 +1,5 @@
 #include "model.h"
+
 #include <chrono>
 #include <iostream>
 
@@ -10,13 +11,9 @@ void Model::InitOpenGL() {
   render_->InitOpenGL();
 }
 
-void Model::SetViewPort(int w, int h) {
-  render_->SetViewPort(w, h);
-}
+void Model::SetViewPort(int w, int h) { render_->SetViewPort(w, h); }
 
-void Model::PaintGL() {
-  render_->PaintGL();
-}
+void Model::PaintGL() { render_->PaintGL(); }
 
 void Model::SetProjectionType(const ProjectionType &type) {
   settings_->SetProjectionType(type);
@@ -81,33 +78,19 @@ void Model::ApplyScale(float f) {
   render_->SetTransformMatrix(qmatrix);
 }
 
-float Model::GetTranslationX() {
-  return settings_->GetTranslationX();
-}
+float Model::GetTranslationX() { return settings_->GetTranslationX(); }
 
-float Model::GetTranslationY() {
-  return settings_->GetTranslationY();
-}
+float Model::GetTranslationY() { return settings_->GetTranslationY(); }
 
-float Model::GetTranslationZ() {
-  return settings_->GetTranslationZ();
-}
+float Model::GetTranslationZ() { return settings_->GetTranslationZ(); }
 
-float Model::GetRotationX() {
-  return settings_->GetRotationX();
-}
+float Model::GetRotationX() { return settings_->GetRotationX(); }
 
-float Model::GetRotationY() {
-  return settings_->GetRotationY();
-}
+float Model::GetRotationY() { return settings_->GetRotationY(); }
 
-float Model::GetRotationZ() {
-  return settings_->GetRotationZ();
-}
+float Model::GetRotationZ() { return settings_->GetRotationZ(); }
 
-float Model::GetScale() {
-  return settings_->GetScale();
-}
+float Model::GetScale() { return settings_->GetScale(); }
 
 void Model::SetColor(ColorType type, const QColor &qcolor) {
   Color color = Color(qcolor.red(), qcolor.green(), qcolor.blue());
@@ -122,16 +105,19 @@ QColor Model::GetColor(const ColorType &type) {
 // PARSE
 void Model::ParseObjFile(QString &file_path) {
   auto start = std::chrono::high_resolution_clock::now();
-  
+
   object_->Clear();
   parser_->SetFilePath(file_path.toStdString());
   parser_->Parse();
   render_->InitObjectModel();
 
   auto end = std::chrono::high_resolution_clock::now();
-  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  auto duration =
+      std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+          .count();
   // Print the execution time
-  std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds" << std::endl;
+  std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds"
+            << std::endl;
 }
 
 void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
@@ -147,12 +133,10 @@ void Model::MakeScreenshot(QWidget *widget, ScreenshotType type) {
 }
 
 QMatrix4x4 Model::ConvertToQMatrix(Matrix4x4 m) {
-  return QMatrix4x4(
-    m.at(0,0), m.at(1,0), m.at(2,0), m.at(3,0), 
-    m.at(0,1), m.at(1,1), m.at(2,1), m.at(3,1), 
-    m.at(0,2), m.at(1,2), m.at(2,2), m.at(3,2), 
-    m.at(0,3), m.at(1,3), m.at(2,3), m.at(3,3)
-  );
+  return QMatrix4x4(m.at(0, 0), m.at(1, 0), m.at(2, 0), m.at(3, 0), m.at(0, 1),
+                    m.at(1, 1), m.at(2, 1), m.at(3, 1), m.at(0, 2), m.at(1, 2),
+                    m.at(2, 2), m.at(3, 2), m.at(0, 3), m.at(1, 3), m.at(2, 3),
+                    m.at(3, 3));
 }
 
 }  // namespace s21

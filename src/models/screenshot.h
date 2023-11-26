@@ -7,22 +7,23 @@ class ScreenshotStrategy {
 };
 
 class BmpScreenshotStrategy : public ScreenshotStrategy {
-  void Make(QWidget *widget);
+  void Make(QWidget *widget) override;
 };
 
 class JpgScreenshotStrategy : public ScreenshotStrategy {
-  void Make(QWidget *widget);
+  void Make(QWidget *widget) override;
 };
 
 class ScreenshotContext {
  private:
-  ScreenshotStrategy* strategy_;
+  ScreenshotStrategy *strategy_;
 
  public:
   ScreenshotContext() {}
-  ScreenshotContext(ScreenshotStrategy* strategy) : strategy_(strategy) {}
-  void SetStrategy(ScreenshotStrategy* strategy) {strategy_ = strategy;}
-  void MakeScreenshot(QWidget *widget) {strategy_->Make(widget);}
+  explicit ScreenshotContext(ScreenshotStrategy *strategy)
+      : strategy_(strategy) {}
+  void SetStrategy(ScreenshotStrategy *strategy) { strategy_ = strategy; }
+  void MakeScreenshot(QWidget *widget) { strategy_->Make(widget); }
 };
-  
+
 }  // namespace s21
