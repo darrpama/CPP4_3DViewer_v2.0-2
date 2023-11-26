@@ -54,9 +54,6 @@ build:
 open:
 	cd $(INSTALLDIR) && $(INSTALLDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
 
-# install: build
-# 	cd $(INSTALLDIR) && ls -la && cp -r $(BUILDDIR)/3DViewer_2_0.app .
-
 install:
 	@read -p "Enter path to install: " path; \
 	if [ -z "$$path" ]; then \
