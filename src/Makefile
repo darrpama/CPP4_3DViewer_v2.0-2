@@ -3,7 +3,6 @@ CCFLAGS = -g -std=c++17 -Wall -Werror -Wextra
 LDFLAGS = -lgtest -fprofile-arcs -ftest-coverage
 PROJECTDIR = $(CURDIR)
 BUILDDIR = $(PROJECTDIR)/build
-INSTALLDIR = $(PROJECTDIR)
 EXECUTABLE = test.out
 STATICLIB = 3DViewer.a
 DISTDIR = ../distributive
@@ -51,18 +50,15 @@ dvi:
 build:
 	cd $(PROJECTDIR) && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
 
-open:
-	cd $(INSTALLDIR) && $(INSTALLDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
-
 install:
 	@read -p "Enter path to install: " path; \
 	if [ -z "$$path" ]; then \
         path="./"; \
     fi; \
 	cd $$path && ls -la && mkdir $(BUILDDIR) && cd $(BUILDDIR) && cmake .. && make
+	$(BUILDDIR)/3DViewer_2_0.app/Contents/MacOS/3DViewer_2_0
 
 uninstall: clean
-	cd $(INSTALLDIR) && rm -rf 3DViewer_2_0.app
 
 dist: build
 	rm -rf $(DISTDIR)

@@ -1,9 +1,6 @@
 #ifndef CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_FACADE_H
 #define CPP4_3DVIEWER_V2_0_1_SRC_MODELS_MODEL_FACADE_H
 
-#include <chrono>
-#include <iostream>
-
 #include "obj_parser.h"
 #include "object.h"
 #include "renderer.h"

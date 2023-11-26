@@ -98,20 +98,10 @@ QColor ModelFacade::GetColor(const ColorType &type) {
 }
 
 void ModelFacade::ParseObjFile(QString &file_path) {
-  auto start = std::chrono::high_resolution_clock::now();
-
   object_->Clear();
   parser_->SetFilePath(file_path.toStdString());
   parser_->Parse();
   render_->InitObjectModel();
-
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
-          .count();
-  // Print the execution time
-  std::cout << "ParseObjFile() Execution time: " << duration << " milliseconds"
-            << std::endl;
 }
 
 void ModelFacade::MakeScreenshot(QWidget *widget, ScreenshotType type) {
