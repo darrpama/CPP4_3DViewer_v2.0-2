@@ -98,5 +98,4 @@ clean:
 	rm -rf $(BUILDDIR)
 	rm -rf *.gcno $(GCDA) $(GCNO) *.info
 	rm -rf report
-	rm -rf *.tgz
-
+	rm -rf *.tgz ../*.tgz
