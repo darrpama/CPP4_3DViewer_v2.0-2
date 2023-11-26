@@ -60,12 +60,11 @@ install: build
 uninstall:
 	cd $(INSTALLDIR) && rm -rf 3DViewer_2_0.app
 
-dist:
+dist: build
 	rm -rf $(DISTDIR)
 	mkdir $(DISTDIR)
-	mkdir $(DISTDIR)/src
-	cp -r $(PROJECTDIR) README.md README.pdf Makefile $(DISTDIR)/src/
-	tar cvzf distributive.tgz $(DISTDIR)
+	cp -r $(PROJECTDIR) $(DISTDIR)
+	cd .. && tar -czvf distributive.tgz distributive
 	rm -rf $(DISTDIR)
 
 check:
